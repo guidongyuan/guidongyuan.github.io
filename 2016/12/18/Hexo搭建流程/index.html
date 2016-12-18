@@ -101,7 +101,7 @@
 <meta property="og:image" content="http://yoursite.com/Users/guidongyuan/坚果/图片/屏幕快照 2016-12-17 下午3.28.31.png">
 <meta property="og:image" content="http://yoursite.com/Users/guidongyuan/坚果/图片/WX20161217-172537@2x.png">
 <meta property="og:image" content="http://yoursite.com/Users/guidongyuan/坚果/图片/屏幕快照 2016-12-17 下午8.42.48.png">
-<meta property="og:updated_time" content="2016-12-18T06:43:29.000Z">
+<meta property="og:updated_time" content="2016-12-18T12:01:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo搭建流程">
 <meta name="twitter:description" content="Hexo 搭建流程
@@ -379,37 +379,37 @@
 <a id="more"></a>
 <h4 id="1-安装环境"><a href="#1-安装环境" class="headerlink" title="1. 安装环境"></a>1. 安装环境</h4><ol>
 <li><p>安装git</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ brew cask install git</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ brew cask install git</div></pre></td></tr></table></figure>
 <p>查看git版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ git --version</div><div class="line">git version 2.7.1</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ git --version</div><div class="line">git version 2.7.1</div></pre></td></tr></table></figure>
 <p>配置参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name guidongyuan</div><div class="line">$ git config --global user.email guidongyuan@163.com</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name guidongyuan</div><div class="line">$ git config --global user.email guidongyuan@163.com</div></pre></td></tr></table></figure>
 <p>删除配置参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git config --global --unset user.name guidongyuan</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git config --global --unset user.name guidongyuan</div></pre></td></tr></table></figure>
 </li>
 <li><p>安装node</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ brew install node</div></pre></td></tr></table></figure>
 <p>查看node版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ node -v</div><div class="line">v7.2.1</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ node -v</div><div class="line">v7.2.1</div></pre></td></tr></table></figure>
 </li>
 <li><p>安装hexo</p>
 <p>国内网络下,安装有点慢,耐心等待</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ npm install -g hexo-cli</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ npm install -g hexo-cli</div></pre></td></tr></table></figure>
 <p>查看hexo版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">➜  ~ hexo -v</div><div class="line">hexo-cli: 1.0.2</div><div class="line">os: Darwin 16.1.0 darwin x64</div><div class="line">http_parser: 2.7.0</div><div class="line">node: 7.2.1</div><div class="line">v8: 5.4.500.44</div><div class="line">uv: 1.10.1</div><div class="line">zlib: 1.2.8</div><div class="line">ares: 1.10.1-DEV</div><div class="line">modules: 51</div><div class="line">openssl: 1.0.2j</div><div class="line">icu: 58.1</div><div class="line">unicode: 9.0</div><div class="line">cldr: 30.0.2</div><div class="line">tz: 2016g</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">➜  ~ hexo -v</div><div class="line">hexo-cli: 1.0.2</div><div class="line">os: Darwin 16.1.0 darwin x64</div><div class="line">http_parser: 2.7.0</div><div class="line">node: 7.2.1</div><div class="line">v8: 5.4.500.44</div><div class="line">uv: 1.10.1</div><div class="line">zlib: 1.2.8</div><div class="line">ares: 1.10.1-DEV</div><div class="line">modules: 51</div><div class="line">openssl: 1.0.2j</div><div class="line">icu: 58.1</div><div class="line">unicode: 9.0</div><div class="line">cldr: 30.0.2</div><div class="line">tz: 2016g</div></pre></td></tr></table></figure>
 </li>
 </ol>
 <h4 id="2-本地部署hexo"><a href="#2-本地部署hexo" class="headerlink" title="2. 本地部署hexo"></a>2. 本地部署hexo</h4><ol>
 <li><p>初始化hexo</p>
 <p>我在原有的code文件下,新建一个文件夹,命名为hexo</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  code mkdir hexo</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  code mkdir hexo</div></pre></td></tr></table></figure>
 <p>进入hexo文件下初始化站点</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  code cd hexo</div><div class="line">➜  hexo hexo init</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  code <span class="built_in">cd</span> hexo</div><div class="line">➜  hexo hexo init</div></pre></td></tr></table></figure>
 <p>安装成功后最后会提示</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">INFO  Start blogging with Hexo!</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">INFO  Start blogging with Hexo!</div></pre></td></tr></table></figure>
 </li>
 <li><p>本地部署测试</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">➜  hexo hexo server</div><div class="line">INFO  Start processing</div><div class="line">INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">➜  hexo hexo server</div><div class="line">INFO  Start processing</div><div class="line">INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.</div></pre></td></tr></table></figure>
 <p>服务运行后,打开浏览器,输入 <a href="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a> 则可以看到hexo的默认页面</p>
 <p><img src="/Users/guidongyuan/坚果/图片/屏幕快照 2016-12-17 下午2.19.59.png" alt="屏幕快照 2016-12-17 下午2.19.59"></p>
 </li>
@@ -428,9 +428,9 @@
 <li><p>创建SSH Key 进行身份验证</p>
 <p>本地Git仓库与Git远端进行通信时,需要通过SSH进行身份验证</p>
 <p>查看电脑是否存在SSH Key,如果存在.ssh 文件,则电脑已经存在,如果第一次使用,则需要生成SSH Key</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ ls -al</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ ls -al</div></pre></td></tr></table></figure>
 <p>生成SSH Key,出现Enter file 和 passphrase 直接Enter保持默认设置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ ssh-keygen -t rsa -C &quot;guidongyuan@163.com&quot;</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ ssh-keygen -t rsa -C <span class="string">"guidongyuan@163.com"</span></div></pre></td></tr></table></figure>
 <p>参数含义:</p>
 <p>-t 指定密钥类型，默认是 rsa ，可以省略。<br>-C 设置注释文字，比如邮箱。</p>
 <p>此时在.ssh文件夹中会生成id_rsa id_rsa.pub两个文件</p>
@@ -443,26 +443,26 @@
 <ol>
 <li><p>修改hexo的配置文件,部署到服务器</p>
 <p>打开_config.yml配置文件,修改最下面的# Deployment,修改后如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># Deployment</div><div class="line">## Docs: https://hexo.io/docs/deployment.html</div><div class="line">deploy:</div><div class="line">  type: git</div><div class="line">  repository: git@github.com:guidongyuan/guidongyuan.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Deployment</span></div><div class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></div><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: git</div><div class="line">  repository: git@github.com:guidongyuan/guidongyuan.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
 <p><strong>注意:</strong>  :后面必须要加空格</p>
 </li>
 </ol>
 <h4 id="4-发布博客"><a href="#4-发布博客" class="headerlink" title="4. 发布博客"></a>4. 发布博客</h4><ol>
 <li><p>新建博客</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  hexo hexo new testBlog</div><div class="line">INFO  Created: ~/code/hexo/source/_posts/testBlog.md</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  hexo hexo new <span class="built_in">test</span>B<span class="built_in">log</span></div><div class="line">INFO  Created: ~/code/hexo/<span class="built_in">source</span>/_posts/<span class="built_in">test</span>Blog.md</div></pre></td></tr></table></figure>
 <p>新建的博客会自动保存在_posts文件下,也可以自己创建一个md文件放在该目录下,不过要注意加上hexo的头部信息,头部信息可以拷贝用命令行自动生成的文档模板.</p>
 <p>打开testBlog.md可以看到头部信息如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: testBlog</div><div class="line">date: 2016-12-17 14:58:13</div><div class="line">tags:</div><div class="line">---</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: <span class="built_in">test</span>B<span class="built_in">log</span></div><div class="line">date: 2016-12-17 14:58:13</div><div class="line">tags:</div><div class="line">---</div></pre></td></tr></table></figure>
 </li>
 <li><p>生成静态Html文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  hexo hexo generate</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  hexo hexo generate</div></pre></td></tr></table></figure>
 <p>这个时候会发现在hexo文件夹内多了一个public文件夹,该文件保存生成的静态Html文件</p>
 </li>
 <li><p>发布博客</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  hexo hexo deploy</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  hexo hexo deploy</div></pre></td></tr></table></figure>
 <p>如果提示如下,则需要安装Deployer</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  hexo hexo deploy</div><div class="line">ERROR Deployer not found: git</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  hexo npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  hexo hexo deploy</div><div class="line">ERROR Deployer not found: git</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  hexo npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
 <p>安装成功后,再次执行hexo deploy</p>
 </li>
 </ol>
