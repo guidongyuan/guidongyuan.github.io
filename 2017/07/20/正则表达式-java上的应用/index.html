@@ -90,22 +90,16 @@
 
 
 
-<meta name="description" content="在上一篇正则表达式中介绍了正则表达式的规则，这篇主要讲正则表达式在Java中几个类的使用。JDK中，与正则表达式有关的类都在java.util,regex，主要是Pattern类和Matcher类，String类中也有分别方法可以使用正则表达式。文章主要结合《java编程思想》和Java的开发文档，选取了日常开发中经常用到的方法进行分析，再自己编写用例熟悉其用法以及验证理解是否正确。
-
-\在正则">
+<meta name="description" content="在上一篇正则表达式中介绍了正则表达式的规则，这篇主要讲正则表达式在Java中几个类的使用。JDK中，与正则表达式有关的类都在java.util,regex，主要是Pattern类和Matcher类，String类中也有分别方法可以使用正则表达式。文章主要结合《java编程思想》和Java的开发文档，选取了日常开发中经常用到的方法进行分析，再自己编写用例熟悉其用法以及验证理解是否正确。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="正则表达式-java上的应用">
 <meta property="og:url" content="http://yoursite.com/2017/07/20/正则表达式-java上的应用/index.html">
 <meta property="og:site_name" content="亦袁非猿">
-<meta property="og:description" content="在上一篇正则表达式中介绍了正则表达式的规则，这篇主要讲正则表达式在Java中几个类的使用。JDK中，与正则表达式有关的类都在java.util,regex，主要是Pattern类和Matcher类，String类中也有分别方法可以使用正则表达式。文章主要结合《java编程思想》和Java的开发文档，选取了日常开发中经常用到的方法进行分析，再自己编写用例熟悉其用法以及验证理解是否正确。
-
-\在正则">
-<meta property="og:updated_time" content="2017-07-20T14:56:33.000Z">
+<meta property="og:description" content="在上一篇正则表达式中介绍了正则表达式的规则，这篇主要讲正则表达式在Java中几个类的使用。JDK中，与正则表达式有关的类都在java.util,regex，主要是Pattern类和Matcher类，String类中也有分别方法可以使用正则表达式。文章主要结合《java编程思想》和Java的开发文档，选取了日常开发中经常用到的方法进行分析，再自己编写用例熟悉其用法以及验证理解是否正确。">
+<meta property="og:updated_time" content="2017-07-20T14:58:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则表达式-java上的应用">
-<meta name="twitter:description" content="在上一篇正则表达式中介绍了正则表达式的规则，这篇主要讲正则表达式在Java中几个类的使用。JDK中，与正则表达式有关的类都在java.util,regex，主要是Pattern类和Matcher类，String类中也有分别方法可以使用正则表达式。文章主要结合《java编程思想》和Java的开发文档，选取了日常开发中经常用到的方法进行分析，再自己编写用例熟悉其用法以及验证理解是否正确。
-
-\在正则">
+<meta name="twitter:description" content="在上一篇正则表达式中介绍了正则表达式的规则，这篇主要讲正则表达式在Java中几个类的使用。JDK中，与正则表达式有关的类都在java.util,regex，主要是Pattern类和Matcher类，String类中也有分别方法可以使用正则表达式。文章主要结合《java编程思想》和Java的开发文档，选取了日常开发中经常用到的方法进行分析，再自己编写用例熟悉其用法以及验证理解是否正确。">
 
 
 
@@ -375,6 +369,7 @@
         <blockquote>
 <p>在上一篇<a href="http://guidongyuan.cn/2017/07/09/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" target="_blank" rel="external">正则表达式</a>中介绍了正则表达式的规则，这篇主要讲正则表达式在Java中几个类的使用。<br>JDK中，与正则表达式有关的类都在java.util,regex，主要是Pattern类和Matcher类，String类中也有分别方法可以使用正则表达式。<br>文章主要结合《java编程思想》和Java的开发文档，选取了日常开发中经常用到的方法进行分析，再自己编写用例熟悉其用法以及验证理解是否正确。</p>
 </blockquote>
+<a id="more"></a>
 <p><code>\</code>在正则表达式中用于转义，由于java对其有特殊的处理方式，如果需要插入一个<code>\</code>需要使用<code>\\</code>，如正则表达式中的<code>\d</code>在java中为<code>\\d</code>，插入一个普通的<code>\</code>在java中为<code>\\\\</code>。</p>
 <h2 id="String类"><a href="#String类" class="headerlink" title="String类"></a>String类</h2><h3 id="匹配"><a href="#匹配" class="headerlink" title="匹配"></a>匹配</h3><h4 id="boolean-matches-String-regex-方法"><a href="#boolean-matches-String-regex-方法" class="headerlink" title="boolean matches(String regex)方法"></a>boolean matches(String regex)方法</h4><p>判断<strong>整个</strong>字符串是否匹配regex表示的正则表达式</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">    System.out.println(<span class="string">"12345A"</span>.matches(<span class="string">"\\d"</span>));</div><div class="line">    System.out.println(<span class="string">"12345"</span>.matches(<span class="string">"\\d+"</span>));</div><div class="line">&#125;</div><div class="line"><span class="comment">//output</span></div><div class="line"><span class="keyword">false</span></div><div class="line"><span class="keyword">true</span></div></pre></td></tr></table></figure>
