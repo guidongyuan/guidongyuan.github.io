@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="技术,正则表达式," />
 
 
 
@@ -90,21 +90,22 @@
 
 
 
-<meta name="description" content="while(写出来){  
-  理解力++; 
-  表达力++; }">
-<meta property="og:type" content="website">
-<meta property="og:title" content="亦袁非猿">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="在上一篇正则表达式中介绍了正则表达式的规则，这篇主要讲正则表达式在Java中几个类的使用。JDK中，与正则表达式有关的类都在java.util,regex，主要是Pattern类和Matcher类，String类中也有分别方法可以使用正则表达式。文章主要结合《java编程思想》和Java的开发文档，选取了日常开发中经常用到的方法进行分析，再自己编写用例熟悉其用法以及验证理解是否正确。
+
+\在正则">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式-java上的应用">
+<meta property="og:url" content="http://yoursite.com/2017/07/20/正则表达式-java上的应用/index.html">
 <meta property="og:site_name" content="亦袁非猿">
-<meta property="og:description" content="while(写出来){  
-  理解力++; 
-  表达力++; }">
+<meta property="og:description" content="在上一篇正则表达式中介绍了正则表达式的规则，这篇主要讲正则表达式在Java中几个类的使用。JDK中，与正则表达式有关的类都在java.util,regex，主要是Pattern类和Matcher类，String类中也有分别方法可以使用正则表达式。文章主要结合《java编程思想》和Java的开发文档，选取了日常开发中经常用到的方法进行分析，再自己编写用例熟悉其用法以及验证理解是否正确。
+
+\在正则">
+<meta property="og:updated_time" content="2017-07-20T14:51:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="亦袁非猿">
-<meta name="twitter:description" content="while(写出来){  
-  理解力++; 
-  表达力++; }">
+<meta name="twitter:title" content="正则表达式-java上的应用">
+<meta name="twitter:description" content="在上一篇正则表达式中介绍了正则表达式的规则，这篇主要讲正则表达式在Java中几个类的使用。JDK中，与正则表达式有关的类都在java.util,regex，主要是Pattern类和Matcher类，String类中也有分别方法可以使用正则表达式。文章主要结合《java编程思想》和Java的开发文档，选取了日常开发中经常用到的方法进行分析，再自己编写用例熟悉其用法以及验证理解是否正确。
+
+\在正则">
 
 
 
@@ -132,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/20/正则表达式-java上的应用/"/>
 
 
 
 
 
-  <title>亦袁非猿</title>
+  <title>正则表达式-java上的应用 | 亦袁非猿</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -163,9 +164,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -258,9 +257,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -290,10 +289,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2017/07/20/正则表达式-java上的应用/" itemprop="url">
-                  正则表达式-java上的应用
-                </a>
+                正则表达式-java上的应用
               
             
           </h1>
@@ -376,9 +372,7 @@
       
 
       
-        
-          
-            <blockquote>
+        <blockquote>
 <p>在上一篇<a href="http://guidongyuan.cn/2017/07/09/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" target="_blank" rel="external">正则表达式</a>中介绍了正则表达式的规则，这篇主要讲正则表达式在Java中几个类的使用。<br>JDK中，与正则表达式有关的类都在java.util,regex，主要是Pattern类和Matcher类，String类中也有分别方法可以使用正则表达式。<br>文章主要结合《java编程思想》和Java的开发文档，选取了日常开发中经常用到的方法进行分析，再自己编写用例熟悉其用法以及验证理解是否正确。</p>
 </blockquote>
 <p><code>\</code>在正则表达式中用于转义，由于java对其有特殊的处理方式，如果需要插入一个<code>\</code>需要使用<code>\\</code>，如正则表达式中的<code>\d</code>在java中为<code>\\d</code>，插入一个普通的<code>\</code>在java中为<code>\\\\</code>。</p>
@@ -451,1476 +445,74 @@
 <h4 id="Matcher-appendReplacement-StringBuffer-sb-String-replacement"><a href="#Matcher-appendReplacement-StringBuffer-sb-String-replacement" class="headerlink" title="Matcher appendReplacement(StringBuffer sb,String replacement)"></a>Matcher appendReplacement(StringBuffer sb,String replacement)</h4><h4 id="Matcher-appendTail-StringBuffer-sb"><a href="#Matcher-appendTail-StringBuffer-sb" class="headerlink" title="Matcher appendTail(StringBuffer sb)"></a>Matcher appendTail(StringBuffer sb)</h4><p>appendReplacement()和replaceFirst()以及replaceAll()都是用来进行替代操作，区别在于不是使用一个固定的字符串replacement一次性进行替换，而是采用渐进式的替换。appendTail()，在执行了一次或多次appendReplacement()之后，调用此方法可以将输入字符串余下的部分复制到sb中。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">Pattern pattern = Pattern.compile(<span class="string">"[aeiou]"</span>);</div><div class="line">Matcher matcher = pattern.matcher(<span class="string">"Hello world"</span>);</div><div class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer();</div><div class="line"><span class="keyword">while</span>(matcher.find())&#123;</div><div class="line">    <span class="comment">//对每一次的replacement进行操作再执行替换</span></div><div class="line">	atcher.appendReplacement(sb, matcher.group().toUpperCase());</div><div class="line">&#125;</div><div class="line">System.out.println(sb);</div><div class="line"><span class="comment">//将剩下部分rld复制到sb中</span></div><div class="line">matcher.appendTail(sb);</div><div class="line">System.out.println(sb.toString());</div><div class="line"><span class="comment">//output</span></div><div class="line">HEllO wO</div><div class="line">HEllO wOrld</div></pre></td></tr></table></figure>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/09/正则表达式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亦袁非猿">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亦袁非猿">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/09/正则表达式/" itemprop="url">
-                  正则表达式
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T20:54:19+08:00">
-                2017-07-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/技术/" rel="tag"># 技术</a>
           
-
+            <a href="/tags/正则表达式/" rel="tag"># 正则表达式</a>
           
-            
-          
-
-          
-          
-             <span id="/2017/07/09/正则表达式/" class="leancloud_visitors" data-flag-title="正则表达式">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
         
-          <blockquote>
-<p>最近项目中用到正则表达式，每次用到，就查一下看一下<a href="https://deerchao.net/tutorials/regex/regex.htm">正则表达式30分钟入门教程</a>，不久后又忘记，对一些复杂一点的也不是很理解，导致每次都花费很多时间，就彻底整理一遍，找了《正则表达式必知必会》参考，整理出匹配的表达式和文本范例，下次看也高效一点。</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/09/正则表达式/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/09/正则表达式/" rel="next" title="正则表达式">
+                <i class="fa fa-chevron-left"></i> 正则表达式
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
+          <span class="post-nav-divider"></span>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/25/Hexo绑定域名/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亦袁非猿">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亦袁非猿">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+          <div class="post-nav-prev post-nav-item">
             
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/25/Hexo绑定域名/" itemprop="url">
-                  Hexo绑定域名
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-25T18:47:01+08:00">
-                2017-04-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/04/25/Hexo绑定域名/" class="leancloud_visitors" data-flag-title="Hexo绑定域名">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <blockquote>
-<p>一开始使用的是github.io的二级域名，查了一下，发现域名不贵，一年几十块钱，就买来玩玩，顺便也可以了解相关的知识。</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/25/Hexo绑定域名/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/15/LayoutInflater中inflate源码分析/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亦袁非猿">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亦袁非猿">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/15/LayoutInflater中inflate源码分析/" itemprop="url">
-                  LayoutInflater中inflate源码分析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-15T22:15:00+08:00">
-                2017-04-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/04/15/LayoutInflater中inflate源码分析/" class="leancloud_visitors" data-flag-title="LayoutInflater中inflate源码分析">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>对项目中的代码进行优化，删除Layout中过度绘制的代码，无意中发现了一个问题，ListView中的item的高度设置后没有效果，listview算是Android开发中最常用的控件之一，一直都在用，但是却没有遇到过item中设置无效，找到解决办法后，意识到自己对平时调用的方法参数不够理解。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/15/LayoutInflater中inflate源码分析/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/15/《一平米健身》读书笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亦袁非猿">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亦袁非猿">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/15/《一平米健身》读书笔记/" itemprop="url">
-                  《一平米健身》
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-15T16:50:50+08:00">
-                2017-04-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/04/15/《一平米健身》读书笔记/" class="leancloud_visitors" data-flag-title="《一平米健身》">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>去年看完《硬派健身》后，一好友推荐了这本书。大多都是在公交车上看完的，只知道个大概，锻炼的时候，发现书中的很多知识记得有点模糊，于是又重新翻开。如果打算锻炼，觉得去健身房时间或者金钱成本太大的话，推荐这本书。</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/15/《一平米健身》读书笔记/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/15/monkey基本指令/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亦袁非猿">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亦袁非猿">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/15/monkey基本指令/" itemprop="url">
-                  monkey基本指令
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-15T16:32:39+08:00">
-                2017-04-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/04/15/monkey基本指令/" class="leancloud_visitors" data-flag-title="monkey基本指令">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>项目中引入了自动化测试，对Monkey的基本使用进行了解，记录常用的指令</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/15/monkey基本指令/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/03/2016年总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亦袁非猿">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亦袁非猿">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/03/2016年总结/" itemprop="url">
-                  2016年总结:职业的起点
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-03T14:58:13+08:00">
-                2017-01-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/总结/" itemprop="url" rel="index">
-                    <span itemprop="name">总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/01/03/2016年总结/" class="leancloud_visitors" data-flag-title="2016年总结:职业的起点">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>2016年就这么过去了,觉得应该记录点什么,总结也好,随想也好.<br>第一次写年度总结,毕竟,对于我来说,这一年,对人生具有转折的意义,结束了十几年学生生涯,终于毕业出来工作了.</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/01/03/2016年总结/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/31/《把时间当作朋友》/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亦袁非猿">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亦袁非猿">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/31/《把时间当作朋友》/" itemprop="url">
-                  《把时间当作朋友》
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-31T14:58:13+08:00">
-                2016-12-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2016/12/31/《把时间当作朋友》/" class="leancloud_visitors" data-flag-title="《把时间当作朋友》">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>如何运用心智来和时间做朋友,学会去管理好自己的时间</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/12/31/《把时间当作朋友》/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/31/《精进:如何成为一个很厉害的人》/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亦袁非猿">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亦袁非猿">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/31/《精进:如何成为一个很厉害的人》/" itemprop="url">
-                  《精进:如何成为一个很厉害的人》
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-31T14:58:13+08:00">
-                2016-12-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2016/12/31/《精进:如何成为一个很厉害的人》/" class="leancloud_visitors" data-flag-title="《精进:如何成为一个很厉害的人》">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>知乎大V采铜,通过时间、选择、行动、学习、思维、才能、成功七个方面,讲述怎样去提高自己</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/12/31/《精进:如何成为一个很厉害的人》/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/21/东野圭吾/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亦袁非猿">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亦袁非猿">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/21/东野圭吾/" itemprop="url">
-                  东野圭吾
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-21T00:00:00+08:00">
-                2016-12-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2016/12/21/东野圭吾/" class="leancloud_visitors" data-flag-title="东野圭吾">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>一看到东野圭吾的小说就不能自拔,愈发觉得无比精彩,然后上亚马逊把他的热门小说都买了</p>
-<p>每天最期待的事就是下班回去看东野的小说</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/12/21/东野圭吾/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+  </div>
 
 
           </div>
@@ -1928,6 +520,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQzOC82MDA2"></div>
+    
+  </div>
+
 
         </div>
         
@@ -1947,8 +545,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg"
@@ -2013,6 +620,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#String类"><span class="nav-number">1.</span> <span class="nav-text">String类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配"><span class="nav-number">1.1.</span> <span class="nav-text">匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#boolean-matches-String-regex-方法"><span class="nav-number">1.1.1.</span> <span class="nav-text">boolean matches(String regex)方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换"><span class="nav-number">1.2.</span> <span class="nav-text">替换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#String-replace-char-oldchar-char-newchar"><span class="nav-number">1.2.1.</span> <span class="nav-text">String replace(char oldchar,char newchar)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#String-replace-CharSequence-target-CharSequence-replacement"><span class="nav-number">1.2.2.</span> <span class="nav-text">String replace(CharSequence target,CharSequence replacement)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#String-replaceFirst-String-regex-String-replacement"><span class="nav-number">1.2.3.</span> <span class="nav-text">String replaceFirst(String regex,String replacement)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#String-replaceAll-String-regex-String-replacement"><span class="nav-number">1.2.4.</span> <span class="nav-text">String replaceAll(String regex,String replacement)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分割"><span class="nav-number">1.3.</span> <span class="nav-text">分割</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#String-split-String-regex"><span class="nav-number">1.3.1.</span> <span class="nav-text">String[] split(String regex)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#String-split-String-regex-int-limit"><span class="nav-number">1.3.2.</span> <span class="nav-text">String[] split(String regex,int limit)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pattern-和-Matcher类"><span class="nav-number">2.</span> <span class="nav-text">Pattern 和 Matcher类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#static-Pattern-compile-String-regex"><span class="nav-number">2.0.1.</span> <span class="nav-text">static Pattern compile(String regex)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Matcher-matcher-CharSequence-input"><span class="nav-number">2.0.2.</span> <span class="nav-text">Matcher matcher(CharSequence input)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#static-boolean-matches"><span class="nav-number">2.0.3.</span> <span class="nav-text">static boolean matches()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#static-Pattern-compile-String-regex-int-flag"><span class="nav-number">2.0.4.</span> <span class="nav-text">static Pattern compile(String regex,int flag)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#String-flags-和-int-pattern"><span class="nav-number">2.0.5.</span> <span class="nav-text">String flags() 和 int pattern()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换-1"><span class="nav-number">2.1.</span> <span class="nav-text">替换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#matcher类"><span class="nav-number">3.</span> <span class="nav-text">matcher类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找"><span class="nav-number">3.1.</span> <span class="nav-text">查找</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#boolean-lookingat"><span class="nav-number">3.1.1.</span> <span class="nav-text">boolean lookingat()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#boolean-find"><span class="nav-number">3.1.2.</span> <span class="nav-text">boolean find()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#boolean-find-int-index"><span class="nav-number">3.1.3.</span> <span class="nav-text">boolean find(int index)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#String-group"><span class="nav-number">3.1.4.</span> <span class="nav-text">String group()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#int-groupCount"><span class="nav-number">3.1.5.</span> <span class="nav-text">int groupCount()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#int-start-int-group"><span class="nav-number">3.1.6.</span> <span class="nav-text">int start(int group)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#int-end-int-group"><span class="nav-number">3.1.7.</span> <span class="nav-text">int end(int group)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Matcher-reset-CharSequence-input"><span class="nav-number">3.1.8.</span> <span class="nav-text">Matcher reset(CharSequence input)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Matcher-appendReplacement-StringBuffer-sb-String-replacement"><span class="nav-number">3.1.9.</span> <span class="nav-text">Matcher appendReplacement(StringBuffer sb,String replacement)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Matcher-appendTail-StringBuffer-sb"><span class="nav-number">3.1.10.</span> <span class="nav-text">Matcher appendTail(StringBuffer sb)</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -2126,6 +749,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
@@ -2160,6 +787,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
