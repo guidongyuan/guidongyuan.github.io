@@ -105,7 +105,7 @@
 <meta property="og:image" content="http://oiduu4gde.bkt.clouddn.com/2016122119811屏幕快照 2016-12-17 下午3.28.31.png">
 <meta property="og:image" content="http://oiduu4gde.bkt.clouddn.com/2016122146153WX20161217-172537@2x.png">
 <meta property="og:image" content="http://oiduu4gde.bkt.clouddn.com/2016122131417屏幕快照 2016-12-17 下午8.42.48.png">
-<meta property="og:updated_time" content="2017-07-09T12:53:20.000Z">
+<meta property="og:updated_time" content="2018-03-06T00:13:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo搭建流程">
 <meta name="twitter:description" content="2016年快结束了,发现工作半年了,却没有留下一点技术进步的痕迹
@@ -459,16 +459,20 @@
 </li>
 <li><p>生成静态Html文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  hexo hexo generate</div></pre></td></tr></table></figure>
-<p>这个时候会发现在hexo文件夹内多了一个public文件夹,该文件保存生成的静态Html文件</p>
-</li>
-<li><p>发布博客</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  hexo hexo deploy</div></pre></td></tr></table></figure>
-<p>如果提示如下,则需要安装Deployer</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  hexo hexo deploy</div><div class="line">ERROR Deployer not found: git</div></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  hexo npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
-<p>安装成功后,再次执行hexo deploy</p>
 </li>
 </ol>
+<p>   简便输入为<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  hexo hexo g</div></pre></td></tr></table></figure></p>
+<p>   这个时候会发现在hexo文件夹内多了一个public文件夹,该文件保存生成的静态Html文件</p>
+<ol>
+<li><p>发布博客</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  hexo hexo deploy</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>   简便输入为<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  hexo hexo d</div></pre></td></tr></table></figure></p>
+<p>   如果提示如下,则需要安装Deployer</p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  hexo hexo deploy</div><div class="line">ERROR Deployer not found: git</div></pre></td></tr></table></figure>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  hexo npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
+<p>   安装成功后,再次执行hexo deploy</p>
 <h4 id="5-验证效果"><a href="#5-验证效果" class="headerlink" title="5. 验证效果"></a>5. 验证效果</h4><ol>
 <li><p>在浏览器中输入 用户名.github.io  (如guidongyuan.github.io)可以看到和本地部署测试一样的效果</p>
 <p><img src="http://oiduu4gde.bkt.clouddn.com/2016122131417屏幕快照 2016-12-17 下午8.42.48.png" alt="2016122131417屏幕快照 2016-12-17 下午8.42.48.png"></p>
@@ -524,8 +528,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/12/21/东野圭吾/" rel="prev" title="东野圭吾">
-                东野圭吾 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/12/21/《三体》读书笔记/" rel="prev" title="《三体》">
+                《三体》 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
