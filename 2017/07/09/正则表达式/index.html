@@ -91,11 +91,13 @@
 
 
 <meta name="description" content="最近项目中用到正则表达式，每次用到，就查一下看一下正则表达式30分钟入门教程，不久后又忘记，对一些复杂一点的也不是很理解，导致每次都花费很多时间，就彻底整理一遍，找了《正则表达式必知必会》参考，整理出匹配的表达式和文本范例，下次看也高效一点。">
+<meta name="keywords" content="技术,正则表达式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="正则表达式">
 <meta property="og:url" content="http://yoursite.com/2017/07/09/正则表达式/index.html">
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="最近项目中用到正则表达式，每次用到，就查一下看一下正则表达式30分钟入门教程，不久后又忘记，对一些复杂一点的也不是很理解，导致每次都花费很多时间，就彻底整理一遍，找了《正则表达式必知必会》参考，整理出匹配的表达式和文本范例，下次看也高效一点。">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-07-09T14:43:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则表达式">
@@ -367,7 +369,7 @@
 
       
         <blockquote>
-<p>最近项目中用到正则表达式，每次用到，就查一下看一下<a href="https://deerchao.net/tutorials/regex/regex.htm" target="_blank" rel="external">正则表达式30分钟入门教程</a>，不久后又忘记，对一些复杂一点的也不是很理解，导致每次都花费很多时间，就彻底整理一遍，找了《正则表达式必知必会》参考，整理出匹配的表达式和文本范例，下次看也高效一点。</p>
+<p>最近项目中用到正则表达式，每次用到，就查一下看一下<a href="https://deerchao.net/tutorials/regex/regex.htm" target="_blank" rel="noopener">正则表达式30分钟入门教程</a>，不久后又忘记，对一些复杂一点的也不是很理解，导致每次都花费很多时间，就彻底整理一遍，找了《正则表达式必知必会》参考，整理出匹配的表达式和文本范例，下次看也高效一点。</p>
 </blockquote>
 <a id="more"></a>
 <p><strong>定义：</strong>正则表达式就是用于描述这些规则的工具。<br><strong>用途：</strong>  </p>
@@ -480,7 +482,7 @@
 <li><p>连字符<code>-</code>在字符集[ ]之间才有特殊的意义，在字符集外只是一个普通字符，匹配其本身不需要被转义。</p>
 </li>
 </ul>
-<h4 id="转义符"><a href="#转义符" class="headerlink" title="转义符"></a>转义符</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 以下字符有特殊意义，匹配该字符需要添加 \</span></div><div class="line">* . ? + $ ^ [ ] ( ) &#123; &#125; | \ /</div></pre></td></tr></table></figure>
+<h4 id="转义符"><a href="#转义符" class="headerlink" title="转义符"></a>转义符</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下字符有特殊意义，匹配该字符需要添加 \</span></span><br><span class="line">* . ? + $ ^ [ ] ( ) &#123; &#125; | \ /</span><br></pre></td></tr></table></figure>
 <ul>
 <li>上面的字符在字符集[ ]中会被解释为普通字符，不需要转义，但为了避免误解，最好进行转义。</li>
 </ul>
@@ -573,7 +575,7 @@
 <p>默认情况下，每个分组会自动拥有一个组号，规则是：从左向右，以分组的左括号为标志，第一个出现的组号为1，第二个为2，以此类推。第0个匹配可以用来代表整个正则表达式。组号必须添加<code>\</code>进行转义。</p>
 <ul>
 <li><p>在表达式<code>((A)(B(C)))</code>中，存在4个分组</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">((<span class="name">A</span>)(<span class="name">B</span>(<span class="name">C</span>)))  </div><div class="line">(<span class="name">A</span>)  </div><div class="line">(<span class="name">B</span>(<span class="name">C</span>))  </div><div class="line">(<span class="name">C</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">((<span class="name">A</span>)(<span class="name">B</span>(<span class="name">C</span>)))  </span><br><span class="line">(<span class="name">A</span>)  </span><br><span class="line">(<span class="name">B</span>(<span class="name">C</span>))  </span><br><span class="line">(<span class="name">C</span>)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h4 id="捕获"><a href="#捕获" class="headerlink" title="捕获"></a>捕获</h4><table>
@@ -692,8 +694,8 @@
 </li>
 </ul>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
-<li><a href="https://deerchao.net/tutorials/regex/regex.htm" target="_blank" rel="external">正则表达式30分钟入门教程</a></li>
-<li><a href="http://tool.chinaz.com/regex" target="_blank" rel="external">站长工具 正则测试</a></li>
+<li><a href="https://deerchao.net/tutorials/regex/regex.htm" target="_blank" rel="noopener">正则表达式30分钟入门教程</a></li>
+<li><a href="http://tool.chinaz.com/regex" target="_blank" rel="noopener">站长工具 正则测试</a></li>
 <li>《正则表达式必知必会》</li>
 </ol>
 

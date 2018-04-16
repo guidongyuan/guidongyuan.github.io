@@ -91,11 +91,13 @@
 
 
 <meta name="description" content="纯属一篇MySQL安装笔记，没太大技术含量记录一下，在安装过程中进行的环境路径的设置">
+<meta name="keywords" content="环境配置,MySQL,数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL安装流程">
 <meta property="og:url" content="http://yoursite.com/2018/03/16/Mysql安装流程/index.html">
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="纯属一篇MySQL安装笔记，没太大技术含量记录一下，在安装过程中进行的环境路径的设置">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-03-14-15210352426903.jpg">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-03-15-15211198590511.jpg">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-03-15-15210739101723.jpg">
@@ -374,7 +376,7 @@
 <p>纯属一篇MySQL安装笔记，没太大技术含量<br>记录一下，在安装过程中进行的环境路径的设置</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h3><p>官网地址：<a href="https://www.mysql.com" target="_blank" rel="external">MySQL官网</a></p>
+<h3 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h3><p>官网地址：<a href="https://www.mysql.com" target="_blank" rel="noopener">MySQL官网</a></p>
 <p>进去后，按 DOWNOADS-&gt;Commnity-&gt;MySQL Community Server 就可以找到下载的位置。</p>
 <p><img src="http://ol45hsxko.bkt.clouddn.com/2018-03-14-15210352426903.jpg" alt=""></p>
 <p>选择下载为dmg文件，一路确定就可以了<br><strong>安装完成后，会提示默认密码，记得保存！</strong></p>
@@ -383,19 +385,19 @@
 <p><img src="http://ol45hsxko.bkt.clouddn.com/2018-03-15-15210739101723.jpg" alt=""></p>
 <h3 id="设置启动别名"><a href="#设置启动别名" class="headerlink" title="设置启动别名"></a>设置启动别名</h3><p>默认安装后，需要启动MySQL都要到安装路径下，默认路径为<strong>/usr/local/mysql/bin/mysql</strong>，设置别名是为了方便直接运行MySQL命令</p>
 <h4 id="alias-别名自定义命令"><a href="#alias-别名自定义命令" class="headerlink" title="alias 别名自定义命令"></a>alias 别名自定义命令</h4><p>在配置文件中，设置别名(用的是on my zsh，配置文件为.zshrc)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">alias mysql=/usr/local/mysql/bin/mysql</div><div class="line">alias mysqladmin=/usr/local/mysql/bin/mysqladmin</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alias mysql=/usr/local/mysql/bin/mysql</span><br><span class="line">alias mysqladmin=/usr/local/mysql/bin/mysqladmin</span><br></pre></td></tr></table></figure>
 <p>立即生效修改</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ source .zshrc</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ source .zshrc</span><br></pre></td></tr></table></figure>
 <p>查看所有命令别名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ alias</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ alias</span><br></pre></td></tr></table></figure>
 <p>在本次session中临时设置别名，重启会生效</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ alias 别名=原有名称</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ alias 别名=原有名称</span><br></pre></td></tr></table></figure>
 <h3 id="修改密码登陆"><a href="#修改密码登陆" class="headerlink" title="修改密码登陆"></a>修改密码登陆</h3><p>修改默认密码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">➜  ~ mysqladmin -u root -p password</div><div class="line">Enter password:默认密码</div><div class="line">New password:新密码</div><div class="line">Confirm new password:新密码</div><div class="line">Warning: Since password will be sent to server in plain text, use ssl connection to ensure password safety.</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ mysqladmin -u root -p password</span><br><span class="line">Enter password:默认密码</span><br><span class="line">New password:新密码</span><br><span class="line">Confirm new password:新密码</span><br><span class="line">Warning: Since password will be sent to server in plain text, use ssl connection to ensure password safety.</span><br></pre></td></tr></table></figure>
 <p>登陆</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">➜  ~ mysql -u root -p</div><div class="line">Enter password:</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 7</div><div class="line">Server version: 5.7.21 MySQL Community Server (GPL)</div><div class="line"></div><div class="line">Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.</div><div class="line"></div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its</div><div class="line">affiliates. Other names may be trademarks of their respective</div><div class="line">owners.</div><div class="line"></div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div><div class="line"></div><div class="line">mysql&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ mysql -u root -p</span><br><span class="line">Enter password:</span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 7</span><br><span class="line">Server version: 5.7.21 MySQL Community Server (GPL)</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.</span><br><span class="line"></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
 <p>退出MySQL</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mysql&gt; quit</div><div class="line">Bye</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> quit</span></span><br><span class="line">Bye</span><br></pre></td></tr></table></figure>
 
       
     </div>

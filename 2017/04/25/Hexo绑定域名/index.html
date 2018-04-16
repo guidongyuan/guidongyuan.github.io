@@ -91,11 +91,13 @@
 
 
 <meta name="description" content="一开始使用的是github.io的二级域名，查了一下，发现域名不贵，一年几十块钱，就买来玩玩，顺便也可以了解相关的知识。">
+<meta name="keywords" content="Hexo,技术">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo绑定域名">
 <meta property="og:url" content="http://yoursite.com/2017/04/25/Hexo绑定域名/index.html">
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="一开始使用的是github.io的二级域名，查了一下，发现域名不贵，一年几十块钱，就买来玩玩，顺便也可以了解相关的知识。">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2017-04-25-14927857481336.jpg">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2017-04-25-14927854609224.jpg">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2017-04-25-14927878708483.jpg">
@@ -376,14 +378,14 @@
 <p>一开始使用的是github.io的二级域名，查了一下，发现域名不贵，一年几十块钱，就买来玩玩，顺便也可以了解相关的知识。</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="购买域名并实名认证"><a href="#购买域名并实名认证" class="headerlink" title="购买域名并实名认证"></a>购买域名并实名认证</h3><p>域名购买通过几个途径购买，贪图方便，就直接在<a href="https://wanwang.aliyun.com/" target="_blank" rel="external">万网</a>中购买，购买后，进行实名认证，实名认真需要几天。</p>
+<h3 id="购买域名并实名认证"><a href="#购买域名并实名认证" class="headerlink" title="购买域名并实名认证"></a>购买域名并实名认证</h3><p>域名购买通过几个途径购买，贪图方便，就直接在<a href="https://wanwang.aliyun.com/" target="_blank" rel="noopener">万网</a>中购买，购买后，进行实名认证，实名认真需要几天。</p>
 <h3 id="查看自己的DNS"><a href="#查看自己的DNS" class="headerlink" title="查看自己的DNS"></a>查看自己的DNS</h3><p>在左上角点击 管理控制台 -&gt; 域名与网站 -&gt; 域名 -&gt; 点击自己的域名 -&gt; 可以查看到自己的DNS<br>我的DNS服务器为:dns21.hichina.com 和 dns22.hichina.com</p>
 <h3 id="本地站点添加CNAME文件"><a href="#本地站点添加CNAME文件" class="headerlink" title="本地站点添加CNAME文件"></a>本地站点添加CNAME文件</h3><p>在hexo的source文件內，添加CNAME文件，记得不需要添加任何后缀。</p>
 <p><img src="http://ol45hsxko.bkt.clouddn.com/2017-04-25-14927857481336.jpg" alt=""><br>然后在文件中，输入域名信息，不需要添加http://</p>
 <p> <img src="http://ol45hsxko.bkt.clouddn.com/2017-04-25-14927854609224.jpg" alt=""></p>
 <p>添加完成后，重新部署到github中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  source hexo g</div><div class="line">➜  source hexo d</div></pre></td></tr></table></figure>
-<h3 id="DNS设置"><a href="#DNS设置" class="headerlink" title="DNS设置"></a>DNS设置</h3><p>有了域名以后，要进行域名解析，什么是域名解析，可以查看百度百科<a href="http://baike.baidu.com/item/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90" target="_blank" rel="external">域名解析</a>。查了一下，网上都推荐用<a href="https://www.dnspod.cn/" target="_blank" rel="external">DNSpod</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  source hexo g</span><br><span class="line">➜  source hexo d</span><br></pre></td></tr></table></figure>
+<h3 id="DNS设置"><a href="#DNS设置" class="headerlink" title="DNS设置"></a>DNS设置</h3><p>有了域名以后，要进行域名解析，什么是域名解析，可以查看百度百科<a href="http://baike.baidu.com/item/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90" target="_blank" rel="noopener">域名解析</a>。查了一下，网上都推荐用<a href="https://www.dnspod.cn/" target="_blank" rel="noopener">DNSpod</a></p>
 <h4 id="注册DNSpod的账号，然后点击添加域名，添加的域名不需要加http"><a href="#注册DNSpod的账号，然后点击添加域名，添加的域名不需要加http" class="headerlink" title="注册DNSpod的账号，然后点击添加域名，添加的域名不需要加http://"></a>注册DNSpod的账号，然后点击添加域名，添加的域名不需要加http://</h4><p><img src="http://ol45hsxko.bkt.clouddn.com/2017-04-25-14927878708483.jpg" alt=""></p>
 <h4 id="域名添加成功后，点击域名，弹出对话框提示自动导入记录，点击确定"><a href="#域名添加成功后，点击域名，弹出对话框提示自动导入记录，点击确定" class="headerlink" title="域名添加成功后，点击域名，弹出对话框提示自动导入记录，点击确定"></a>域名添加成功后，点击域名，弹出对话框提示自动导入记录，点击确定</h4><h4 id="添加记录"><a href="#添加记录" class="headerlink" title="添加记录"></a>添加记录</h4><p>然后点击添加记录，添加三条记录，分别为</p>
 <blockquote>
@@ -392,7 +394,7 @@
 <p><img src="http://ol45hsxko.bkt.clouddn.com/2017-04-25-14927889165880.jpg" alt=""></p>
 <h4 id="修改万网中的DNS"><a href="#修改万网中的DNS" class="headerlink" title="修改万网中的DNS"></a>修改万网中的DNS</h4><p>DNS修改为DNSpod进行解析，需要去到万网中，对域名信息中的DNS服务器进行未改，修改为如下，修改后要隔一段时间才能生效<br>f1g1ns1.dnspod.net<br>f1g1ns2.dnspod.net</p>
 <p><img src="http://ol45hsxko.bkt.clouddn.com/2017-04-25-14931164794327.jpg" alt=""></p>
-<h4 id="重新部署到github中"><a href="#重新部署到github中" class="headerlink" title="重新部署到github中"></a>重新部署到github中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  source hexo g</div><div class="line">➜  source hexo d</div></pre></td></tr></table></figure>
+<h4 id="重新部署到github中"><a href="#重新部署到github中" class="headerlink" title="重新部署到github中"></a>重新部署到github中</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  source hexo g</span><br><span class="line">➜  source hexo d</span><br></pre></td></tr></table></figure>
 <h4 id="测试是否修改成功"><a href="#测试是否修改成功" class="headerlink" title="测试是否修改成功"></a>测试是否修改成功</h4><p>修改完成后，进行ping 域名或者输入域名，查看结果。如果不行，过一段时间，几个小时，或者换网络进行测试。弄的时候，一直显示失败，还以为是DNS设置的问题，花费了很多时间还是解决不了，后来问了一个同学，他访问却是正常的。半天后再访问，发现一切正常了。</p>
 
       
