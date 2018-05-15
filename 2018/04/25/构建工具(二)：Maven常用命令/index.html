@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="技术,自动化测试," />
+  <meta name="keywords" content="构建工具,Maven," />
 
 
 
@@ -90,18 +90,20 @@
 
 
 
-<meta name="description" content="项目中引入了自动化测试，对Monkey的基本使用进行了解，记录常用的指令">
-<meta name="keywords" content="技术,自动化测试">
+<meta name="description" content="介绍了Maven常用的命令，具体介绍如果通过Maven生成项目骨架以及其他命令">
+<meta name="keywords" content="构建工具,Maven">
 <meta property="og:type" content="article">
-<meta property="og:title" content="monkey基本指令">
-<meta property="og:url" content="http://yoursite.com/2017/04/15/monkey基本指令/index.html">
+<meta property="og:title" content="构建工具Maven常用命令">
+<meta property="og:url" content="http://yoursite.com/2018/04/25/构建工具(二)：Maven常用命令/index.html">
 <meta property="og:site_name" content="亦袁非猿">
-<meta property="og:description" content="项目中引入了自动化测试，对Monkey的基本使用进行了解，记录常用的指令">
+<meta property="og:description" content="介绍了Maven常用的命令，具体介绍如果通过Maven生成项目骨架以及其他命令">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-04-15T09:30:11.000Z">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-04-24-15245256739574.jpg">
+<meta property="og:updated_time" content="2018-05-15T23:43:24.379Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="monkey基本指令">
-<meta name="twitter:description" content="项目中引入了自动化测试，对Monkey的基本使用进行了解，记录常用的指令">
+<meta name="twitter:title" content="构建工具Maven常用命令">
+<meta name="twitter:description" content="介绍了Maven常用的命令，具体介绍如果通过Maven生成项目骨架以及其他命令">
+<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2018-04-24-15245256739574.jpg">
 
 
 
@@ -129,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/15/monkey基本指令/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/25/构建工具(二)：Maven常用命令/"/>
 
 
 
 
 
-  <title>monkey基本指令 | 亦袁非猿</title>
+  <title>构建工具Maven常用命令 | 亦袁非猿</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -264,7 +266,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/15/monkey基本指令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/25/构建工具(二)：Maven常用命令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="亦袁非猿">
@@ -285,7 +287,7 @@
             
             
               
-                monkey基本指令
+                构建工具Maven常用命令
               
             
           </h1>
@@ -303,8 +305,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-15T16:32:39+08:00">
-                2017-04-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-25T07:39:41+08:00">
+                2018-04-25
               </time>
             
 
@@ -343,7 +345,7 @@
 
           
           
-             <span id="/2017/04/15/monkey基本指令/" class="leancloud_visitors" data-flag-title="monkey基本指令">
+             <span id="/2018/04/25/构建工具(二)：Maven常用命令/" class="leancloud_visitors" data-flag-title="构建工具Maven常用命令">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -372,48 +374,27 @@
 
       
         <blockquote>
-<p>项目中引入了自动化测试，对Monkey的基本使用进行了解，记录常用的指令</p>
+<p>介绍了Maven常用的命令，具体介绍如果通过Maven生成项目骨架以及其他命令</p>
 </blockquote>
 <a id="more"></a>
-<h2 id="monkey基本指令"><a href="#monkey基本指令" class="headerlink" title="monkey基本指令"></a>monkey基本指令</h2><p><a href="https://developer.android.com/studio/test/monkey.html" target="_blank" rel="noopener">Monkey官方链接</a></p>
+<h2 id="Maven常用命令"><a href="#Maven常用命令" class="headerlink" title="Maven常用命令"></a>Maven常用命令</h2><h4 id="mvn-archetype-generate-生成项目骨架"><a href="#mvn-archetype-generate-生成项目骨架" class="headerlink" title="mvn archetype:generate 生成项目骨架"></a>mvn archetype:generate 生成项目骨架</h4><p>上一篇文章说到，Maven可以帮我们构建项目，制定一个标准的项目骨架，那如何生成项目骨架呢？可以采用Archetype生成。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ mvn archetype:generate</span><br></pre></td></tr></table></figure>
+<p>上面命令实际上是运行插件maven-archetype-plugin，没有指定插件的版本，默认使用的是最新稳定版，实际的执行命令如下。在Maven2.0之前就需要指定插件版本号。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ mvn org.apache.maven.plugins:maven-archetype-plugin:3.0.1:generate</span><br></pre></td></tr></table></figure>
+<p>第一次执行的时候，会下载一些文件，包括archetype的插件，下载好了会发现<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![](http://ol45hsxko.bkt.clouddn.com/2018-04-21-15242893234124.jpg)</span><br><span class="line"></span><br><span class="line">具体archetype其他命令的使用，可以通过help</span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line">➜ ~ mvn archetype:help</span><br></pre></td></tr></table></figure></p>
+<p>执行默认命令后，如果不添加任何参数，默认会输出2000多个项目骨架给我们选择，所以等待全部输出需要点时间。在<a href="https://maven-repository.com/" target="_blank" rel="noopener">Maven仓库</a>网站自行搜索。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ mvn archetype:generate</span><br><span class="line">// 省略</span><br><span class="line">1173: remote -&gt; org.apache.maven.archetypes:maven-archetype-quickstart (An archetype which contains a sample Maven project.)</span><br><span class="line">// 省略</span><br><span class="line">2136: remote -&gt; xyz.luan.generator:xyz-generator (-)</span><br><span class="line">Choose a number or apply filter (format: [groupId:]artifactId, case sensitive contains): 1173:</span><br></pre></td></tr></table></figure>
+<p>直接输入前面的数字回车就可以了，比如我输入<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```shell</span><br><span class="line">Define value for property &apos;groupId&apos;: com.guidongyuan.testmaven</span><br><span class="line">Define value for property &apos;artifactId&apos;: helloworld</span><br><span class="line">Define value for property &apos;version&apos; 1.0-SNAPSHOT: :</span><br><span class="line">Define value for property &apos;package&apos; com.guidongyuan.testmaven: : com.guidongyuan.tesmaven.helloworld</span><br><span class="line">Confirm properties configuration:</span><br><span class="line">groupId: com.guidongyuan.testmaven</span><br><span class="line">artifactId: helloworld</span><br><span class="line">version: 1.0-SNAPSHOT</span><br><span class="line">package: com.guidongyuan.testmaven.helloworld</span><br><span class="line"> Y: : Y</span><br></pre></td></tr></table></figure></p>
+<p>然后再输入groupId，artifactId，version等参数，就可以按<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### 输出项目结构</span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line">➜  tree</span><br><span class="line">.</span><br><span class="line">└── helloworld</span><br><span class="line">    ├── pom.xml</span><br><span class="line">    └── src</span><br><span class="line">        ├── main</span><br><span class="line">        │   └── java</span><br><span class="line">        │       └── com</span><br><span class="line">        │           └── guidongyuan</span><br><span class="line">        │               └── testmaven</span><br><span class="line">        │                   └── helloworld</span><br><span class="line">        │                       └── App.java</span><br><span class="line">        └── test</span><br><span class="line">            └── java</span><br><span class="line">                └── com</span><br><span class="line">                    └── guidongyuan</span><br><span class="line">                        └── testmaven</span><br><span class="line">                            └── helloworld</span><br><span class="line">                                └── AppTest.java</span><br><span class="line">14 directories, 3 files</span><br></pre></td></tr></table></figure></p>
+<h4 id="mvn-compile-编译源代码"><a href="#mvn-compile-编译源代码" class="headerlink" title="mvn compile 编译源代码"></a>mvn compile 编译源代码</h4><h4 id="mvn-mvn-test-compile-编译测试代码"><a href="#mvn-mvn-test-compile-编译测试代码" class="headerlink" title="mvn mvn test-compile 编译测试代码"></a>mvn mvn test-compile 编译测试代码</h4><h4 id="mvn-test-运行应用程序中的单元测试"><a href="#mvn-test-运行应用程序中的单元测试" class="headerlink" title="mvn test 运行应用程序中的单元测试"></a>mvn test 运行应用程序中的单元测试</h4><h4 id="mvn-clean-清除目标目录中的生成结果"><a href="#mvn-clean-清除目标目录中的生成结果" class="headerlink" title="mvn clean 清除目标目录中的生成结果"></a>mvn clean 清除目标目录中的生成结果</h4><p>执行该命令，会把编译运行生成的target文件删除掉</p>
+<h4 id="mvn-package-依据项目生成jar文件"><a href="#mvn-package-依据项目生成jar文件" class="headerlink" title="mvn package 依据项目生成jar文件"></a>mvn package 依据项目生成jar文件</h4><p>执行该命令后，会在target中输出jar文件</p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-04-24-15245256739574.jpg" alt=""></p>
+<h4 id="mvn-install-在本地repository中生成jar文件"><a href="#mvn-install-在本地repository中生成jar文件" class="headerlink" title="mvn install 在本地repository中生成jar文件"></a>mvn install 在本地repository中生成jar文件</h4><p>执行上面的package命令后，只是在项目中输出jar文件，如果其他项目也需要引用该jar，那就可以把jar包放在仓库上，让其他项目去直接引用。执行install命令后，就可以在自己的仓库中目录上输出jar文件了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  repository tree com/guidongyuan</span><br><span class="line">com/guidongyuan</span><br><span class="line">└── testmaven</span><br><span class="line">    └── helloworld</span><br><span class="line">        ├── 1.0-SNAPSHOT</span><br><span class="line">        │   ├── _remote.repositories</span><br><span class="line">        │   ├── helloworld-1.0-SNAPSHOT.jar</span><br><span class="line">        │   ├── helloworld-1.0-SNAPSHOT.pom</span><br><span class="line">        │   └── maven-metadata-local.xml</span><br><span class="line">        └── maven-metadata-local.xml</span><br></pre></td></tr></table></figure>
+<p>###参考链接</p>
 <ul>
-<li><p>查看当前连接的设备</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  / adb devices</span><br><span class="line">List of devices attached</span><br><span class="line">192.168.56.101:5555	device</span><br><span class="line">Y15QKBP4234BX	device</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>进入shell</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">只有一台设备</span></span><br><span class="line">adb shell</span><br><span class="line"><span class="meta">#</span><span class="bash">多台设备</span></span><br><span class="line">adb -s Y15QKBP4234BX shell</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>退出shell</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看monkey的帮助，直接输入monkey或者monkey -h</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">127|shell@M3s:/ $ monkey</span><br><span class="line">usage: monkey [-p ALLOWED_PACKAGE [-p ALLOWED_PACKAGE] ...]</span><br><span class="line">              [-c MAIN_CATEGORY [-c MAIN_CATEGORY] ...]</span><br><span class="line">              [--ignore-crashes] [--、ignore-timeouts]</span><br><span class="line">              [--ignore-security-exceptions]</span><br><span class="line">              [--monitor-native-crashes] [--ignore-native-crashes]</span><br><span class="line">              [--kill-process-after-error] [--hprof]</span><br><span class="line">              [--pct-touch PERCENT] [--pct-motion PERCENT]</span><br><span class="line">              [--pct-trackball PERCENT] [--pct-syskeys PERCENT]</span><br><span class="line">              [--pct-nav PERCENT] [--pct-majornav PERCENT]</span><br><span class="line">              [--pct-appswitch PERCENT] [--pct-flip PERCENT]</span><br><span class="line">              [--pct-anyevent PERCENT] [--pct-pinchzoom PERCENT]</span><br><span class="line">              [--pct-permission PERCENT]</span><br><span class="line">              [--pkg-blacklist-file PACKAGE_BLACKLIST_FILE]</span><br><span class="line">              [--pkg-whitelist-file PACKAGE_WHITELIST_FILE]</span><br><span class="line">              [--wait-dbg] [--dbg-no-events]</span><br><span class="line">              [--setup scriptfile] [-f scriptfile [-f scriptfile] ...]</span><br><span class="line">              [--port port]</span><br><span class="line">              [-s SEED] [-v [-v] ...]</span><br><span class="line">              [--throttle MILLISEC] [--randomize-throttle]</span><br><span class="line">              [--profile-wait MILLISEC]</span><br><span class="line">              [--device-sleep-time MILLISEC]</span><br><span class="line">              [--randomize-script]</span><br><span class="line">              [--script-log]</span><br><span class="line">              [--bugreport]</span><br><span class="line">              [--periodic-bugreport]</span><br><span class="line">              [--permission-target-system]</span><br><span class="line">              COUNT</span><br></pre></td></tr></table></figure>
-<h4 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h4><ul>
-<li>COUNT 随机发送事件数</li>
-<li>-v 打印出日志信息，个数越多，日志信息越详细</li>
-<li>-s 后接随机数生成器的seed值，运行一次monkey会生成一个seed，用于重复执行</li>
-<li>-f 后接测试脚本名，指定要运行的脚本，COUNT指运行次数</li>
-<li>-p 后接包名</li>
-<li>-c 后接类别名</li>
-<li>–ignore-crashes 程序奔溃后继续发送事件</li>
-<li>–ignore-timeouts 程序发生超时错误后继续发送事件</li>
-<li>–ignore-security-exceptions 程序发生权限错误后继续发送事件</li>
-<li>–monitor-native-crashes monkey运行时native code崩溃事件将被监视被报告</li>
-<li>–ignore-native-crashes 忽略native code崩溃事件</li>
-<li>–kill-process-after-error 程序发生错误而停止时，通知系统停止发生错误的进程</li>
-<li>–hprof 指定该选项后，monkey会在发送事件完成后生成性能报告，报告一般存放于/data/misc目录下，一般不使用</li>
-<li>–pct-touch 后接触摸事件百分比</li>
-<li>–ptc-motion 后接动作事件百分比</li>
-<li>–ptc-trackball 后接轨迹球事件百分比</li>
-<li>–pct-syskeys 后接系统按钮事件百分比，如home键，Back键，音量键</li>
-<li>–pct-nav 后接基本导航事件百分比，如方向输入设备的上下左右事件</li>
-<li>–pct-majornav 后接主要导航事件百分比，如引发图形界面的返回键，菜单键</li>
-<li>–pct-appswitch 后接应用启动时间百分比</li>
-<li>–pct-anyevent 后接其他类型事件百分比，如keypress，不常用的button</li>
-<li>–pct-pinchzoom 后接缩放事件百分比</li>
-<li>–throttle 后接时间，单位为ms，表示执行每一个命令间隔的时间，不加则不延迟</li>
-</ul>
-</li>
+<li><a href="https://blog.csdn.net/sunnyyoona/article/details/50562045" target="_blank" rel="noopener">Maven实战笔记</a></li>
+<li><a href="http://chenrongrong.info/2015/05/23/maven-generate.html" target="_blank" rel="noopener">Maven使用archetype参数设置</a></li>
 </ul>
 
       
@@ -444,9 +425,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/技术/" rel="tag"># 技术</a>
+            <a href="/tags/构建工具/" rel="tag"># 构建工具</a>
           
-            <a href="/tags/自动化测试/" rel="tag"># 自动化测试</a>
+            <a href="/tags/Maven/" rel="tag"># Maven</a>
           
         </div>
       
@@ -459,8 +440,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/03/2016年总结/" rel="next" title="2016年总结:职业的起点">
-                <i class="fa fa-chevron-left"></i> 2016年总结:职业的起点
+              <a href="/2018/04/21/构建工具(一)：Maven介绍及安装/" rel="next" title="构建工具(一)：Maven介绍及安装">
+                <i class="fa fa-chevron-left"></i> 构建工具(一)：Maven介绍及安装
               </a>
             
           </div>
@@ -468,10 +449,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/04/15/《一平米健身》读书笔记/" rel="prev" title="《一平米健身》">
-                《一平米健身》 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -605,7 +582,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#monkey基本指令"><span class="nav-number">1.</span> <span class="nav-text">monkey基本指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用参数"><span class="nav-number">1.0.1.</span> <span class="nav-text">常用参数</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven常用命令"><span class="nav-number">1.</span> <span class="nav-text">Maven常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mvn-archetype-generate-生成项目骨架"><span class="nav-number">1.0.1.</span> <span class="nav-text">mvn archetype:generate 生成项目骨架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mvn-compile-编译源代码"><span class="nav-number">1.0.2.</span> <span class="nav-text">mvn compile 编译源代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mvn-mvn-test-compile-编译测试代码"><span class="nav-number">1.0.3.</span> <span class="nav-text">mvn mvn test-compile 编译测试代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mvn-test-运行应用程序中的单元测试"><span class="nav-number">1.0.4.</span> <span class="nav-text">mvn test 运行应用程序中的单元测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mvn-clean-清除目标目录中的生成结果"><span class="nav-number">1.0.5.</span> <span class="nav-text">mvn clean 清除目标目录中的生成结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mvn-package-依据项目生成jar文件"><span class="nav-number">1.0.6.</span> <span class="nav-text">mvn package 依据项目生成jar文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mvn-install-在本地repository中生成jar文件"><span class="nav-number">1.0.7.</span> <span class="nav-text">mvn install 在本地repository中生成jar文件</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
