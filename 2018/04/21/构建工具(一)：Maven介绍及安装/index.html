@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="React Native," />
+  <meta name="keywords" content="构建工具,Maven," />
 
 
 
@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="本来想开发的时候，遇到什么，就查什么的，查的时候，发现挺乱的，前端的东西就是多，或者说，发展就是快。那就在开发前，先理清楚一些基本知识，对比一下它们之间的差别。">
-<meta name="keywords" content="React Native">
+<meta name="description" content="简述了什么是Maven，Maven的几个作用，项目构建、依赖管理、项目管理等，以及怎样安装配置Maven环境。">
+<meta name="keywords" content="构建工具,Maven">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我们一起学React Native--概念介绍">
-<meta property="og:url" content="http://yoursite.com/2018/04/18/我们一起学React Native-概念介绍/index.html">
+<meta property="og:title" content="构建工具(一)：Maven介绍及安装">
+<meta property="og:url" content="http://yoursite.com/2018/04/21/构建工具(一)：Maven介绍及安装/index.html">
 <meta property="og:site_name" content="亦袁非猿">
-<meta property="og:description" content="本来想开发的时候，遇到什么，就查什么的，查的时候，发现挺乱的，前端的东西就是多，或者说，发展就是快。那就在开发前，先理清楚一些基本知识，对比一下它们之间的差别。">
+<meta property="og:description" content="简述了什么是Maven，Maven的几个作用，项目构建、依赖管理、项目管理等，以及怎样安装配置Maven环境。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-11T11:19:46.526Z">
+<meta property="og:updated_time" content="2018-05-15T23:34:16.114Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我们一起学React Native--概念介绍">
-<meta name="twitter:description" content="本来想开发的时候，遇到什么，就查什么的，查的时候，发现挺乱的，前端的东西就是多，或者说，发展就是快。那就在开发前，先理清楚一些基本知识，对比一下它们之间的差别。">
+<meta name="twitter:title" content="构建工具(一)：Maven介绍及安装">
+<meta name="twitter:description" content="简述了什么是Maven，Maven的几个作用，项目构建、依赖管理、项目管理等，以及怎样安装配置Maven环境。">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/18/我们一起学React Native-概念介绍/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/21/构建工具(一)：Maven介绍及安装/"/>
 
 
 
 
 
-  <title>我们一起学React Native--概念介绍 | 亦袁非猿</title>
+  <title>构建工具(一)：Maven介绍及安装 | 亦袁非猿</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -264,7 +264,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/18/我们一起学React Native-概念介绍/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/21/构建工具(一)：Maven介绍及安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="亦袁非猿">
@@ -285,7 +285,7 @@
             
             
               
-                我们一起学React Native--概念介绍
+                构建工具(一)：Maven介绍及安装
               
             
           </h1>
@@ -303,8 +303,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-18T06:34:49+08:00">
-                2018-04-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-21T07:14:50+08:00">
+                2018-04-21
               </time>
             
 
@@ -343,7 +343,7 @@
 
           
           
-             <span id="/2018/04/18/我们一起学React Native-概念介绍/" class="leancloud_visitors" data-flag-title="我们一起学React Native--概念介绍">
+             <span id="/2018/04/21/构建工具(一)：Maven介绍及安装/" class="leancloud_visitors" data-flag-title="构建工具(一)：Maven介绍及安装">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -372,46 +372,27 @@
 
       
         <blockquote>
-<p>本来想开发的时候，遇到什么，就查什么的，查的时候，发现挺乱的，前端的东西就是多，或者说，发展就是快。那就在开发前，先理清楚一些基本知识，对比一下它们之间的差别。</p>
+<p>简述了什么是Maven，Maven的几个作用，项目构建、依赖管理、项目管理等，以及怎样安装配置Maven环境。</p>
 </blockquote>
 <a id="more"></a>
-<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><h3 id="为什么有React-Native"><a href="#为什么有React-Native" class="headerlink" title="为什么有React Native"></a>为什么有React Native</h3><p>可以参考<a href="http://bbs.reactnative.cn/topic/14/react-native-%E6%8A%8A%E7%8E%B0%E4%BB%A3web%E7%A7%91%E6%8A%80%E5%B8%A6%E7%BB%99%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91%E8%80%85" target="_blank" rel="noopener">React Native: 把现代web科技带给移动开发者</a>，介绍了React Native的发展与目标。</p>
-<h3 id="React、React-js和React-Native之间的区别"><a href="#React、React-js和React-Native之间的区别" class="headerlink" title="React、React.js和React Native之间的区别"></a>React、React.js和React Native之间的区别</h3><p>React是基础框架，是一套基础设计实现理念，开发者不能直接使用它来开发移动应用或者网页。<br>在React框架上，发展出React.js框架用来开发网页；<br>在React框架上，发展出React Native框架用来开发移动应用。</p>
-<h4 id="React-js和React-Native具体区别"><a href="#React-js和React-Native具体区别" class="headerlink" title="React.js和React Native具体区别"></a>React.js和React Native具体区别</h4><ol>
-<li><p>实现目的不同</p>
-<p>React Js的目的是为了使前端的V层更具组件化，能更好的复用，它能够使用简单的html标签创建更多的自定义组件标签，内部绑定事件，同时可以让你从操作dom中解脱出来，只需要操作数据就会改变相应的dom；</p>
-<p>React Native的目的是希望我们能够使用前端的技术栈就可以创建出能够在不同平台运行的一个框架。可以创建出在移动端运行的app，但是性能可能比原生app差一点。</p>
+<h2 id="Maven基础"><a href="#Maven基础" class="headerlink" title="Maven基础"></a>Maven基础</h2><h3 id="什么是Maven"><a href="#什么是Maven" class="headerlink" title="什么是Maven"></a>什么是Maven</h3><p>Maven 是一个Java语言编写的开源项目管理工具，是Apache软件基金会的顶级项目。主要用于项目构建，依赖管理，项目信息管理。</p>
+<h3 id="Maven有什么作用"><a href="#Maven有什么作用" class="headerlink" title="Maven有什么作用"></a>Maven有什么作用</h3><h4 id="项目构建"><a href="#项目构建" class="headerlink" title="项目构建"></a>项目构建</h4><p>能够帮助我们自动化构建过程，从情理、编译、测试到生成报告，再到打包和部署，不需要我们自己一步步操作。另外，它帮我们标准化构建过程，对外提供一致的操作接口，就不用担心不同项目有不同的构建方式。</p>
+<h4 id="依赖管理"><a href="#依赖管理" class="headerlink" title="依赖管理"></a>依赖管理</h4><p>借助Maven，我们可以通过依赖的方式引用各种第三方库，它能够有序地帮我们管理依赖，解决依赖版本不一致、版本冲突、依赖臃肿等问题。</p>
+<h4 id="项目管理"><a href="#项目管理" class="headerlink" title="项目管理"></a>项目管理</h4><p>Maven还能帮助我们管理分散在项目中各个角落的项目信息，还提供一个中央仓库，我们通过定位开源类库的坐标，就可以自动帮我们下载。</p>
+<h3 id="Maven的安装和配置"><a href="#Maven的安装和配置" class="headerlink" title="Maven的安装和配置"></a>Maven的安装和配置</h3><ul>
+<li>在<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">Maven官网</a>下载最新版的Maven，我下的为ache-maven-3.5.2-bin.zip</li>
+<li>安装之前需要先安装JDK，可以看到官方声明<strong>Maven 3.3+ require JDK 1.7 or above to execute</strong></li>
+<li><p>解压下载的安装包到某一目录，比如<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* 配置环境变量</span><br><span class="line"></span><br><span class="line">  ```shell</span><br><span class="line">  export MAVEN_HOME=/Users/guidongyuan/Applications/apache-maven-3.5.2</span><br></pre></td></tr></table></figure></p>
 </li>
-<li><p>原理略有不同</p>
-<p>ReactJs和React Native的原理是相同的，都是由js实现的虚拟dom来驱动界面view层渲染。  </p>
-<p>ReactJs是驱动html dom渲染；</p>
-<p>React Native是驱动android/ios原生组件渲染。</p>
+<li><p>验证效果</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ mvn -v</span><br><span class="line">Apache Maven 3.5.2 (138edd61fd100ec658bfa2d307c43b76940a5d7d; 2017-10-18T15:58:13+08:00)</span><br><span class="line">Maven home: /Users/guidongyuan/Applications/apache-maven-3.5.2</span><br><span class="line">Java version: 1.8.0_112, vendor: Oracle Corporation</span><br><span class="line">Java home: /Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre</span><br><span class="line">Default locale: zh_CN, platform encoding: UTF-8</span><br><span class="line">OS name: "mac os x", version: "10.13.3", arch: "x86_64", family: "mac"</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>编程思路会有所不同:</p>
-<p>ReactJS直接渲染dom；<br>React Native是生成id，用bridge（最新用c++实现了）变成一个表，等待native去调用。</p>
-</li>
-<li><p>基础控件/标签</p>
-<p>ReactJS的控件为Web控件，如div、span、h1、ul等；</p>
-<p>React Native是抽象原生控件，如View、Text、Image等。</p>
-</li>
-</ol>
-<h3 id="JavaScript、ECMAScript、ES5和ES6的区别"><a href="#JavaScript、ECMAScript、ES5和ES6的区别" class="headerlink" title="JavaScript、ECMAScript、ES5和ES6的区别"></a>JavaScript、ECMAScript、ES5和ES6的区别</h3><h4 id="JavaScript和ECMAScript区别"><a href="#JavaScript和ECMAScript区别" class="headerlink" title="JavaScript和ECMAScript区别"></a>JavaScript和ECMAScript区别</h4><p>JavaScript是一门语言，和Java没有什么特别强的联系，纯属就是命名为了傍上明星Java而已。但是JavaScript是网景公司推出的，需要提交给ECMA International（欧洲计算机制造商协会），让执行标准化的公司确定新的语言标准。但是由于一定的原因，ECMA官方标准不采用JavaScript，而是采用ECMAScript，虽然我们一直采用JavaScript称呼。</p>
-<p><strong>那JavaScript和ECMAScript是不是就是一样呢？只是花名和正名的区别吗？</strong></p>
-<p>不是。因为JavaScript是一门语言，由3部分组成，就可以知道，其实ECMAScript只是其语言标准。</p>
-<ol>
-<li>ECMAScript语言标准：这个是其核心，规定了语言的各种组成部门，比如语言，语句等。</li>
-<li>DOM文档对象模式：DOM把整个页面映射为一个多层节点结果，这种结构有点类型Android中View的视图，也是一层一层的。</li>
-<li>BOM浏览器对象模式：</li>
-</ol>
-<h4 id="ES5和ES6的区别"><a href="#ES5和ES6的区别" class="headerlink" title="ES5和ES6的区别"></a>ES5和ES6的区别</h4><p>上面说到了ECMAScript是JavaScript的语言标准，随着时间的变化，一些旧的语言标准会被遗弃，新的语言特性会不断加进来。可以类似于Java，比如推出了Java8，会比Java7新增一些特性之类的。</p>
-<p>ES5是ECMAScript 5的简称，即是ECMAScript的第五版修订；<br>ES6是ECMAScript 6的简称，即是ECMAScript的第六版修改。后来ECMA修改了命名的规则，采用了年份，因为是在2015年完成新版本的标准化。所以ECMAScript 6也可以命名为ESMAScript2015(ES2015)，目前称为ES6的人还是比较多。这点也可以类似Java1.8和Java8。</p>
-<p>ES5和ES6的语言标准变化比较大，不仅仅是新增一两个新特性，具体我们在后面学习ES6的时候，边学习边比较吧！React Native开发中，都是推荐直接使用ES6进行开发了，但是平时在网上搜到的很多教程和例子都是ES5版本的，所以，我觉得，不需要去单独学习怎样用ES5编写React Native项目了，直接用ES6了。</p>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
-<li><a href="http://bbs.reactnative.cn/topic/14/react-native-%E6%8A%8A%E7%8E%B0%E4%BB%A3web%E7%A7%91%E6%8A%80%E5%B8%A6%E7%BB%99%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91%E8%80%85" target="_blank" rel="noopener">React Native: 把现代web科技带给移动开发者</a></li>
-<li><a href="http://www.cnblogs.com/lovesong/p/4908871.html" target="_blank" rel="noopener">浅谈JavaScript、ES5、ES6</a></li>
-<li><a href="https://huangxuan.me/2015/09/22/js-version/?utm_source=caibaojian.com" target="_blank" rel="noopener">ES5, ES6, ES2016, ES.Next: JavaScript 的版本是怎么回事？「译」</a></li>
-<li><a href="http://es6.ruanyifeng.com/#docs/intro" target="_blank" rel="noopener">《ECMAScript 6入门》ECMAScript 6 简介</a></li>
 </ul>
+<h3 id="Maven目录"><a href="#Maven目录" class="headerlink" title="Maven目录"></a>Maven目录</h3><p><strong>bin：</strong>该目录包含mvn运行的脚本，在命令行中输入一条mvn命令，实际上就是调用这些脚本。</p>
+<p><strong>boot：</strong>该目录只包含一个文件，该文件为plexus-classworlds-2.5.2.jar。plexus-classworlds是一个类加载器框架，Maven使用该框架加载自己的类库。</p>
+<p><strong>conf：</strong>配置目录，包含最重要的一个文件settings.xml。可以定制Maven行为，通过该文件，可以看到Maven本地仓库的默认路径，如果想自定义仓库地址，可以在该文件中修改。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- localRepository</span></span><br><span class="line"><span class="comment"> | The path to the local repository maven will use to store artifacts.</span></span><br><span class="line"><span class="comment"> |</span></span><br><span class="line"><span class="comment"> | Default: $&#123;user.home&#125;/.m2/repository</span></span><br><span class="line"><span class="comment">&lt;localRepository&gt;/path/to/local/repo&lt;/localRepository&gt;</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>lib：</strong>该目录包含了所有Maven运行时需要的Java类库。</p>
 
       
     </div>
@@ -441,7 +422,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/React-Native/" rel="tag"># React Native</a>
+            <a href="/tags/构建工具/" rel="tag"># 构建工具</a>
+          
+            <a href="/tags/Maven/" rel="tag"># Maven</a>
           
         </div>
       
@@ -454,8 +437,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/17/我们一起学React Native-环境配置/" rel="next" title="我们一起学React Native--环境配置">
-                <i class="fa fa-chevron-left"></i> 我们一起学React Native--环境配置
+              <a href="/2018/04/18/我们一起学React Native-概念介绍/" rel="next" title="我们一起学React Native--概念介绍">
+                <i class="fa fa-chevron-left"></i> 我们一起学React Native--概念介绍
               </a>
             
           </div>
@@ -463,10 +446,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/21/构建工具(一)：Maven介绍及安装/" rel="prev" title="构建工具(一)：Maven介绍及安装">
-                构建工具(一)：Maven介绍及安装 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -600,7 +579,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础概念"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么有React-Native"><span class="nav-number">1.1.</span> <span class="nav-text">为什么有React Native</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React、React-js和React-Native之间的区别"><span class="nav-number">1.2.</span> <span class="nav-text">React、React.js和React Native之间的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#React-js和React-Native具体区别"><span class="nav-number">1.2.1.</span> <span class="nav-text">React.js和React Native具体区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript、ECMAScript、ES5和ES6的区别"><span class="nav-number">1.3.</span> <span class="nav-text">JavaScript、ECMAScript、ES5和ES6的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript和ECMAScript区别"><span class="nav-number">1.3.1.</span> <span class="nav-text">JavaScript和ECMAScript区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ES5和ES6的区别"><span class="nav-number">1.3.2.</span> <span class="nav-text">ES5和ES6的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">1.4.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven基础"><span class="nav-number">1.</span> <span class="nav-text">Maven基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Maven"><span class="nav-number">1.1.</span> <span class="nav-text">什么是Maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven有什么作用"><span class="nav-number">1.2.</span> <span class="nav-text">Maven有什么作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#项目构建"><span class="nav-number">1.2.1.</span> <span class="nav-text">项目构建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依赖管理"><span class="nav-number">1.2.2.</span> <span class="nav-text">依赖管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#项目管理"><span class="nav-number">1.2.3.</span> <span class="nav-text">项目管理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven的安装和配置"><span class="nav-number">1.3.</span> <span class="nav-text">Maven的安装和配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven目录"><span class="nav-number">1.4.</span> <span class="nav-text">Maven目录</span></a></li></ol></li></ol></div>
             
 
           </div>
