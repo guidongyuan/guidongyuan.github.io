@@ -90,22 +90,22 @@
 
 
 
-<meta name="description" content="分析Android项目中的build.gradle中的使用到的不同仓库，以及怎样搭建使用内网Maven私服。  Maven仓库上几篇文件中，或多或少都讲述了仓库。有了仓库，我们就不用每一个项目中，都存储需要的依赖文件，声明某个存储所有依赖文件的位置，然后去该路径中引入，该文件可以称为Maven仓库。不仅避免了磁盘空间的浪费，而且还更好地管理依赖文件。 仓库可以是本地的，也可以是远程的。下面我们就">
+<meta name="description" content="分析Android项目中的build.gradle中的使用到的不同仓库，以及怎样搭建使用内网Maven私服。">
 <meta name="keywords" content="构建工具,Maven">
 <meta property="og:type" content="article">
 <meta property="og:title" content="构建工具(四)：Maven仓库及搭建内网仓库">
 <meta property="og:url" content="http://yoursite.com/2018/05/13/构建工具(四)：Maven仓库及搭建内网仓库/index.html">
 <meta property="og:site_name" content="亦袁非猿">
-<meta property="og:description" content="分析Android项目中的build.gradle中的使用到的不同仓库，以及怎样搭建使用内网Maven私服。  Maven仓库上几篇文件中，或多或少都讲述了仓库。有了仓库，我们就不用每一个项目中，都存储需要的依赖文件，声明某个存储所有依赖文件的位置，然后去该路径中引入，该文件可以称为Maven仓库。不仅避免了磁盘空间的浪费，而且还更好地管理依赖文件。 仓库可以是本地的，也可以是远程的。下面我们就">
+<meta property="og:description" content="分析Android项目中的build.gradle中的使用到的不同仓库，以及怎样搭建使用内网Maven私服。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-01-15251699809974.jpg">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-02-15252200330507.jpg">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-03-15253504070683.jpg">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-17-15265146063221.jpg">
-<meta property="og:updated_time" content="2018-05-24T22:03:14.004Z">
+<meta property="og:updated_time" content="2018-05-24T22:31:34.098Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="构建工具(四)：Maven仓库及搭建内网仓库">
-<meta name="twitter:description" content="分析Android项目中的build.gradle中的使用到的不同仓库，以及怎样搭建使用内网Maven私服。  Maven仓库上几篇文件中，或多或少都讲述了仓库。有了仓库，我们就不用每一个项目中，都存储需要的依赖文件，声明某个存储所有依赖文件的位置，然后去该路径中引入，该文件可以称为Maven仓库。不仅避免了磁盘空间的浪费，而且还更好地管理依赖文件。 仓库可以是本地的，也可以是远程的。下面我们就">
+<meta name="twitter:description" content="分析Android项目中的build.gradle中的使用到的不同仓库，以及怎样搭建使用内网Maven私服。">
 <meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-01-15251699809974.jpg">
 
 
@@ -379,6 +379,7 @@
         <blockquote>
 <p>分析Android项目中的build.gradle中的使用到的不同仓库，以及怎样搭建使用内网Maven私服。</p>
 </blockquote>
+<a id="more"></a>
 <h2 id="Maven仓库"><a href="#Maven仓库" class="headerlink" title="Maven仓库"></a>Maven仓库</h2><p>上几篇文件中，或多或少都讲述了仓库。有了仓库，我们就不用每一个项目中，都存储需要的依赖文件，声明某个存储所有依赖文件的位置，然后去该路径中引入，该文件可以称为Maven仓库。不仅避免了磁盘空间的浪费，而且还更好地管理依赖文件。</p>
 <p>仓库可以是本地的，也可以是远程的。下面我们就分析Android项目中的<code>build.gradle</code>中的关于仓库的声明，下面列出开发中遇到的所有仓库，不一定全部都会使用到。</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">repositories &#123;</span><br><span class="line">  <span class="comment">// 远程仓库</span></span><br><span class="line">  google()</span><br><span class="line">  jcenter()</span><br><span class="line">  mavenCentral()</span><br><span class="line">  <span class="comment">// 自定义远程仓库</span></span><br><span class="line">  maven &#123;</span><br><span class="line">    url <span class="string">"http://maven.aliyun.com/nexus/content/groups/publict"</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 本地仓库</span></span><br><span class="line">  mavenLocal()</span><br><span class="line">  maven&#123;</span><br><span class="line">    <span class="comment">// 应用Android Studio包内的仓库地址</span></span><br><span class="line">    url <span class="string">"/Applications/Android Studio.app/Contents/gradle/m2repository"</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 内网的私有仓库</span></span><br><span class="line">  maven&#123;</span><br><span class="line">     url “<span class="string">http:</span><span class="comment">//localhost:8081/repository/testRepository/”</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

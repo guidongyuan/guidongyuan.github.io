@@ -90,20 +90,20 @@
 
 
 
-<meta name="description" content="Gradle文件介绍主角Gradle终于上场了，在Google发布的Android Studio开发工具中，Gradle替换Eclipse锁使用的ant作为默认的Android构建工具，其吸纳了ant和Maven的优点。现在ant几乎销声匿迹，Maven也日薄西山，而Gradle的发展却如日中天。感觉大多数场景，Gradle替换Maven的趋势，指日可待了。 Gradle与Maven对比那为啥前面">
+<meta name="description" content="一开始先进行Gradle和Maven的对比，然后，对Gradle，Gradle Wrapper，Android Plugin for Gradle的一些概念进行区分，最后通过分析Android项目中的各个Gradle文件。">
 <meta name="keywords" content="构建工具,Maven">
 <meta property="og:type" content="article">
 <meta property="og:title" content="构建工具(五)：Android项目中的Gradle文件">
 <meta property="og:url" content="http://yoursite.com/2018/05/25/构建工具(五)：Android项目中的Gradle文件/index.html">
 <meta property="og:site_name" content="亦袁非猿">
-<meta property="og:description" content="Gradle文件介绍主角Gradle终于上场了，在Google发布的Android Studio开发工具中，Gradle替换Eclipse锁使用的ant作为默认的Android构建工具，其吸纳了ant和Maven的优点。现在ant几乎销声匿迹，Maven也日薄西山，而Gradle的发展却如日中天。感觉大多数场景，Gradle替换Maven的趋势，指日可待了。 Gradle与Maven对比那为啥前面">
+<meta property="og:description" content="一开始先进行Gradle和Maven的对比，然后，对Gradle，Gradle Wrapper，Android Plugin for Gradle的一些概念进行区分，最后通过分析Android项目中的各个Gradle文件。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-04-30-15250602286403.jpg">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-04-30-15250479303456.jpg">
-<meta property="og:updated_time" content="2018-05-24T22:29:37.621Z">
+<meta property="og:updated_time" content="2018-05-24T22:40:01.016Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="构建工具(五)：Android项目中的Gradle文件">
-<meta name="twitter:description" content="Gradle文件介绍主角Gradle终于上场了，在Google发布的Android Studio开发工具中，Gradle替换Eclipse锁使用的ant作为默认的Android构建工具，其吸纳了ant和Maven的优点。现在ant几乎销声匿迹，Maven也日薄西山，而Gradle的发展却如日中天。感觉大多数场景，Gradle替换Maven的趋势，指日可待了。 Gradle与Maven对比那为啥前面">
+<meta name="twitter:description" content="一开始先进行Gradle和Maven的对比，然后，对Gradle，Gradle Wrapper，Android Plugin for Gradle的一些概念进行区分，最后通过分析Android项目中的各个Gradle文件。">
 <meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2018-04-30-15250602286403.jpg">
 
 
@@ -374,7 +374,11 @@
       
 
       
-        <h2 id="Gradle文件介绍"><a href="#Gradle文件介绍" class="headerlink" title="Gradle文件介绍"></a>Gradle文件介绍</h2><p>主角Gradle终于上场了，在Google发布的Android Studio开发工具中，Gradle替换Eclipse锁使用的ant作为默认的Android构建工具，其吸纳了ant和Maven的优点。现在ant几乎销声匿迹，Maven也日薄西山，而Gradle的发展却如日中天。感觉大多数场景，Gradle替换Maven的趋势，指日可待了。</p>
+        <blockquote>
+<p>一开始先进行Gradle和Maven的对比，然后，对Gradle，Gradle Wrapper，Android Plugin for Gradle的一些概念进行区分，最后通过分析Android项目中的各个Gradle文件。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="Gradle文件介绍"><a href="#Gradle文件介绍" class="headerlink" title="Gradle文件介绍"></a>Gradle文件介绍</h2><p>主角Gradle终于上场了，在Google发布的Android Studio开发工具中，Gradle替换Eclipse锁使用的ant作为默认的Android构建工具，其吸纳了ant和Maven的优点。现在ant几乎销声匿迹，Maven也日薄西山，而Gradle的发展却如日中天。感觉大多数场景，Gradle替换Maven的趋势，指日可待了。</p>
 <h3 id="Gradle与Maven对比"><a href="#Gradle与Maven对比" class="headerlink" title="Gradle与Maven对比"></a>Gradle与Maven对比</h3><p><strong>那为啥前面还要花了几章简述Maven?</strong></p>
 <ul>
 <li>通过Maven介绍一下，什么是构建工具，有什么作用。</li>

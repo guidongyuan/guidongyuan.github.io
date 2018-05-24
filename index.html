@@ -541,64 +541,16 @@
 
       
         
-          
-            <h2 id="Gradle文件介绍"><a href="#Gradle文件介绍" class="headerlink" title="Gradle文件介绍"></a>Gradle文件介绍</h2><p>主角Gradle终于上场了，在Google发布的Android Studio开发工具中，Gradle替换Eclipse锁使用的ant作为默认的Android构建工具，其吸纳了ant和Maven的优点。现在ant几乎销声匿迹，Maven也日薄西山，而Gradle的发展却如日中天。感觉大多数场景，Gradle替换Maven的趋势，指日可待了。</p>
-<h3 id="Gradle与Maven对比"><a href="#Gradle与Maven对比" class="headerlink" title="Gradle与Maven对比"></a>Gradle与Maven对比</h3><p><strong>那为啥前面还要花了几章简述Maven?</strong></p>
-<ul>
-<li>通过Maven介绍一下，什么是构建工具，有什么作用。</li>
-<li>Gradle是在Maven上发展起来的，兼容Maven，只有知己知彼，才能更好体验Gradle的优势</li>
-<li>一些非Android项目或者老的项目还使用到Maven。</li>
-</ul>
-<p>Maven和Gradl直观上最大的区别，就是依赖管理的写法，由于Gradle本身是基于Groovy脚本语音进行构建的，并通过DSL进行描述和控制构建逻辑，书写起来更加自由。抛弃了Maven的xml格式的繁琐写法。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.android.support<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>appcompat-v7<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	  <span class="tag">&lt;<span class="name">version</span>&gt;</span>26.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">  compile <span class="string">'com.android.support:appcompat-v7:26.+'</span></span><br><span class="line">  testCompile <span class="string">'junit:junit:4.11'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Gradle比Maven不仅仅只是语法上的改变，还有</p>
-<ul>
-<li>性能方面得到很大提升</li>
-<li>构建周期没有限制太死，比较灵活</li>
-<li>依赖范围被简化</li>
-<li>支持版本号后面使用+号实现动态的版本管理</li>
-<li>解决冲突更加明确</li>
-<li>……</li>
-</ul>
-<p>详细区别，可以参考最后的参考资料</p>
-<h3 id="Android项目中的Gradle文件"><a href="#Android项目中的Gradle文件" class="headerlink" title="Android项目中的Gradle文件"></a>Android项目中的Gradle文件</h3><h4 id="Gradle，Gradle-Wrapper，Android-Plugin-for-Gradle区别"><a href="#Gradle，Gradle-Wrapper，Android-Plugin-for-Gradle区别" class="headerlink" title="Gradle，Gradle Wrapper，Android Plugin for Gradle区别"></a>Gradle，Gradle Wrapper，Android Plugin for Gradle区别</h4><p>在对Android Studio项目中关于gradle文件的介绍之前，先对几个概念进行介绍，在开发中，经常会遇到，尤其是更新Android Studio的时候。</p>
-<h5 id="Gradle"><a href="#Gradle" class="headerlink" title="Gradle"></a>Gradle</h5><p>与Maven一样，是项目管理工具，上几篇文章对其与Maven都做了简单介绍。</p>
-<h5 id="Gradle-Wrapper"><a href="#Gradle-Wrapper" class="headerlink" title="Gradle Wrapper"></a>Gradle Wrapper</h5><p>翻译过来名称是Gradle的包装，其实就是对Gradle进行封装，简化了Gradle本身的安装，部署。不同的开发者，不同的项目，有可能会采用不同版本的Gradle，如果每次切换一个项目，都要手动部署一下对应版本的Gradle，这种麻烦的事肯定不适合程序员，于是就通过Gradle Wrapper实现，就算本地原来没有安装部署Gradle的环境，也可以直接使用。</p>
-<h6 id="查看Gradle版本"><a href="#查看Gradle版本" class="headerlink" title="查看Gradle版本"></a>查看Gradle版本</h6><p>在项目路径下，通过<figure class="highlight plain"><figcaption><span>-v```可以查看当前项目的Gradle版本，取决于```gradle-wrpper.properties```中的值。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```xml</span><br><span class="line">➜  StudyTest ./gradlew -v</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">Gradle 4.1</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">Build time:   2017-08-07 14:38:48 UTC</span><br><span class="line">Revision:     941559e020f6c357ebb08d5c67acdb858a3defc2</span><br><span class="line"></span><br><span class="line">Groovy:       2.4.11</span><br><span class="line">Ant:          Apache Ant(TM) version 1.9.6 compiled on June 29 2015</span><br><span class="line">JVM:          1.8.0_112 (Oracle Corporation 25.112-b16)</span><br><span class="line">OS:           Mac OS X 10.13.3 x86_64</span><br></pre></td></tr></table></figure></p>
-<h5 id="Android-Plugin-for-Gradle"><a href="#Android-Plugin-for-Gradle" class="headerlink" title="Android Plugin for Gradle"></a>Android Plugin for Gradle</h5><p>Android项目针对Gradle的插件，通过它就可以在Android项目中使用Gradle了。Android官方也对其进行了说明</p>
-<blockquote>
-<p>The Android Studio build system is based on Gradle, and the Android plugin for Gradle adds several features that are specific to building Android apps. Although the Android plugin is typically updated in lock-step with Android Studio, the plugin (and the rest of the Gradle system) can run independent of Android Studio and be updated separately.</p>
-<p>大体的意思就是：Android Plugin for Gradle插件添加了构建Android项目的几项功能，虽然其通常与Anroid Studio锁定更新，但是可以独立于Android Studio运行并且单独更新。</p>
+          <blockquote>
+<p>一开始先进行Gradle和Maven的对比，然后，对Gradle，Gradle Wrapper，Android Plugin for Gradle的一些概念进行区分，最后通过分析Android项目中的各个Gradle文件。</p>
 </blockquote>
-<h6 id="Gradle插件版本与Gradle版本"><a href="#Gradle插件版本与Gradle版本" class="headerlink" title="Gradle插件版本与Gradle版本"></a>Gradle插件版本与Gradle版本</h6><p>Android Plugin for Gradle版本，Android Studio版本与Gradle版本是有联系的。如果你升级了Android Studio的时候，有可能会收到提示对其进行更新。尽量升级到最新版本，性能更好。目前Plugin和Gradle的版本搭配如下，可以通过<a href="https://developer.android.com/studio/releases/gradle-plugin" target="_blank" rel="noopener">Android官网Gradle Plugin介绍</a>进行查询<br><img src="http://ol45hsxko.bkt.clouddn.com/2018-04-30-15250602286403.jpg" alt=""></p>
-<h6 id="查看Gradle插件版本"><a href="#查看Gradle插件版本" class="headerlink" title="查看Gradle插件版本"></a>查看Gradle插件版本</h6><p>Android Studio 3.0 之前：<a href="https://jcenter.bintray.com/com/android/tools/build/gradle/" target="_blank" rel="noopener">jcenter仓库</a></p>
-<p>Android Studio 3.0 之后：<a href="https://dl.google.com/dl/android/maven2/index.html" target="_blank" rel="noopener">Google仓库</a></p>
-<h4 id="Android项目中的Gradle"><a href="#Android项目中的Gradle" class="headerlink" title="Android项目中的Gradle"></a>Android项目中的Gradle</h4><p>创建一个新的Android项目，可以看到这里有4处关于gradle的配置文件</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-04-30-15250479303456.jpg" alt=""></p>
-<h5 id="app-build-gradle"><a href="#app-build-gradle" class="headerlink" title="app/build.gradle"></a>app/build.gradle</h5><p>app的gradle配置文件，关于该应用的配置几乎都在这个文件中，平时关注最多的也是这个文件。包含编译的SDK版本，不同编译类型的配置，项目依赖等。</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 描述Gradle所引入的插件类型，表示是一个Android Application</span></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.android.application'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 描述这个是Android module构建过程中的各个参数</span></span><br><span class="line">android &#123;</span><br><span class="line">  	<span class="comment">// 编译构建工具SDK版本</span></span><br><span class="line">    compileSdkVersion <span class="number">26</span></span><br><span class="line">  	<span class="comment">// 当前module的坐标</span></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        <span class="comment">// 在这里定义了项目的包名，之前在Eclipse中，是在AndroidManifest中的，现在改在该文件中。</span></span><br><span class="line">        applicationId <span class="string">"com.guidongyuan.studytest"</span></span><br><span class="line">        <span class="comment">// 支持最小SDK版本，则表示编译完成好的app，在SDK 15以下不能运行。</span></span><br><span class="line">        minSdkVersion <span class="number">15</span></span><br><span class="line">        <span class="comment">// 目标SDK版本(建议版本)</span></span><br><span class="line">        targetSdkVersion <span class="number">26</span></span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">"1.0"</span></span><br><span class="line">        testInstrumentationRunner <span class="string">"android.support.test.runner.AndroidJUnitRunner"</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 编译类型，可以在此处，对不同编译类型，如release(正式版)，debug(测试版)进行配置</span></span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            <span class="comment">// 是否混淆(false:不混淆)</span></span><br><span class="line">            minifyEnabled <span class="literal">false</span></span><br><span class="line">            <span class="comment">// 混淆规则的配置文件</span></span><br><span class="line">            proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>), <span class="string">'proguard-rules.pro'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 项目的所有依赖库</span></span><br><span class="line">dependencies &#123;</span><br><span class="line">    <span class="comment">// 本地依赖声明，包含libs文件下的所有jar文件</span></span><br><span class="line">    implementation fileTree(<span class="string">dir:</span> <span class="string">'libs'</span>, <span class="string">include:</span> [<span class="string">'*.jar'</span>])</span><br><span class="line">    <span class="comment">// 远程依赖声明</span></span><br><span class="line">    implementation <span class="string">'com.android.support:appcompat-v7:26.1.0'</span></span><br><span class="line">    implementation <span class="string">'com.android.support.constraint:constraint-layout:1.1.0'</span></span><br><span class="line">    testImplementation <span class="string">'junit:junit:4.12'</span></span><br><span class="line">    androidTestImplementation <span class="string">'com.android.support.test:runner:1.0.1'</span></span><br><span class="line">    androidTestImplementation <span class="string">'com.android.support.test.espresso:espresso-core:3.0.1'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="gralde-wrapper-gradle-wrapper-properties"><a href="#gralde-wrapper-gradle-wrapper-properties" class="headerlink" title="gralde/wrapper/gradle-wrapper.properties"></a>gralde/wrapper/gradle-wrapper.properties</h5><p>定义Gradle Wrapper的一些信息，请求下载的路径，版本号，以及本地存放的位置。</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#Mon Apr 30 08:59:50 CST 2018</span><br><span class="line"><span class="comment">// 解压gradle-xxx.zip文件后的存放地址，distributionPath是distributionBase的子目录</span></span><br><span class="line">distributionBase=GRADLE_USER_HOME</span><br><span class="line">distributionPath=wrapper/dists</span><br><span class="line"><span class="comment">// 下载的gradle-xxx.zip文件的存放地址，zipStorePath是zipStoreBase的子目录</span></span><br><span class="line">zipStoreBase=GRADLE_USER_HOME</span><br><span class="line">zipStorePath=wrapper/dists</span><br><span class="line"><span class="comment">// gradle下载的路径以及版本号</span></span><br><span class="line">distributionUrl=https\:<span class="comment">//services.gradle.org/distributions/gradle-4.1-all.zip</span></span><br></pre></td></tr></table></figure>
-<p><strong>GRADLE_USER_HOME：</strong>用户的gradle目录，mac下的路径如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">另外，Android Studio默认也带有gradle，路径为```/Applications/Android Studio.app/Contents/gradle/gradle-4.1```。</span><br><span class="line"></span><br><span class="line">###### 离线导入gradle wrapper</span><br><span class="line"></span><br><span class="line">以前开始接触Android Studio最常遇到的问题，导入项目卡在下载Gradle Wrapper，解决办法：</span><br><span class="line"></span><br><span class="line">* 修改项目的gralde-wrapper版本为本地已经有的。</span><br><span class="line"></span><br><span class="line">* 自行在[Gradle Wrapper官网](https://services.gradle.org/distributions/)下载放进去，先运行一下，然后会生成指定目录，直接放在该路径就可以了。</span><br><span class="line"></span><br><span class="line">下图为把gradle-wrapper改为4.7生成的文件夹，直接把下载好的文件放到4cret……文件夹内(根据distribution url路径字符串计算md5值得来的)就可以了。</span><br><span class="line"></span><br><span class="line">![](http://ol45hsxko.bkt.clouddn.com/2018-05-01-15251360478203.jpg)</span><br><span class="line"></span><br><span class="line">###### 使用本地Gradle Wrapper</span><br><span class="line"></span><br><span class="line">![](http://ol45hsxko.bkt.clouddn.com/2018-05-01-15251363375403.jpg)</span><br><span class="line"></span><br><span class="line">如果使用Use Default gradle wrapper则会使用gradl-wrapper.properties中定义的版本，在开发中，一般勾选Use local gradle distribution使用本地的，并且设置为Offline work，可以提高编译速度。</span><br><span class="line"></span><br><span class="line">##### build.gradle</span><br><span class="line"></span><br><span class="line">整个项目的gradle配置文件，定义依赖仓库的地址</span><br><span class="line"></span><br><span class="line">```groovy</span><br><span class="line">buildscript &#123;</span><br><span class="line">    // 仓库</span><br><span class="line">    repositories &#123;</span><br><span class="line">        google()</span><br><span class="line">        jcenter()</span><br><span class="line">    &#125;</span><br><span class="line">    // 依赖库</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        // 声明gradle插件的版本</span><br><span class="line">        classpath &apos;com.android.tools.build:gradle:3.0.1&apos;</span><br><span class="line">        // NOTE: Do not place your application dependencies here; they belong</span><br><span class="line">        // in the individual module build.gradle files</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        google()</span><br><span class="line">        jcenter()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// gradle的一个task，执行clean的时候，会删除编译路径下的文件</span><br><span class="line">task clean(type: Delete) &#123;</span><br><span class="line">    delete rootProject.buildDir</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="gradle-properties"><a href="#gradle-properties" class="headerlink" title="gradle.properties"></a>gradle.properties</h5><p>在该文件夹定义设计gradle相关的一些属性。在使用gradle的task时候，经常会在此定义一些全局变量，然后直接去调用。</p>
-<h5 id="settings-gradle"><a href="#settings-gradle" class="headerlink" title="settings.gradle"></a>settings.gradle</h5><p>声明整个项目中需要gralde的module</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">include <span class="string">':app'</span></span><br></pre></td></tr></table></figure>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><strong>Maven与Gradle对比</strong></p>
-<ul>
-<li><a href="https://gradle.org/maven-vs-gradle/" target="_blank" rel="noopener">Gradle官网：Gradle vs Maven</a></li>
-<li><a href="http://www.cnblogs.com/huang0925/p/5209563.html" target="_blank" rel="noopener">Maven和Gradle对比</a></li>
-<li><a href="https://www.tianmaying.com/tutorial/Gradle" target="_blank" rel="noopener">Gradle相对于Maven的优势</a></li>
-</ul>
-<p><strong>Android</strong></p>
-<ul>
-<li><a href="https://developer.android.com/studio/releases/gradle-plugin" target="_blank" rel="noopener">Android官网Gradle Plugin介绍</a></li>
-<li><a href="http://stormzhang.com/android/2016/07/02/gradle-for-android-beginners/" target="_blank" rel="noopener">给 ANDROID 初学者的 GRADLE 知识普及</a></li>
-<li><a href="https://blog.csdn.net/u013553529/article/details/55011602" target="_blank" rel="noopener">gradle-wrapper.properties中各属性的含义</a></li>
-<li><a href="http://www.cnblogs.com/jiangxinnju/p/8229129.html" target="_blank" rel="noopener">彻底搞懂Gradle、Gradle Wrapper与Android Plugin for Gradle的区别和联系</a></li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/25/构建工具(五)：Android项目中的Gradle文件/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -913,101 +865,16 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>分析Android项目中的build.gradle中的使用到的不同仓库，以及怎样搭建使用内网Maven私服。</p>
 </blockquote>
-<h2 id="Maven仓库"><a href="#Maven仓库" class="headerlink" title="Maven仓库"></a>Maven仓库</h2><p>上几篇文件中，或多或少都讲述了仓库。有了仓库，我们就不用每一个项目中，都存储需要的依赖文件，声明某个存储所有依赖文件的位置，然后去该路径中引入，该文件可以称为Maven仓库。不仅避免了磁盘空间的浪费，而且还更好地管理依赖文件。</p>
-<p>仓库可以是本地的，也可以是远程的。下面我们就分析Android项目中的<code>build.gradle</code>中的关于仓库的声明，下面列出开发中遇到的所有仓库，不一定全部都会使用到。</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">repositories &#123;</span><br><span class="line">  <span class="comment">// 远程仓库</span></span><br><span class="line">  google()</span><br><span class="line">  jcenter()</span><br><span class="line">  mavenCentral()</span><br><span class="line">  <span class="comment">// 自定义远程仓库</span></span><br><span class="line">  maven &#123;</span><br><span class="line">    url <span class="string">"http://maven.aliyun.com/nexus/content/groups/publict"</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 本地仓库</span></span><br><span class="line">  mavenLocal()</span><br><span class="line">  maven&#123;</span><br><span class="line">    <span class="comment">// 应用Android Studio包内的仓库地址</span></span><br><span class="line">    url <span class="string">"/Applications/Android Studio.app/Contents/gradle/m2repository"</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 内网的私有仓库</span></span><br><span class="line">  maven&#123;</span><br><span class="line">     url “<span class="string">http:</span><span class="comment">//localhost:8081/repository/testRepository/”</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="仓库介绍"><a href="#仓库介绍" class="headerlink" title="仓库介绍"></a>仓库介绍</h3><h4 id="远程中央仓库"><a href="#远程中央仓库" class="headerlink" title="远程中央仓库"></a>远程中央仓库</h4><ul>
-<li>mavenCentral是最早的maven中央仓库，<a href="http://mvnrepository.com/" target="_blank" rel="noopener">Maven仓库网站</a>，可以通过<a href="http://repo2.maven.org/maven2/" target="_blank" rel="noopener">Maven仓库引用地址</a>看到全部内容。</li>
-<li>jcenter是Anroid Studio 0.8版本起的默认maven中央仓库，<a href="https://bintray.com/bintray/jcenter" target="_blank" rel="noopener">jcenter仓库网站</a>，可以通过<a href="http://jcenter.bintray.com/" target="_blank" rel="noopener">jcenter仓库引用地址</a>看到全部内容。</li>
-<li>google是Android Studio 3.0版本起添加的仓库，google把gralde插件、tools、support、design等依赖文件放在其中，可以通过<a href="https://dl.google.com/dl/android/maven2/index.html" target="_blank" rel="noopener">google仓库引用地址</a>看到全部内容。</li>
-<li>自定义远程仓库，如果觉得上面的仓库慢，可以使用阿里云的仓库。或者自己在内网搭建私有仓库，也可以这样声明。</li>
-</ul>
-<h4 id="本地仓库"><a href="#本地仓库" class="headerlink" title="本地仓库"></a>本地仓库</h4><ul>
-<li>mavenLocal是默认本地仓库，仓库位置在前面的Maven介绍及安装有介绍到，Mac默认为<code>${user.home}/.m2/repository</code>。</li>
-<li>自定义本地仓库地址：如果本地的其他路径下，也有存放依赖文件，可以在这里声明该路径下的仓库地址。上面举例声明了Android Studio包内的仓库，用命令行编译代码的时候，如要加载Android Studio包的tool文件夹内的独有依赖包，就可以声明该仓库。</li>
-</ul>
-<h3 id="搭建内网Maven私服"><a href="#搭建内网Maven私服" class="headerlink" title="搭建内网Maven私服"></a>搭建内网Maven私服</h3><h4 id="安装配置Nexus"><a href="#安装配置Nexus" class="headerlink" title="安装配置Nexus"></a>安装配置Nexus</h4><ul>
-<li><p>在maven仓库管理器<a href="https://www.sonatype.com/" target="_blank" rel="noopener">Sonatype Nexus官网</a>中，选择Products–&gt;NEXUS REPOSITORY OSS(免费)下载</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-01-15251699809974.jpg" alt=""></p>
-<p>我下载的版本为，Nexus Repository Manager OSS 3.x - OS X，解压存放在本地中</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  nexus-3.10.0-04-mac pwd</span><br><span class="line">/Users/guidongyuan/Applications/nexus-3.10.0-04-mac</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>把<code>nexus-3.10.0-04</code>的bin文件设置环境变量</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export NEXUS=/Users/guidongyuan/Applications/nexus-3.10.0-04-mac/nexus-3.10.0-04</span><br><span class="line">export PATH=$PATH:$NEXUS/bin</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看Java版本</p>
-<p>Nexus Repository Manager需要Java的运行环境，目前nexue 3需要JDK 1.8，如果有多个不同版本的JDK，且默认不是1.8，需要指定特定的JDK安装路径。</p>
-<p>修改<code>bin/nexus脚本</code>并找到该行<code>INSTALL4J_JAVA_HOME_OVERRIDE</code>，设置JDK的路径。</p>
-</li>
-<li><p>运行启动nexus</p>
-<p>运行的时候，提示找不到org.apache.felix.framework，最后才发现，用解压工具，解压出来的文件名变了！变了！变了！<code>org.apache.felix.framework-5.6.2.jar</code>变成了<code>org.apache.felix.framework-</code>，能不能这么坑！</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ nexus run</span><br><span class="line">Could not resolve mvn:org.apache.felix/org.apache.felix.framework/5.6.2</span><br></pre></td></tr></table></figure>
-<p>老老实实用命令行解压，再执行就可以了，终端出现这个，则可以表示启动成功</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Started Sonatype Nexus OSS 3.10.0-04</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看仓库网站</p>
-<p>启动成功后，在本地访问<code>localhost:8081</code>,可以看到如下</p>
-<p>默认的用户账号为<code>admin</code>，密码为<code>admin123</code></p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-02-15252200330507.jpg" alt=""></p>
-</li>
-<li><p>终端结束运行的Nexus</p>
-<p>通过<strong>Ctrl + C</strong>可以结束</p>
-</li>
-</ul>
-<h4 id="Nexus仓库介绍"><a href="#Nexus仓库介绍" class="headerlink" title="Nexus仓库介绍"></a>Nexus仓库介绍</h4><ul>
-<li><p>Blob Stores：仓库存储库，设置了依赖库的存储地址，默认名称为default，位置为<code>/Users/guidongyuan/Applications/nexus-3.10.0-04-mac/sonatype-work/nexus3/blobs/default</code></p>
-</li>
-<li><p>Repositories：仓库列表</p>
-<p><strong>component name</strong></p>
-<ul>
-<li>maven-central：maven中央库，默认从<a href="https://repo1.maven.org/maven2/拉取依赖包" target="_blank" rel="noopener">https://repo1.maven.org/maven2/拉取依赖包</a></li>
-<li>maven-releases：私库正式发行版依赖包</li>
-<li>maven-snapshots：私库快照（调试版本）依赖包</li>
-<li>maven-public：仓库分组，把上面三个仓库组合在一起对外提供服务，可以点击进去添加或者删除仓库，这样就不需要在pom文件中配置多个地址，一个就够了。</li>
-</ul>
-<p><strong>component type</strong></p>
-<ul>
-<li>hosted：宿主仓库，存放我们自己项目生成的库</li>
-<li>3rd party：第三方依赖的仓库，这个仓库内容通常是由内部人员自行下载之后发布上去</li>
-<li>proxy：远程仓库的代理，如果在本地找不到，则会从远程中央仓库中下载，再返回给用户，起到中转下载的作用。</li>
-</ul>
-</li>
-</ul>
-<p>具体介绍，可以参考<a href="https://help.sonatype.com/repomanager3/configuration/repository-management" target="_blank" rel="noopener">官网Nexus教程</a>或者<a href="https://blog.csdn.net/qq_26585943/article/details/79771313" target="_blank" rel="noopener">搭建局域网Maven私服并结合Android Studio实现代码复用</a>。</p>
-<h4 id="生成AAR文件"><a href="#生成AAR文件" class="headerlink" title="生成AAR文件"></a>生成AAR文件</h4><p>创建了内网的Maven仓库，就可以把一些功能模块上传上去。这里使用aar包作为讲解，不知道怎样生成的，可以参考如下：</p>
-<ul>
-<li><a href="https://www.jianshu.com/p/1777a634db5e" target="_blank" rel="noopener">Android Studio 打包及引用 AAR</a></li>
-</ul>
-<h4 id="上传依赖包"><a href="#上传依赖包" class="headerlink" title="上传依赖包"></a>上传依赖包</h4><h5 id="手动上传"><a href="#手动上传" class="headerlink" title="手动上传"></a>手动上传</h5><ul>
-<li><p>点击Upload，选择一个仓库</p>
-</li>
-<li><p>添加依赖包的信息</p>
-</li>
-</ul>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-03-15253504070683.jpg" alt=""></p>
-<h5 id="gradle上传"><a href="#gradle上传" class="headerlink" title="gradle上传"></a>gradle上传</h5><p>一两个依赖包上传还好，但是，如果多个，不可能这样手动上传，这个时候，就可以通过编写gralde进行上传。</p>
-<p>在<code>build.grald</code>文件中，编写一个上传的task。</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'maven'</span></span><br><span class="line">uploadArchives &#123;</span><br><span class="line">    repositories.mavenDeployer &#123;</span><br><span class="line">        pom.groupId = GROUP</span><br><span class="line">        pom.artifactId = ARTIFACTID</span><br><span class="line">        pom.version = VERSION</span><br><span class="line">        repository(<span class="string">url:</span> NEXUS_URL) &#123;</span><br><span class="line">            authentication(<span class="string">userName:</span> USER_NAME, <span class="string">password:</span> USER_PASSWORD)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>属性变量可以放在同个目录下的<code>gradle.properties</code>中，没有则需要自行创建。</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GROUP = com.guidongyuan.studytest</span><br><span class="line">ARTIFACTID = testandroidlibrary</span><br><span class="line">VERSION = <span class="number">1.0</span><span class="number">.0</span></span><br><span class="line">NEXUS_URL = <span class="string">http:</span><span class="comment">//localhost:8081/repository/testRepository/</span></span><br><span class="line">USER_NAME = admin</span><br><span class="line">USER_PASSWORD = admin123</span><br></pre></td></tr></table></figure>
-<p>然后，在终端中，执行<code>./gradlew uploadArchives</code>就可以上传。</p>
-<p>另外也可以创建一个gradle文件如gradle_push.gradle编写task任务，不过需要在<code>build.grald</code>文件中，进行引用。</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">from:</span> <span class="string">"./gradle_push.gradle"</span></span><br></pre></td></tr></table></figure>
-<p>上传完成后，可以在nexus中查找到。</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-17-15265146063221.jpg" alt=""></p>
-<h5 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h5><p>上传到仓库后，引用的时候，就可以直接定义仓库和依赖库</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">maven &#123;</span><br><span class="line">    url <span class="string">"http://localhost:8081/repository/testRepository/"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">'com.guidongyuan.studytest:testandroidlibrary:1.0.0'</span></span><br></pre></td></tr></table></figure>
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
-<li><a href="https://help.sonatype.com/repomanager3/installation" target="_blank" rel="noopener">sonatype官网安装教程</a></li>
-<li><a href="https://blog.csdn.net/qq_26585943/article/details/79771313" target="_blank" rel="noopener">搭建局域网Maven私服并结合Android Studio实现代码复用</a></li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/13/构建工具(四)：Maven仓库及搭建内网仓库/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
