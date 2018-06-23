@@ -90,19 +90,19 @@
 
 
 
-<meta name="description" content="React语法基础学完JavaScript后，就可以进下一步，学习React的开发了，学习Reac需要掌握几个知识点，JSX语法、组件、状态，生命周期。">
+<meta name="description" content="学完JavaScript后，就可以进下一步，学习React的开发了，学习Reac需要掌握几个知识点，JSX语法、组件、状态，生命周期。">
 <meta name="keywords" content="ReactNative,语法基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我们一起学ReactNative(五)：React语法基础">
 <meta property="og:url" content="http://yoursite.com/2018/06/23/我们一起学ReactNative(五)：React语法基础/index.html">
 <meta property="og:site_name" content="亦袁非猿">
-<meta property="og:description" content="React语法基础学完JavaScript后，就可以进下一步，学习React的开发了，学习Reac需要掌握几个知识点，JSX语法、组件、状态，生命周期。">
+<meta property="og:description" content="学完JavaScript后，就可以进下一步，学习React的开发了，学习Reac需要掌握几个知识点，JSX语法、组件、状态，生命周期。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-06-22-15296686573950.jpg">
-<meta property="og:updated_time" content="2018-06-23T06:45:19.978Z">
+<meta property="og:updated_time" content="2018-06-23T06:48:46.333Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我们一起学ReactNative(五)：React语法基础">
-<meta name="twitter:description" content="React语法基础学完JavaScript后，就可以进下一步，学习React的开发了，学习Reac需要掌握几个知识点，JSX语法、组件、状态，生命周期。">
+<meta name="twitter:description" content="学完JavaScript后，就可以进下一步，学习React的开发了，学习Reac需要掌握几个知识点，JSX语法、组件、状态，生命周期。">
 <meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2018-06-22-15296686573950.jpg">
 
 
@@ -373,9 +373,9 @@
       
 
       
-        <h2 id="React语法基础"><a href="#React语法基础" class="headerlink" title="React语法基础"></a>React语法基础</h2><p>学完JavaScript后，就可以进下一步，学习React的开发了，学习Reac需要掌握几个知识点，JSX语法、组件、状态，生命周期。</p>
+        <p>学完JavaScript后，就可以进下一步，学习React的开发了，学习Reac需要掌握几个知识点，JSX语法、组件、状态，生命周期。</p>
 <a id="more"></a>
-<p>关于React的语法，可以参考<a href="http://www.ruanyifeng.com/blog/2015/03/react.html" target="_blank" rel="noopener">React 入门实例教程</a>，基本可以对几个基础语法点进行理解，不过文章面对的是React.js，具体语法有一点点区别。下面的案例，基本语法点保持一致，但是面对的是ReactNative。</p>
+<h2 id="React语法基础"><a href="#React语法基础" class="headerlink" title="React语法基础"></a>React语法基础</h2><p>关于React的语法，可以参考<a href="http://www.ruanyifeng.com/blog/2015/03/react.html" target="_blank" rel="noopener">React 入门实例教程</a>，基本可以对几个基础语法点进行理解，不过文章面对的是React.js，具体语法有一点点区别。下面的案例，基本语法点保持一致，但是面对的是ReactNative。</p>
 <p>编写的时候，如果想方便，也可以在<a href="http://dabbott.github.io/react-native-web-player/" target="_blank" rel="noopener">在线模拟器</a>上进行练习。</p>
 <h3 id="显示一个组件"><a href="#显示一个组件" class="headerlink" title="显示一个组件"></a>显示一个组件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// demo1.js</span><br><span class="line">// 导入依赖包</span><br><span class="line">import React, &#123; Component &#125; from &apos;react&apos;</span><br><span class="line">import &#123;</span><br><span class="line">  AppRegistry,</span><br><span class="line">  Text,</span><br><span class="line">  View,</span><br><span class="line">&#125; from &apos;react-native&apos;</span><br><span class="line"></span><br><span class="line">// 定义一个组件</span><br><span class="line">export default class App extends Component&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;View&gt;</span><br><span class="line">                &lt;Text&gt;Hello World!&lt;/Text&gt;</span><br><span class="line">            &lt;/View&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// JS运行所有React Native应用的入口。应用的根组件应当通过AppRegistry.registerComponent方法注册自己，然后原生系统才可以加载应用的代码包</span><br><span class="line">AppRegistry.registerComponent(&apos;App&apos;, () =&gt; App)</span><br></pre></td></tr></table></figure>
 <h3 id="JSX语法"><a href="#JSX语法" class="headerlink" title="JSX语法"></a>JSX语法</h3><p>通过JSX语法，可以使得HTML和JavaScript语法混写，如果想写HTML语法，就使用<code>&lt;&gt;</code>，如果使用JavaScript语法，则使用<code>{}</code>。</p>
