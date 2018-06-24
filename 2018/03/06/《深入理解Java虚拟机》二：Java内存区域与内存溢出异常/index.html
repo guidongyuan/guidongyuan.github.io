@@ -98,15 +98,15 @@
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="断断续续把这本书的重点章节看完了，然而，重新回想一下，感觉又还回去了，既然这样，那就再刷一篇，用输出，归纳去倒逼自己理解！ 这一章，主要讲解Java虚拟机内存的各个区域，以及对对象的创建，布局和访问进行大概讲解。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-03-08-15204669815391.jpg">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-01-24-15167512136404.jpg">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-01-25-15168370113013.jpg">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-01-25-15168370288773.jpg">
-<meta property="og:updated_time" content="2018-03-16T00:23:05.000Z">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-03-08-15204669815391.jpg-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-01-24-15167512136404.jpg-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-01-25-15168370113013.jpg-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-01-25-15168370288773.jpg-wtmark">
+<meta property="og:updated_time" content="2018-06-24T07:30:13.636Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入理解Java虚拟机》二：Java内存区域与内存溢出异常">
 <meta name="twitter:description" content="断断续续把这本书的重点章节看完了，然而，重新回想一下，感觉又还回去了，既然这样，那就再刷一篇，用输出，归纳去倒逼自己理解！ 这一章，主要讲解Java虚拟机内存的各个区域，以及对对象的创建，布局和访问进行大概讲解。">
-<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2018-03-08-15204669815391.jpg">
+<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2018-03-08-15204669815391.jpg-wtmark">
 
 
 
@@ -381,8 +381,8 @@
 <p>这一章，主要讲解Java虚拟机内存的各个区域，以及对对象的创建，布局和访问进行大概讲解。</p>
 </blockquote>
 <a id="more"></a>
-<h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><p><img src="http://ol45hsxko.bkt.clouddn.com/2018-03-08-15204669815391.jpg" alt=""></p>
-<h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p><img src="http://ol45hsxko.bkt.clouddn.com/2018-01-24-15167512136404.jpg" alt=""></p>
+<h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><p><img src="http://ol45hsxko.bkt.clouddn.com/2018-03-08-15204669815391.jpg-wtmark" alt=""></p>
+<h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p><img src="http://ol45hsxko.bkt.clouddn.com/2018-01-24-15167512136404.jpg-wtmark" alt=""></p>
 <h3 id="程序计时器-Program-Counter-Register"><a href="#程序计时器-Program-Counter-Register" class="headerlink" title="程序计时器(Program Counter Register)"></a>程序计时器(Program Counter Register)</h3><ul>
 <li>定义：是一块较小的内存空间，它可以看作是当前线程所执行的字节码的行号指示器。用于线程切换后能恢复到正确的执行位置，每条线程都有一个独立的程序计时器，为线程私有。</li>
 <li>如果线程正在执行的是一个Java方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址；如果正在执行的是Native方法，这个计数器值则为空（Undefined）。</li>
@@ -451,9 +451,9 @@
 </ul>
 <h3 id="对象的访问定位"><a href="#对象的访问定位" class="headerlink" title="对象的访问定位"></a>对象的访问定位</h3><p>目前主流的访问方式有使用句柄和直接指针两种，对主要虚拟机Sun HotSpot而言，它是使用直接指针进行对象访问。</p>
 <h4 id="使用句柄"><a href="#使用句柄" class="headerlink" title="使用句柄"></a>使用句柄</h4><p>Java堆中将会划分出一块内存来作为句柄池，reference中存储的就是对象的句柄地址，句柄中包含了对象实例数据与类型数据的具体地址信息。<br>优点：在对象被移动时只会改变句柄中的实例数据指针，而reference本身不需要修改。</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-01-25-15168370113013.jpg" alt=""></p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-01-25-15168370113013.jpg-wtmark" alt=""></p>
 <h4 id="直接指针"><a href="#直接指针" class="headerlink" title="直接指针"></a>直接指针</h4><p>reference中存储的直接就是对象地址。<br>优点：速度更快</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-01-25-15168370288773.jpg" alt=""></p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-01-25-15168370288773.jpg-wtmark" alt=""></p>
 
       
     </div>

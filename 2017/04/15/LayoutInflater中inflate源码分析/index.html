@@ -98,12 +98,12 @@
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="对项目中的代码进行优化，删除Layout中过度绘制的代码，无意中发现了一个问题，ListView中的item的高度设置后没有效果，listview算是Android开发中最常用的控件之一，一直都在用，但是却没有遇到过item中设置无效，找到解决办法后，意识到自己对平时调用的方法参数不够理解。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2017-04-15-14922619130815.jpg">
-<meta property="og:updated_time" content="2017-04-15T14:29:45.000Z">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2017-04-15-14922619130815.jpg-wtmark">
+<meta property="og:updated_time" content="2018-06-24T07:30:13.664Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LayoutInflater中inflate源码分析">
 <meta name="twitter:description" content="对项目中的代码进行优化，删除Layout中过度绘制的代码，无意中发现了一个问题，ListView中的item的高度设置后没有效果，listview算是Android开发中最常用的控件之一，一直都在用，但是却没有遇到过item中设置无效，找到解决办法后，意识到自己对平时调用的方法参数不够理解。">
-<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2017-04-15-14922619130815.jpg">
+<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2017-04-15-14922619130815.jpg-wtmark">
 
 
 
@@ -402,7 +402,7 @@
 </blockquote>
 <p>从注释可以看出，不直接创建对象，而是通过去取回一个实例，看from(mContext)的实现可以发现最终也是通过getSystemService获取</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LayoutInflater <span class="title">from</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">    LayoutInflater LayoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);</span><br><span class="line">    <span class="keyword">if</span> (LayoutInflater == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> AssertionError(<span class="string">"LayoutInflater not found."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> LayoutInflater;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="inflate-源码分析"><a href="#inflate-源码分析" class="headerlink" title="inflate()源码分析"></a>inflate()源码分析</h4><p><img src="http://ol45hsxko.bkt.clouddn.com/2017-04-15-14922619130815.jpg" alt=""></p>
+<h4 id="inflate-源码分析"><a href="#inflate-源码分析" class="headerlink" title="inflate()源码分析"></a>inflate()源码分析</h4><p><img src="http://ol45hsxko.bkt.clouddn.com/2017-04-15-14922619130815.jpg-wtmark" alt=""></p>
 <p>inflate()有四个重载的方法，第一二个方法把resource解析为XmlResourceParser</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> View <span class="title">inflate</span><span class="params">(@LayoutRes <span class="keyword">int</span> resource, @Nullable ViewGroup root, <span class="keyword">boolean</span> attachToRoot)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> Resources res = getContext().getResources();</span><br><span class="line">        <span class="keyword">if</span> (DEBUG) &#123;</span><br><span class="line">            Log.d(TAG, <span class="string">"INFLATING from resource: \""</span> + res.getResourceName(resource) + <span class="string">"\" ("</span></span><br><span class="line">                    + Integer.toHexString(resource) + <span class="string">")"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> XmlResourceParser parser = res.getLayout(resource);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> inflate(parser, root, attachToRoot);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            parser.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>最后都调用了第四个方法</p>

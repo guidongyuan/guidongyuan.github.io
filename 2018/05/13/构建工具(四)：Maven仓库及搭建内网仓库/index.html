@@ -98,15 +98,15 @@
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="分析Android项目中的build.gradle中的使用到的不同仓库，以及怎样搭建使用内网Maven私服。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-01-15251699809974.jpg">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-02-15252200330507.jpg">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-03-15253504070683.jpg">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-17-15265146063221.jpg">
-<meta property="og:updated_time" content="2018-06-13T23:26:50.104Z">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-01-15251699809974.jpg-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-02-15252200330507.jpg-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-03-15253504070683.jpg-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-17-15265146063221.jpg-wtmark">
+<meta property="og:updated_time" content="2018-06-24T07:34:28.220Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="构建工具(四)：Maven仓库及搭建内网仓库">
 <meta name="twitter:description" content="分析Android项目中的build.gradle中的使用到的不同仓库，以及怎样搭建使用内网Maven私服。">
-<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-01-15251699809974.jpg">
+<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-01-15251699809974.jpg-wtmark">
 
 
 
@@ -395,7 +395,7 @@
 </ul>
 <h3 id="搭建内网Maven私服"><a href="#搭建内网Maven私服" class="headerlink" title="搭建内网Maven私服"></a>搭建内网Maven私服</h3><h4 id="安装配置Nexus"><a href="#安装配置Nexus" class="headerlink" title="安装配置Nexus"></a>安装配置Nexus</h4><ul>
 <li><p>在maven仓库管理器<a href="https://www.sonatype.com/" target="_blank" rel="noopener">Sonatype Nexus官网</a>中，选择Products–&gt;NEXUS REPOSITORY OSS(免费)下载</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-01-15251699809974.jpg" alt=""></p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-01-15251699809974.jpg-wtmark" alt=""></p>
 <p>我下载的版本为，Nexus Repository Manager OSS 3.x - OS X，解压存放在本地中</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  nexus-3.10.0-04-mac pwd</span><br><span class="line">/Users/guidongyuan/Applications/nexus-3.10.0-04-mac</span><br></pre></td></tr></table></figure>
 </li>
@@ -415,7 +415,7 @@
 <li><p>查看仓库网站</p>
 <p>启动成功后，在本地访问<code>localhost:8081</code>,可以看到如下</p>
 <p>默认的用户账号为<code>admin</code>，密码为<code>admin123</code></p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-02-15252200330507.jpg" alt=""></p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-02-15252200330507.jpg-wtmark" alt=""></p>
 </li>
 <li><p>终端结束运行的Nexus</p>
 <p>通过<strong>Ctrl + C</strong>可以结束</p>
@@ -451,7 +451,7 @@
 <li><p>添加依赖包的信息</p>
 </li>
 </ul>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-03-15253504070683.jpg" alt=""></p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-03-15253504070683.jpg-wtmark" alt=""></p>
 <h5 id="gradle上传"><a href="#gradle上传" class="headerlink" title="gradle上传"></a>gradle上传</h5><p>一两个依赖包上传还好，但是，如果多个，不可能这样手动上传，这个时候，就可以通过编写gralde进行上传。</p>
 <p>在<code>build.grald</code>文件中，编写一个上传的task。</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'maven'</span></span><br><span class="line">uploadArchives &#123;</span><br><span class="line">    repositories.mavenDeployer &#123;</span><br><span class="line">        pom.groupId = GROUP</span><br><span class="line">        pom.artifactId = ARTIFACTID</span><br><span class="line">        pom.version = VERSION</span><br><span class="line">        repository(<span class="string">url:</span> NEXUS_URL) &#123;</span><br><span class="line">            authentication(<span class="string">userName:</span> USER_NAME, <span class="string">password:</span> USER_PASSWORD)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -461,7 +461,7 @@
 <p>另外也可以创建一个gradle文件如gradle_push.gradle编写task任务，不过需要在<code>build.grald</code>文件中，进行引用。</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">from:</span> <span class="string">"./gradle_push.gradle"</span></span><br></pre></td></tr></table></figure>
 <p>上传完成后，可以在nexus中查找到。</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-17-15265146063221.jpg" alt=""></p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-17-15265146063221.jpg-wtmark" alt=""></p>
 <h5 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h5><p>上传到仓库后，引用的时候，就可以直接定义仓库和依赖库</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">maven &#123;</span><br><span class="line">    url <span class="string">"http://localhost:8081/repository/testRepository/"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">'com.guidongyuan.studytest:testandroidlibrary:1.0.0'</span></span><br></pre></td></tr></table></figure>
