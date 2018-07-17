@@ -1,1 +1,919 @@
-<!doctype html><html class="theme-next mist use-motion" lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css"><meta name="keywords" content="环境配置,ReactNative,"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1"><meta name="description" content="最近想在项目中实现跨平台，对比一下主流的实现方式，选用了React Native。参考网上的教程，对于一直都是原生移动端开发，对前端的知识不是很了解的，感觉入门不是特别简单。于是打算把学习React Native的过程记录下来。"><meta name="keywords" content="环境配置,ReactNative"><meta property="og:type" content="article"><meta property="og:title" content="我们一起学React Native(一)：环境配置"><meta property="og:url" content="http://yoursite.com/2018/04/17/我们一起学ReactNative(一)：环境配置/index.html"><meta property="og:site_name" content="亦袁非猿"><meta property="og:description" content="最近想在项目中实现跨平台，对比一下主流的实现方式，选用了React Native。参考网上的教程，对于一直都是原生移动端开发，对前端的知识不是很了解的，感觉入门不是特别简单。于是打算把学习React Native的过程记录下来。"><meta property="og:locale" content="zh-Hans"><meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-04-13-Screenshot_2018-04-13-20-12-14.png-wtmark"><meta property="og:updated_time" content="2018-06-24T07:34:28.232Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="我们一起学React Native(一)：环境配置"><meta name="twitter:description" content="最近想在项目中实现跨平台，对比一下主流的实现方式，选用了React Native。参考网上的教程，对于一直都是原生移动端开发，对前端的知识不是很了解的，感觉入门不是特别简单。于是打算把学习React Native的过程记录下来。"><meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2018-04-13-Screenshot_2018-04-13-20-12-14.png-wtmark"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Mist",sidebar:{position:"left",display:"post",offset:12,offset_float:0,b2t:!1,scrollpercent:!1},fancybox:!0,motion:!0,duoshuo:{userId:"0",author:"博主"},algolia:{applicationID:"OF78IO15IZ",apiKey:"75e8a500a6a0237315a8a25669328dbf",indexName:"First Index",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="http://yoursite.com/2018/04/17/我们一起学ReactNative(一)：环境配置/"><title>我们一起学React Native(一)：环境配置 | 亦袁非猿</title></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">亦袁非猿</span><span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle"></p></div><div class="site-nav-toggle"> <button><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br> 首页</a></li><li class="menu-item menu-item-categories"><a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br> 分类</a></li><li class="menu-item menu-item-tags"><a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br> 标签</a></li><li class="menu-item menu-item-archives"><a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br> 时间轴</a></li></ul></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/17/我们一起学ReactNative(一)：环境配置/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="亦袁非猿"><meta itemprop="description" content=""><meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="亦袁非猿"></span><header class="post-header"><h1 class="post-title" itemprop="name headline"> 我们一起学React Native(一)：环境配置</h1><div class="post-meta"><i class="fa fa-thumb-tack"></i> <font color="7D26CD">置顶</font> <span class="post-meta-divider">|</span><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-17T06:54:49+08:00">2018-04-17</time></span> <span class="post-category"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span> <span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ReactNative/" itemprop="url" rel="index"><span itemprop="name">ReactNative</span></a></span></span> <span id="/2018/04/17/我们一起学ReactNative(一)：环境配置/" class="leancloud_visitors" data-flag-title="我们一起学React Native(一)：环境配置"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span> <span class="post-meta-item-text">阅读次数</span><span class="leancloud-visitors-count"></span></span></div></header><div class="post-body" itemprop="articleBody"><blockquote><p>最近想在项目中实现跨平台，对比一下主流的实现方式，选用了React Native。参考网上的教程，对于一直都是原生移动端开发，对前端的知识不是很了解的，感觉入门不是特别简单。于是打算把学习React Native的过程记录下来。</p></blockquote><a id="more"></a><h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>基本参考React Native中文网搭建开发环境教程</p><blockquote><p><a href="https://reactnative.cn/docs/0.40/getting-started.html#content" target="_blank" rel="noopener">搭建开发环境</a></p></blockquote><p>安装流程就不详细写了，毕竟平台不同，系统原有软件的版本也不同，就算再详细下出来，也很难涉及全，可参考价值不大，况且React Native中文网写得很全面了。</p><p>我自己homebrew，Node，Android Studio之前都安装过了，基本不需要改动，就可以直接使用。网络方面，使用梯子，也一切顺利。</p><h3 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h3><ol><li>安装Homebrew</li><li>用homebrew安装node</li><li>安装Yarn，react-native-cli</li><li>安装Xcode，macos都有</li><li>安装Watchman</li><li>安装Android Studio，Android SDK，Java环境，模拟器</li><li>安装webstorm开发工具</li></ol><h3 id="输出版本号判断是否安装成功"><a href="#输出版本号判断是否安装成功" class="headerlink" title="输出版本号判断是否安装成功"></a>输出版本号判断是否安装成功</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ brew -v</span><br><span class="line">Homebrew 1.6.0</span><br><span class="line">Homebrew/homebrew-core (git revision 47aeb6; last commit 2018-04-12)</span><br><span class="line"></span><br><span class="line">➜  ~ node -v</span><br><span class="line">v8.11.1</span><br><span class="line"></span><br><span class="line">➜  ~ xcodebuild -version</span><br><span class="line">Xcode 9.3</span><br><span class="line">Build version 9E145</span><br><span class="line"></span><br><span class="line">➜  ~ watchman -v</span><br><span class="line">4.9.0</span><br><span class="line"></span><br><span class="line">➜  ~ java -v</span><br><span class="line">Unrecognized option: -v</span><br><span class="line">Error: Could not create the Java Virtual Machine.</span><br><span class="line">Error: A fatal exception has occurred. Program will exit.</span><br><span class="line"></span><br><span class="line">➜  ~ java -version</span><br><span class="line">java version "1.8.0_112"</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_112-b16)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.112-b16, mixed mode)</span><br></pre></td></tr></table></figure><h2 id="编译项目测试运行环境"><a href="#编译项目测试运行环境" class="headerlink" title="编译项目测试运行环境"></a>编译项目测试运行环境</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 创建名称为AwesomeProject的项目</span></span></span><br><span class="line">➜  ~ react-native init AwesomeProject</span><br><span class="line">➜  ~ cd AwesomeProject</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 运行Android 项目</span></span></span><br><span class="line">➜  ~ react-native run-android</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 运行IOS 项目</span></span></span><br><span class="line">➜  ~ react-native run-ios</span><br></pre></td></tr></table></figure><h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p> 看到<strong>Welcome to React Native</strong>，表示搭建开发环境，创建，运行React Native应用完成。为啥不是显示<strong>hello world</strong>呢！！！<br><img src="http://ol45hsxko.bkt.clouddn.com/2018-04-13-Screenshot_2018-04-13-20-12-14.png-wtmark" alt="Screenshot_2018-04-13-20-12-14"></p><h2 id="错误点"><a href="#错误点" class="headerlink" title="错误点"></a>错误点</h2><ol><li><p><strong>Error: Your Xcode (8.2) is too outdated.</strong></p><p>由于刚刚升级了Mac OS为10.3，Xcode没有更新到，现在提示该错误，直接在App Store升级Xcode就可以了。</p></li><li><p><strong>warning You are using Node “7.7.1” which is not supported and may encounter bugs or unexpected behavior. Yarn supports the following semver range: “^4.8.0 || ^5.7.0 || ^6.2.2 || ^8.0.0”</strong></p><p>Node版本不符合，有warning提示，那就重新Node版本吧</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 查找有效的node版本，打钩表示已经安装上的</span></span></span><br><span class="line">➜  ~ brew search node</span><br><span class="line">==&gt; Searching local taps...</span><br><span class="line">node ✔             libbitcoin-node    node@4             nodeenv</span><br><span class="line">node@8 ✔           llnode             node@6             nodenv</span><br><span class="line">leafnode           node-build         nodebrew</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 断开当前版本</span></span></span><br><span class="line">➜  ~ brew unlink node</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 安装node8版本</span></span></span><br><span class="line">➜  ~ brew install node@8</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 连接新安装的node8版本，后续切换也是通过这种方式</span></span></span><br><span class="line">➜  ~ brew link node@8</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 显示当前版本是否正确</span></span></span><br><span class="line">➜  ~ node -version</span><br></pre></td></tr></table></figure></li></ol><h3 id="端口占用出错"><a href="#端口占用出错" class="headerlink" title="端口占用出错"></a>端口占用出错</h3><ol><li><p><strong>unable to load script from assets ‘index.android bundle’ ,make sure your bundle is packaged correctly or youu’re runing a packager server</strong></p><blockquote><p>后来发现，不需要生成<code>index.android.bundle</code>文件也可以解决该问题，具体看错误6</p></blockquote><ul><li><p>创建assets文件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  AwesomeProject mkdir android/app/src/main/assets</span><br></pre></td></tr></table></figure></li><li><p>生成<code>index.android.bundle</code>文件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  AwesomeProject react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/</span><br></pre></td></tr></table></figure></li><li><p>重新编译运行</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  AwesomeProject react-native run-android</span><br></pre></td></tr></table></figure></li></ul></li><li><p><strong>The development server returned response error code:404</strong></p><p>该问题与上面的，应该是有联系的。上面的问题解决后，点开菜单，设置<code>Enable Hot Reloadding</code>出现了错误，提示如下。React Native怎么问题那么多？？？回想上一周创建项目的时候，都没有这些问题，也没有去创建<code>index.android.bundle</code>文件，一切正常。</p><p>一直发现不知道什么问题，就先忽略不去管它，然后，修改<code>App.js</code>的代码，发现修改后，重新运行，一点效果都没有？？？仔细看发现，运行的时候，终端出现了下面的错误。</p></li><li><p><strong>js server not recognized, continuing with build</strong></p><p>该问题的出现，是因为端口被占用了，默认是用8081的端口。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看端口占用</span></span><br><span class="line">➜ lsof -i:8081</span><br><span class="line">COMMAND   PID        USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME</span><br><span class="line">node    58043 guidongyuan   20u  IPv6 0x4c86dd8abf88c407      0t0  TCP *:sunproxyadmin (LISTEN)、</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">kill</span>掉占用的进程</span></span><br><span class="line">➜  ~ kill -9 58043</span><br></pre></td></tr></table></figure><p>重新编译运行就可以了</p><p>通过该方式修复了问题错误4和5后，发现把错误3中为了修复错误新增的文件删除掉，也不会出错。看来都是端口的问题。</p></li></ol></div><div></div><div></div><div></div><footer class="post-footer"><div class="post-tags"> <a href="/tags/环境配置/" rel="tag"># 环境配置</a> <a href="/tags/ReactNative/" rel="tag"># ReactNative</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2018/03/16/Mysql安装流程/" rel="next" title="MySQL安装流程"><i class="fa fa-chevron-left"></i> MySQL安装流程</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"> <a href="/2018/04/18/我们一起学ReactNative(二)：概念介绍/" rel="prev" title="我们一起学React Native(二)：概念介绍">我们一起学React Native(二)：概念介绍<i class="fa fa-chevron-right"></i></a></div></div></footer></article><div class="post-spread"></div></div></div><div class="comments" id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQzOC82MDA2"></div></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview"> 站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg" alt="亦袁非猿"><p class="site-author-name" itemprop="name">亦袁非猿</p><p class="site-description motion-element" itemprop="description">while(写出来){<br> 理解力++;<br> 表达力++; }</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/archives"><span class="site-state-item-count">28</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"> <a href="/categories/index.html"><span class="site-state-item-count">5</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"> <a href="/tags/index.html"><span class="site-state-item-count">20</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="links-of-author motion-element"></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境配置"><span class="nav-number">1.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本流程"><span class="nav-number">1.1.</span> <span class="nav-text">基本流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出版本号判断是否安装成功"><span class="nav-number">1.2.</span> <span class="nav-text">输出版本号判断是否安装成功</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译项目测试运行环境"><span class="nav-number">2.</span> <span class="nav-text">编译项目测试运行环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运行效果"><span class="nav-number">2.1.</span> <span class="nav-text">运行效果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误点"><span class="nav-number">3.</span> <span class="nav-text">错误点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#端口占用出错"><span class="nav-number">3.1.</span> <span class="nav-text">端口占用出错</span></a></li></ol></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright"> &copy; <span itemprop="copyrightYear">2018</span><span class="with-love"><i class="fa fa-heart"></i></span> <span class="author" itemprop="copyrightHolder">亦袁非猿</span></div><p>Hosted by <a href="https://pages.coding.me" style="font-weight:700">Coding Pages</a></p></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script><script type="text/javascript">!function(e,t){var n,c=e.getElementsByTagName(t)[0];"function"!=typeof LivereTower&&((n=e.createElement(t)).src="https://cdn-city.livere.com/js/embed.dist.js",n.async=!0,c.parentNode.insertBefore(n,c))}(document,"script")</script><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script><script>AV.initialize("Ivcwx7f8x7ghc8SWU0YMuIFI-gzGzoHsz","mQEm0lIov3tBcrPByox6zHc0")</script><script>function showTime(e){var t=new AV.Query(e),c=[],u=$(".leancloud_visitors");u.each(function(){c.push($(this).attr("id").trim())}),t.containedIn("url",c),t.find().done(function(e){var t=".leancloud-visitors-count";if(0!==e.length){for(var n=0;n<e.length;n++){var o=e[n],i=o.get("url"),s=o.get("time"),r=document.getElementById(i);$(r).find(t).text(s)}for(n=0;n<c.length;n++){i=c[n],r=document.getElementById(i);var l=$(r).find(t);""==l.text()&&l.text(0)}}else u.find(t).text(0)}).fail(function(e,t){console.log("Error: "+t.code+" "+t.message)})}function addCount(i){var e=$(".leancloud_visitors"),s=e.attr("id").trim(),r=e.attr("data-flag-title").trim(),t=new AV.Query(i);t.equalTo("url",s),t.find({success:function(e){if(0<e.length){var t=e[0];t.fetchWhenSave(!0),t.increment("time"),t.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to save Visitor num, with error message: "+t.message)}})}else{var n=new i,o=new AV.ACL;o.setPublicReadAccess(!0),o.setPublicWriteAccess(!0),n.setACL(o),n.set("title",r),n.set("url",s),n.set("time",1),n.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to create")}})}},error:function(e){console.log("Error:"+e.code+" "+e.message)}})}$(function(){var e=AV.Object.extend("Counter");1==$(".leancloud_visitors").length?addCount(e):1<$(".post-title-link").length&&showTime(e)})</script></body></html>
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="环境配置,ReactNative," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="最近想在项目中实现跨平台，对比一下主流的实现方式，选用了React Native。参考网上的教程，对于一直都是原生移动端开发，对前端的知识不是很了解的，感觉入门不是特别简单。于是打算把学习React Native的过程记录下来。">
+<meta name="keywords" content="环境配置,ReactNative">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我们一起学React Native(一)：环境配置">
+<meta property="og:url" content="http://yoursite.com/2018/04/17/我们一起学ReactNative(一)：环境配置/index.html">
+<meta property="og:site_name" content="亦袁非猿">
+<meta property="og:description" content="最近想在项目中实现跨平台，对比一下主流的实现方式，选用了React Native。参考网上的教程，对于一直都是原生移动端开发，对前端的知识不是很了解的，感觉入门不是特别简单。于是打算把学习React Native的过程记录下来。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-04-13-Screenshot_2018-04-13-20-12-14.png-wtmark">
+<meta property="og:updated_time" content="2018-06-24T07:34:28.232Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="我们一起学React Native(一)：环境配置">
+<meta name="twitter:description" content="最近想在项目中实现跨平台，对比一下主流的实现方式，选用了React Native。参考网上的教程，对于一直都是原生移动端开发，对前端的知识不是很了解的，感觉入门不是特别简单。于是打算把学习React Native的过程记录下来。">
+<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2018-04-13-Screenshot_2018-04-13-20-12-14.png-wtmark">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'OF78IO15IZ',
+      apiKey: '75e8a500a6a0237315a8a25669328dbf',
+      indexName: 'First Index',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/17/我们一起学ReactNative(一)：环境配置/"/>
+
+
+
+
+
+  <title>我们一起学React Native(一)：环境配置 | 亦袁非猿</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亦袁非猿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/17/我们一起学ReactNative(一)：环境配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亦袁非猿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亦袁非猿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                我们一起学React Native(一)：环境配置
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+              <i class="fa fa-thumb-tack"></i>
+              <font color=7D26CD>置顶</font>
+              <span class="post-meta-divider">|</span>
+          
+
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-17T06:54:49+08:00">
+                2018-04-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ReactNative/" itemprop="url" rel="index">
+                    <span itemprop="name">ReactNative</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/04/17/我们一起学ReactNative(一)：环境配置/" class="leancloud_visitors" data-flag-title="我们一起学React Native(一)：环境配置">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>最近想在项目中实现跨平台，对比一下主流的实现方式，选用了React Native。参考网上的教程，对于一直都是原生移动端开发，对前端的知识不是很了解的，感觉入门不是特别简单。于是打算把学习React Native的过程记录下来。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>基本参考React Native中文网搭建开发环境教程</p>
+<blockquote>
+<p><a href="https://reactnative.cn/docs/0.40/getting-started.html#content" target="_blank" rel="noopener">搭建开发环境</a></p>
+</blockquote>
+<p>安装流程就不详细写了，毕竟平台不同，系统原有软件的版本也不同，就算再详细下出来，也很难涉及全，可参考价值不大，况且React Native中文网写得很全面了。</p>
+<p>我自己homebrew，Node，Android Studio之前都安装过了，基本不需要改动，就可以直接使用。网络方面，使用梯子，也一切顺利。</p>
+<h3 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h3><ol>
+<li>安装Homebrew</li>
+<li>用homebrew安装node</li>
+<li>安装Yarn，react-native-cli</li>
+<li>安装Xcode，macos都有</li>
+<li>安装Watchman</li>
+<li>安装Android Studio，Android SDK，Java环境，模拟器</li>
+<li>安装webstorm开发工具</li>
+</ol>
+<h3 id="输出版本号判断是否安装成功"><a href="#输出版本号判断是否安装成功" class="headerlink" title="输出版本号判断是否安装成功"></a>输出版本号判断是否安装成功</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ brew -v</span><br><span class="line">Homebrew 1.6.0</span><br><span class="line">Homebrew/homebrew-core (git revision 47aeb6; last commit 2018-04-12)</span><br><span class="line"></span><br><span class="line">➜  ~ node -v</span><br><span class="line">v8.11.1</span><br><span class="line"></span><br><span class="line">➜  ~ xcodebuild -version</span><br><span class="line">Xcode 9.3</span><br><span class="line">Build version 9E145</span><br><span class="line"></span><br><span class="line">➜  ~ watchman -v</span><br><span class="line">4.9.0</span><br><span class="line"></span><br><span class="line">➜  ~ java -v</span><br><span class="line">Unrecognized option: -v</span><br><span class="line">Error: Could not create the Java Virtual Machine.</span><br><span class="line">Error: A fatal exception has occurred. Program will exit.</span><br><span class="line"></span><br><span class="line">➜  ~ java -version</span><br><span class="line">java version "1.8.0_112"</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_112-b16)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.112-b16, mixed mode)</span><br></pre></td></tr></table></figure>
+<h2 id="编译项目测试运行环境"><a href="#编译项目测试运行环境" class="headerlink" title="编译项目测试运行环境"></a>编译项目测试运行环境</h2>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 创建名称为AwesomeProject的项目</span></span></span><br><span class="line">➜  ~ react-native init AwesomeProject</span><br><span class="line">➜  ~ cd AwesomeProject</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 运行Android 项目</span></span></span><br><span class="line">➜  ~ react-native run-android</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 运行IOS 项目</span></span></span><br><span class="line">➜  ~ react-native run-ios</span><br></pre></td></tr></table></figure>
+<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p>   看到<strong>Welcome to React Native</strong>，表示搭建开发环境，创建，运行React Native应用完成。为啥不是显示<strong>hello world</strong>呢！！！<br><img src="http://ol45hsxko.bkt.clouddn.com/2018-04-13-Screenshot_2018-04-13-20-12-14.png-wtmark" alt="Screenshot_2018-04-13-20-12-14"></p>
+<h2 id="错误点"><a href="#错误点" class="headerlink" title="错误点"></a>错误点</h2><ol>
+<li><p><strong>Error: Your Xcode (8.2) is too outdated.</strong></p>
+<p>由于刚刚升级了Mac OS为10.3，Xcode没有更新到，现在提示该错误，直接在App Store升级Xcode就可以了。</p>
+</li>
+<li><p><strong>warning You are using Node “7.7.1” which is not supported and may encounter bugs or unexpected behavior. Yarn supports the following semver range: “^4.8.0 || ^5.7.0 || ^6.2.2 || ^8.0.0”</strong></p>
+<p>Node版本不符合，有warning提示，那就重新Node版本吧</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 查找有效的node版本，打钩表示已经安装上的</span></span></span><br><span class="line">➜  ~ brew search node</span><br><span class="line">==&gt; Searching local taps...</span><br><span class="line">node ✔             libbitcoin-node    node@4             nodeenv</span><br><span class="line">node@8 ✔           llnode             node@6             nodenv</span><br><span class="line">leafnode           node-build         nodebrew</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 断开当前版本</span></span></span><br><span class="line">➜  ~ brew unlink node</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 安装node8版本</span></span></span><br><span class="line">➜  ~ brew install node@8</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 连接新安装的node8版本，后续切换也是通过这种方式</span></span></span><br><span class="line">➜  ~ brew link node@8</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 显示当前版本是否正确</span></span></span><br><span class="line">➜  ~ node -version</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="端口占用出错"><a href="#端口占用出错" class="headerlink" title="端口占用出错"></a>端口占用出错</h3><ol>
+<li><p><strong>unable to load script from assets ‘index.android bundle’  ,make sure your bundle is packaged correctly or youu’re runing a packager server</strong></p>
+<blockquote>
+<p>后来发现，不需要生成<code>index.android.bundle</code>文件也可以解决该问题，具体看错误6</p>
+</blockquote>
+<ul>
+<li><p>创建assets文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  AwesomeProject mkdir android/app/src/main/assets</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成<code>index.android.bundle</code>文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  AwesomeProject react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重新编译运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  AwesomeProject react-native run-android</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>The development server returned response error code:404</strong></p>
+<p>该问题与上面的，应该是有联系的。上面的问题解决后，点开菜单，设置<code>Enable Hot Reloadding</code>出现了错误，提示如下。React Native怎么问题那么多？？？回想上一周创建项目的时候，都没有这些问题，也没有去创建<code>index.android.bundle</code>文件，一切正常。</p>
+<p>一直发现不知道什么问题，就先忽略不去管它，然后，修改<code>App.js</code>的代码，发现修改后，重新运行，一点效果都没有？？？仔细看发现，运行的时候，终端出现了下面的错误。</p>
+</li>
+<li><p><strong>js server not recognized, continuing with build</strong></p>
+<p>该问题的出现，是因为端口被占用了，默认是用8081的端口。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看端口占用</span></span><br><span class="line">➜ lsof -i:8081</span><br><span class="line">COMMAND   PID        USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME</span><br><span class="line">node    58043 guidongyuan   20u  IPv6 0x4c86dd8abf88c407      0t0  TCP *:sunproxyadmin (LISTEN)、</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">kill</span>掉占用的进程</span></span><br><span class="line">➜  ~ kill -9 58043</span><br></pre></td></tr></table></figure>
+<p>重新编译运行就可以了</p>
+<p>通过该方式修复了问题错误4和5后，发现把错误3中为了修复错误新增的文件删除掉，也不会出错。看来都是端口的问题。</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/环境配置/" rel="tag"># 环境配置</a>
+          
+            <a href="/tags/ReactNative/" rel="tag"># ReactNative</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/16/Mysql安装流程/" rel="next" title="MySQL安装流程">
+                <i class="fa fa-chevron-left"></i> MySQL安装流程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/18/我们一起学ReactNative(二)：概念介绍/" rel="prev" title="我们一起学React Native(二)：概念介绍">
+                我们一起学React Native(二)：概念介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQzOC82MDA2"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg"
+               alt="亦袁非猿" />
+          <p class="site-author-name" itemprop="name">亦袁非猿</p>
+           
+              <p class="site-description motion-element" itemprop="description">while(写出来){  <br>
+  理解力++; <br>
+  表达力++; }
+</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境配置"><span class="nav-number">1.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本流程"><span class="nav-number">1.1.</span> <span class="nav-text">基本流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出版本号判断是否安装成功"><span class="nav-number">1.2.</span> <span class="nav-text">输出版本号判断是否安装成功</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译项目测试运行环境"><span class="nav-number">2.</span> <span class="nav-text">编译项目测试运行环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运行效果"><span class="nav-number">2.1.</span> <span class="nav-text">运行效果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误点"><span class="nav-number">3.</span> <span class="nav-text">错误点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#端口占用出错"><span class="nav-number">3.1.</span> <span class="nav-text">端口占用出错</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亦袁非猿</span>
+</div>
+
+
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("Ivcwx7f8x7ghc8SWU0YMuIFI-gzGzoHsz", "mQEm0lIov3tBcrPByox6zHc0");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

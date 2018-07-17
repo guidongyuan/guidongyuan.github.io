@@ -1,1 +1,952 @@
-<!doctype html><html class="theme-next mist use-motion" lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css"><meta name="keywords" content="构建工具,Maven,"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1"><meta name="description" content="分析Android项目中的build.gradle中的使用到的不同仓库，以及怎样搭建使用内网Maven私服。"><meta name="keywords" content="构建工具,Maven"><meta property="og:type" content="article"><meta property="og:title" content="构建工具(四)：Maven仓库及搭建内网仓库"><meta property="og:url" content="http://yoursite.com/2018/05/13/构建工具(四)：Maven仓库及搭建内网仓库/index.html"><meta property="og:site_name" content="亦袁非猿"><meta property="og:description" content="分析Android项目中的build.gradle中的使用到的不同仓库，以及怎样搭建使用内网Maven私服。"><meta property="og:locale" content="zh-Hans"><meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-01-15251699809974.jpg-wtmark"><meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-02-15252200330507.jpg-wtmark"><meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-03-15253504070683.jpg-wtmark"><meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-17-15265146063221.jpg-wtmark"><meta property="og:updated_time" content="2018-06-24T07:34:28.220Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="构建工具(四)：Maven仓库及搭建内网仓库"><meta name="twitter:description" content="分析Android项目中的build.gradle中的使用到的不同仓库，以及怎样搭建使用内网Maven私服。"><meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-01-15251699809974.jpg-wtmark"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Mist",sidebar:{position:"left",display:"post",offset:12,offset_float:0,b2t:!1,scrollpercent:!1},fancybox:!0,motion:!0,duoshuo:{userId:"0",author:"博主"},algolia:{applicationID:"OF78IO15IZ",apiKey:"75e8a500a6a0237315a8a25669328dbf",indexName:"First Index",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="http://yoursite.com/2018/05/13/构建工具(四)：Maven仓库及搭建内网仓库/"><title>构建工具(四)：Maven仓库及搭建内网仓库 | 亦袁非猿</title></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">亦袁非猿</span><span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle"></p></div><div class="site-nav-toggle"> <button><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br> 首页</a></li><li class="menu-item menu-item-categories"><a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br> 分类</a></li><li class="menu-item menu-item-tags"><a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br> 标签</a></li><li class="menu-item menu-item-archives"><a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br> 时间轴</a></li></ul></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/13/构建工具(四)：Maven仓库及搭建内网仓库/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="亦袁非猿"><meta itemprop="description" content=""><meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="亦袁非猿"></span><header class="post-header"><h1 class="post-title" itemprop="name headline"> 构建工具(四)：Maven仓库及搭建内网仓库</h1><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-13T05:57:29+08:00">2018-05-13</time></span> <span class="post-category"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span> <span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/构建工具/" itemprop="url" rel="index"><span itemprop="name">构建工具</span></a></span></span> <span id="/2018/05/13/构建工具(四)：Maven仓库及搭建内网仓库/" class="leancloud_visitors" data-flag-title="构建工具(四)：Maven仓库及搭建内网仓库"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span> <span class="post-meta-item-text">阅读次数</span><span class="leancloud-visitors-count"></span></span></div></header><div class="post-body" itemprop="articleBody"><blockquote><p>分析Android项目中的build.gradle中的使用到的不同仓库，以及怎样搭建使用内网Maven私服。</p></blockquote><a id="more"></a><h2 id="Maven仓库"><a href="#Maven仓库" class="headerlink" title="Maven仓库"></a>Maven仓库</h2><p>上几篇文件中，或多或少都讲述了仓库。有了仓库，我们就不用每一个项目中，都存储需要的依赖文件，声明某个存储所有依赖文件的位置，然后去该路径中引入，该文件可以称为Maven仓库。不仅避免了磁盘空间的浪费，而且还更好地管理依赖文件。</p><p>仓库可以是本地的，也可以是远程的。下面我们就分析Android项目中的<code>build.gradle</code>中的关于仓库的声明，下面列出开发中遇到的所有仓库，不一定全部都会使用到。</p><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">repositories &#123;</span><br><span class="line">  <span class="comment">// 远程仓库</span></span><br><span class="line">  google()</span><br><span class="line">  jcenter()</span><br><span class="line">  mavenCentral()</span><br><span class="line">  <span class="comment">// 自定义远程仓库</span></span><br><span class="line">  maven &#123;</span><br><span class="line">    url <span class="string">"http://maven.aliyun.com/nexus/content/groups/publict"</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 本地仓库</span></span><br><span class="line">  mavenLocal()</span><br><span class="line">  maven&#123;</span><br><span class="line">    <span class="comment">// 应用Android Studio包内的仓库地址</span></span><br><span class="line">    url <span class="string">"/Applications/Android Studio.app/Contents/gradle/m2repository"</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 内网的私有仓库</span></span><br><span class="line">  maven&#123;</span><br><span class="line">     url “<span class="string">http:</span><span class="comment">//localhost:8081/repository/testRepository/”</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="仓库介绍"><a href="#仓库介绍" class="headerlink" title="仓库介绍"></a>仓库介绍</h3><h4 id="远程中央仓库"><a href="#远程中央仓库" class="headerlink" title="远程中央仓库"></a>远程中央仓库</h4><ul><li>mavenCentral是最早的maven中央仓库，<a href="http://mvnrepository.com/" target="_blank" rel="noopener">Maven仓库网站</a>，可以通过<a href="http://repo2.maven.org/maven2/" target="_blank" rel="noopener">Maven仓库引用地址</a>看到全部内容。</li><li>jcenter是Anroid Studio 0.8版本起的默认maven中央仓库，<a href="https://bintray.com/bintray/jcenter" target="_blank" rel="noopener">jcenter仓库网站</a>，可以通过<a href="http://jcenter.bintray.com/" target="_blank" rel="noopener">jcenter仓库引用地址</a>看到全部内容。</li><li>google是Android Studio 3.0版本起添加的仓库，google把gralde插件、tools、support、design等依赖文件放在其中，可以通过<a href="https://dl.google.com/dl/android/maven2/index.html" target="_blank" rel="noopener">google仓库引用地址</a>看到全部内容。</li><li>自定义远程仓库，如果觉得上面的仓库慢，可以使用阿里云的仓库。或者自己在内网搭建私有仓库，也可以这样声明。</li></ul><h4 id="本地仓库"><a href="#本地仓库" class="headerlink" title="本地仓库"></a>本地仓库</h4><ul><li>mavenLocal是默认本地仓库，仓库位置在前面的Maven介绍及安装有介绍到，Mac默认为<code>${user.home}/.m2/repository</code>。</li><li>自定义本地仓库地址：如果本地的其他路径下，也有存放依赖文件，可以在这里声明该路径下的仓库地址。上面举例声明了Android Studio包内的仓库，用命令行编译代码的时候，如要加载Android Studio包的tool文件夹内的独有依赖包，就可以声明该仓库。</li></ul><h3 id="搭建内网Maven私服"><a href="#搭建内网Maven私服" class="headerlink" title="搭建内网Maven私服"></a>搭建内网Maven私服</h3><h4 id="安装配置Nexus"><a href="#安装配置Nexus" class="headerlink" title="安装配置Nexus"></a>安装配置Nexus</h4><ul><li><p>在maven仓库管理器<a href="https://www.sonatype.com/" target="_blank" rel="noopener">Sonatype Nexus官网</a>中，选择Products–&gt;NEXUS REPOSITORY OSS(免费)下载</p><p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-01-15251699809974.jpg-wtmark" alt=""></p><p>我下载的版本为，Nexus Repository Manager OSS 3.x - OS X，解压存放在本地中</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  nexus-3.10.0-04-mac pwd</span><br><span class="line">/Users/guidongyuan/Applications/nexus-3.10.0-04-mac</span><br></pre></td></tr></table></figure></li><li><p>把<code>nexus-3.10.0-04</code>的bin文件设置环境变量</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export NEXUS=/Users/guidongyuan/Applications/nexus-3.10.0-04-mac/nexus-3.10.0-04</span><br><span class="line">export PATH=$PATH:$NEXUS/bin</span><br></pre></td></tr></table></figure></li><li><p>查看Java版本</p><p>Nexus Repository Manager需要Java的运行环境，目前nexue 3需要JDK 1.8，如果有多个不同版本的JDK，且默认不是1.8，需要指定特定的JDK安装路径。</p><p>修改<code>bin/nexus脚本</code>并找到该行<code>INSTALL4J_JAVA_HOME_OVERRIDE</code>，设置JDK的路径。</p></li><li><p>运行启动nexus</p><p>运行的时候，提示找不到org.apache.felix.framework，最后才发现，用解压工具，解压出来的文件名变了！变了！变了！<code>org.apache.felix.framework-5.6.2.jar</code>变成了<code>org.apache.felix.framework-</code>，能不能这么坑！</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ nexus run</span><br><span class="line">Could not resolve mvn:org.apache.felix/org.apache.felix.framework/5.6.2</span><br></pre></td></tr></table></figure><p>老老实实用命令行解压，再执行就可以了，终端出现这个，则可以表示启动成功</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Started Sonatype Nexus OSS 3.10.0-04</span><br></pre></td></tr></table></figure></li><li><p>查看仓库网站</p><p>启动成功后，在本地访问<code>localhost:8081</code>,可以看到如下</p><p>默认的用户账号为<code>admin</code>，密码为<code>admin123</code></p><p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-02-15252200330507.jpg-wtmark" alt=""></p></li><li><p>终端结束运行的Nexus</p><p>通过<strong>Ctrl + C</strong>可以结束</p></li></ul><h4 id="Nexus仓库介绍"><a href="#Nexus仓库介绍" class="headerlink" title="Nexus仓库介绍"></a>Nexus仓库介绍</h4><ul><li><p>Blob Stores：仓库存储库，设置了依赖库的存储地址，默认名称为default，位置为<code>/Users/guidongyuan/Applications/nexus-3.10.0-04-mac/sonatype-work/nexus3/blobs/default</code></p></li><li><p>Repositories：仓库列表</p><p><strong>component name</strong></p><ul><li>maven-central：maven中央库，默认从<a href="https://repo1.maven.org/maven2/拉取依赖包" target="_blank" rel="noopener">https://repo1.maven.org/maven2/拉取依赖包</a></li><li>maven-releases：私库正式发行版依赖包</li><li>maven-snapshots：私库快照（调试版本）依赖包</li><li>maven-public：仓库分组，把上面三个仓库组合在一起对外提供服务，可以点击进去添加或者删除仓库，这样就不需要在pom文件中配置多个地址，一个就够了。</li></ul><p><strong>component type</strong></p><ul><li>hosted：宿主仓库，存放我们自己项目生成的库</li><li>3rd party：第三方依赖的仓库，这个仓库内容通常是由内部人员自行下载之后发布上去</li><li>proxy：远程仓库的代理，如果在本地找不到，则会从远程中央仓库中下载，再返回给用户，起到中转下载的作用。</li></ul></li></ul><p>具体介绍，可以参考<a href="https://help.sonatype.com/repomanager3/configuration/repository-management" target="_blank" rel="noopener">官网Nexus教程</a>或者<a href="https://blog.csdn.net/qq_26585943/article/details/79771313" target="_blank" rel="noopener">搭建局域网Maven私服并结合Android Studio实现代码复用</a>。</p><h4 id="生成AAR文件"><a href="#生成AAR文件" class="headerlink" title="生成AAR文件"></a>生成AAR文件</h4><p>创建了内网的Maven仓库，就可以把一些功能模块上传上去。这里使用aar包作为讲解，不知道怎样生成的，可以参考如下：</p><ul><li><a href="https://www.jianshu.com/p/1777a634db5e" target="_blank" rel="noopener">Android Studio 打包及引用 AAR</a></li></ul><h4 id="上传依赖包"><a href="#上传依赖包" class="headerlink" title="上传依赖包"></a>上传依赖包</h4><h5 id="手动上传"><a href="#手动上传" class="headerlink" title="手动上传"></a>手动上传</h5><ul><li><p>点击Upload，选择一个仓库</p></li><li><p>添加依赖包的信息</p></li></ul><p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-03-15253504070683.jpg-wtmark" alt=""></p><h5 id="gradle上传"><a href="#gradle上传" class="headerlink" title="gradle上传"></a>gradle上传</h5><p>一两个依赖包上传还好，但是，如果多个，不可能这样手动上传，这个时候，就可以通过编写gralde进行上传。</p><p>在<code>build.grald</code>文件中，编写一个上传的task。</p><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'maven'</span></span><br><span class="line">uploadArchives &#123;</span><br><span class="line">    repositories.mavenDeployer &#123;</span><br><span class="line">        pom.groupId = GROUP</span><br><span class="line">        pom.artifactId = ARTIFACTID</span><br><span class="line">        pom.version = VERSION</span><br><span class="line">        repository(<span class="string">url:</span> NEXUS_URL) &#123;</span><br><span class="line">            authentication(<span class="string">userName:</span> USER_NAME, <span class="string">password:</span> USER_PASSWORD)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>属性变量可以放在同个目录下的<code>gradle.properties</code>中，没有则需要自行创建。</p><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GROUP = com.guidongyuan.studytest</span><br><span class="line">ARTIFACTID = testandroidlibrary</span><br><span class="line">VERSION = <span class="number">1.0</span><span class="number">.0</span></span><br><span class="line">NEXUS_URL = <span class="string">http:</span><span class="comment">//localhost:8081/repository/testRepository/</span></span><br><span class="line">USER_NAME = admin</span><br><span class="line">USER_PASSWORD = admin123</span><br></pre></td></tr></table></figure><p>然后，在终端中，执行<code>./gradlew uploadArchives</code>就可以上传。</p><p>另外也可以创建一个gradle文件如gradle_push.gradle编写task任务，不过需要在<code>build.grald</code>文件中，进行引用。</p><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">from:</span> <span class="string">"./gradle_push.gradle"</span></span><br></pre></td></tr></table></figure><p>上传完成后，可以在nexus中查找到。</p><p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-17-15265146063221.jpg-wtmark" alt=""></p><h5 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h5><p>上传到仓库后，引用的时候，就可以直接定义仓库和依赖库</p><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">maven &#123;</span><br><span class="line">    url <span class="string">"http://localhost:8081/repository/testRepository/"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">'com.guidongyuan.studytest:testandroidlibrary:1.0.0'</span></span><br></pre></td></tr></table></figure><h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul><li><a href="https://help.sonatype.com/repomanager3/installation" target="_blank" rel="noopener">sonatype官网安装教程</a></li><li><a href="https://blog.csdn.net/qq_26585943/article/details/79771313" target="_blank" rel="noopener">搭建局域网Maven私服并结合Android Studio实现代码复用</a></li></ul></div><div></div><div></div><div></div><footer class="post-footer"><div class="post-tags"> <a href="/tags/构建工具/" rel="tag"># 构建工具</a> <a href="/tags/Maven/" rel="tag"># Maven</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2018/05/01/构建工具(三)：Maven包介绍/" rel="next" title="构建工具(三)：Maven包介绍"><i class="fa fa-chevron-left"></i> 构建工具(三)：Maven包介绍</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"> <a href="/2018/05/17/我们一起学ReactNative(三)：JavaScript语法基础/" rel="prev" title="我们一起学ReactNative(三)：JavaScript语法基础">我们一起学ReactNative(三)：JavaScript语法基础<i class="fa fa-chevron-right"></i></a></div></div></footer></article><div class="post-spread"></div></div></div><div class="comments" id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQzOC82MDA2"></div></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview"> 站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg" alt="亦袁非猿"><p class="site-author-name" itemprop="name">亦袁非猿</p><p class="site-description motion-element" itemprop="description">while(写出来){<br> 理解力++;<br> 表达力++; }</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/archives"><span class="site-state-item-count">28</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"> <a href="/categories/index.html"><span class="site-state-item-count">5</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"> <a href="/tags/index.html"><span class="site-state-item-count">20</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="links-of-author motion-element"></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven仓库"><span class="nav-number">1.</span> <span class="nav-text">Maven仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#仓库介绍"><span class="nav-number">1.1.</span> <span class="nav-text">仓库介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#远程中央仓库"><span class="nav-number">1.1.1.</span> <span class="nav-text">远程中央仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地仓库"><span class="nav-number">1.1.2.</span> <span class="nav-text">本地仓库</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建内网Maven私服"><span class="nav-number">1.2.</span> <span class="nav-text">搭建内网Maven私服</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装配置Nexus"><span class="nav-number">1.2.1.</span> <span class="nav-text">安装配置Nexus</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nexus仓库介绍"><span class="nav-number">1.2.2.</span> <span class="nav-text">Nexus仓库介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成AAR文件"><span class="nav-number">1.2.3.</span> <span class="nav-text">生成AAR文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上传依赖包"><span class="nav-number">1.2.4.</span> <span class="nav-text">上传依赖包</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#手动上传"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">手动上传</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#gradle上传"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">gradle上传</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#引用"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">引用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">1.3.</span> <span class="nav-text">参考链接</span></a></li></ol></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright"> &copy; <span itemprop="copyrightYear">2018</span><span class="with-love"><i class="fa fa-heart"></i></span> <span class="author" itemprop="copyrightHolder">亦袁非猿</span></div><p>Hosted by <a href="https://pages.coding.me" style="font-weight:700">Coding Pages</a></p></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script><script type="text/javascript">!function(e,t){var n,c=e.getElementsByTagName(t)[0];"function"!=typeof LivereTower&&((n=e.createElement(t)).src="https://cdn-city.livere.com/js/embed.dist.js",n.async=!0,c.parentNode.insertBefore(n,c))}(document,"script")</script><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script><script>AV.initialize("Ivcwx7f8x7ghc8SWU0YMuIFI-gzGzoHsz","mQEm0lIov3tBcrPByox6zHc0")</script><script>function showTime(e){var t=new AV.Query(e),c=[],u=$(".leancloud_visitors");u.each(function(){c.push($(this).attr("id").trim())}),t.containedIn("url",c),t.find().done(function(e){var t=".leancloud-visitors-count";if(0!==e.length){for(var n=0;n<e.length;n++){var o=e[n],i=o.get("url"),s=o.get("time"),r=document.getElementById(i);$(r).find(t).text(s)}for(n=0;n<c.length;n++){i=c[n],r=document.getElementById(i);var l=$(r).find(t);""==l.text()&&l.text(0)}}else u.find(t).text(0)}).fail(function(e,t){console.log("Error: "+t.code+" "+t.message)})}function addCount(i){var e=$(".leancloud_visitors"),s=e.attr("id").trim(),r=e.attr("data-flag-title").trim(),t=new AV.Query(i);t.equalTo("url",s),t.find({success:function(e){if(0<e.length){var t=e[0];t.fetchWhenSave(!0),t.increment("time"),t.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to save Visitor num, with error message: "+t.message)}})}else{var n=new i,o=new AV.ACL;o.setPublicReadAccess(!0),o.setPublicWriteAccess(!0),n.setACL(o),n.set("title",r),n.set("url",s),n.set("time",1),n.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to create")}})}},error:function(e){console.log("Error:"+e.code+" "+e.message)}})}$(function(){var e=AV.Object.extend("Counter");1==$(".leancloud_visitors").length?addCount(e):1<$(".post-title-link").length&&showTime(e)})</script></body></html>
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="构建工具,Maven," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="分析Android项目中的build.gradle中的使用到的不同仓库，以及怎样搭建使用内网Maven私服。">
+<meta name="keywords" content="构建工具,Maven">
+<meta property="og:type" content="article">
+<meta property="og:title" content="构建工具(四)：Maven仓库及搭建内网仓库">
+<meta property="og:url" content="http://yoursite.com/2018/05/13/构建工具(四)：Maven仓库及搭建内网仓库/index.html">
+<meta property="og:site_name" content="亦袁非猿">
+<meta property="og:description" content="分析Android项目中的build.gradle中的使用到的不同仓库，以及怎样搭建使用内网Maven私服。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-01-15251699809974.jpg-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-02-15252200330507.jpg-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-03-15253504070683.jpg-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-17-15265146063221.jpg-wtmark">
+<meta property="og:updated_time" content="2018-06-24T07:34:28.220Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="构建工具(四)：Maven仓库及搭建内网仓库">
+<meta name="twitter:description" content="分析Android项目中的build.gradle中的使用到的不同仓库，以及怎样搭建使用内网Maven私服。">
+<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-01-15251699809974.jpg-wtmark">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'OF78IO15IZ',
+      apiKey: '75e8a500a6a0237315a8a25669328dbf',
+      indexName: 'First Index',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/13/构建工具(四)：Maven仓库及搭建内网仓库/"/>
+
+
+
+
+
+  <title>构建工具(四)：Maven仓库及搭建内网仓库 | 亦袁非猿</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亦袁非猿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/13/构建工具(四)：Maven仓库及搭建内网仓库/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亦袁非猿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亦袁非猿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                构建工具(四)：Maven仓库及搭建内网仓库
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-13T05:57:29+08:00">
+                2018-05-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/构建工具/" itemprop="url" rel="index">
+                    <span itemprop="name">构建工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/05/13/构建工具(四)：Maven仓库及搭建内网仓库/" class="leancloud_visitors" data-flag-title="构建工具(四)：Maven仓库及搭建内网仓库">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>分析Android项目中的build.gradle中的使用到的不同仓库，以及怎样搭建使用内网Maven私服。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="Maven仓库"><a href="#Maven仓库" class="headerlink" title="Maven仓库"></a>Maven仓库</h2><p>上几篇文件中，或多或少都讲述了仓库。有了仓库，我们就不用每一个项目中，都存储需要的依赖文件，声明某个存储所有依赖文件的位置，然后去该路径中引入，该文件可以称为Maven仓库。不仅避免了磁盘空间的浪费，而且还更好地管理依赖文件。</p>
+<p>仓库可以是本地的，也可以是远程的。下面我们就分析Android项目中的<code>build.gradle</code>中的关于仓库的声明，下面列出开发中遇到的所有仓库，不一定全部都会使用到。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">repositories &#123;</span><br><span class="line">  <span class="comment">// 远程仓库</span></span><br><span class="line">  google()</span><br><span class="line">  jcenter()</span><br><span class="line">  mavenCentral()</span><br><span class="line">  <span class="comment">// 自定义远程仓库</span></span><br><span class="line">  maven &#123;</span><br><span class="line">    url <span class="string">"http://maven.aliyun.com/nexus/content/groups/publict"</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 本地仓库</span></span><br><span class="line">  mavenLocal()</span><br><span class="line">  maven&#123;</span><br><span class="line">    <span class="comment">// 应用Android Studio包内的仓库地址</span></span><br><span class="line">    url <span class="string">"/Applications/Android Studio.app/Contents/gradle/m2repository"</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 内网的私有仓库</span></span><br><span class="line">  maven&#123;</span><br><span class="line">     url “<span class="string">http:</span><span class="comment">//localhost:8081/repository/testRepository/”</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="仓库介绍"><a href="#仓库介绍" class="headerlink" title="仓库介绍"></a>仓库介绍</h3><h4 id="远程中央仓库"><a href="#远程中央仓库" class="headerlink" title="远程中央仓库"></a>远程中央仓库</h4><ul>
+<li>mavenCentral是最早的maven中央仓库，<a href="http://mvnrepository.com/" target="_blank" rel="noopener">Maven仓库网站</a>，可以通过<a href="http://repo2.maven.org/maven2/" target="_blank" rel="noopener">Maven仓库引用地址</a>看到全部内容。</li>
+<li>jcenter是Anroid Studio 0.8版本起的默认maven中央仓库，<a href="https://bintray.com/bintray/jcenter" target="_blank" rel="noopener">jcenter仓库网站</a>，可以通过<a href="http://jcenter.bintray.com/" target="_blank" rel="noopener">jcenter仓库引用地址</a>看到全部内容。</li>
+<li>google是Android Studio 3.0版本起添加的仓库，google把gralde插件、tools、support、design等依赖文件放在其中，可以通过<a href="https://dl.google.com/dl/android/maven2/index.html" target="_blank" rel="noopener">google仓库引用地址</a>看到全部内容。</li>
+<li>自定义远程仓库，如果觉得上面的仓库慢，可以使用阿里云的仓库。或者自己在内网搭建私有仓库，也可以这样声明。</li>
+</ul>
+<h4 id="本地仓库"><a href="#本地仓库" class="headerlink" title="本地仓库"></a>本地仓库</h4><ul>
+<li>mavenLocal是默认本地仓库，仓库位置在前面的Maven介绍及安装有介绍到，Mac默认为<code>${user.home}/.m2/repository</code>。</li>
+<li>自定义本地仓库地址：如果本地的其他路径下，也有存放依赖文件，可以在这里声明该路径下的仓库地址。上面举例声明了Android Studio包内的仓库，用命令行编译代码的时候，如要加载Android Studio包的tool文件夹内的独有依赖包，就可以声明该仓库。</li>
+</ul>
+<h3 id="搭建内网Maven私服"><a href="#搭建内网Maven私服" class="headerlink" title="搭建内网Maven私服"></a>搭建内网Maven私服</h3><h4 id="安装配置Nexus"><a href="#安装配置Nexus" class="headerlink" title="安装配置Nexus"></a>安装配置Nexus</h4><ul>
+<li><p>在maven仓库管理器<a href="https://www.sonatype.com/" target="_blank" rel="noopener">Sonatype Nexus官网</a>中，选择Products–&gt;NEXUS REPOSITORY OSS(免费)下载</p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-01-15251699809974.jpg-wtmark" alt=""></p>
+<p>我下载的版本为，Nexus Repository Manager OSS 3.x - OS X，解压存放在本地中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  nexus-3.10.0-04-mac pwd</span><br><span class="line">/Users/guidongyuan/Applications/nexus-3.10.0-04-mac</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把<code>nexus-3.10.0-04</code>的bin文件设置环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export NEXUS=/Users/guidongyuan/Applications/nexus-3.10.0-04-mac/nexus-3.10.0-04</span><br><span class="line">export PATH=$PATH:$NEXUS/bin</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看Java版本</p>
+<p>Nexus Repository Manager需要Java的运行环境，目前nexue 3需要JDK 1.8，如果有多个不同版本的JDK，且默认不是1.8，需要指定特定的JDK安装路径。</p>
+<p>修改<code>bin/nexus脚本</code>并找到该行<code>INSTALL4J_JAVA_HOME_OVERRIDE</code>，设置JDK的路径。</p>
+</li>
+<li><p>运行启动nexus</p>
+<p>运行的时候，提示找不到org.apache.felix.framework，最后才发现，用解压工具，解压出来的文件名变了！变了！变了！<code>org.apache.felix.framework-5.6.2.jar</code>变成了<code>org.apache.felix.framework-</code>，能不能这么坑！</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ nexus run</span><br><span class="line">Could not resolve mvn:org.apache.felix/org.apache.felix.framework/5.6.2</span><br></pre></td></tr></table></figure>
+<p>老老实实用命令行解压，再执行就可以了，终端出现这个，则可以表示启动成功</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Started Sonatype Nexus OSS 3.10.0-04</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看仓库网站</p>
+<p>启动成功后，在本地访问<code>localhost:8081</code>,可以看到如下</p>
+<p>默认的用户账号为<code>admin</code>，密码为<code>admin123</code></p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-02-15252200330507.jpg-wtmark" alt=""></p>
+</li>
+<li><p>终端结束运行的Nexus</p>
+<p>通过<strong>Ctrl + C</strong>可以结束</p>
+</li>
+</ul>
+<h4 id="Nexus仓库介绍"><a href="#Nexus仓库介绍" class="headerlink" title="Nexus仓库介绍"></a>Nexus仓库介绍</h4><ul>
+<li><p>Blob Stores：仓库存储库，设置了依赖库的存储地址，默认名称为default，位置为<code>/Users/guidongyuan/Applications/nexus-3.10.0-04-mac/sonatype-work/nexus3/blobs/default</code></p>
+</li>
+<li><p>Repositories：仓库列表</p>
+<p><strong>component name</strong></p>
+<ul>
+<li>maven-central：maven中央库，默认从<a href="https://repo1.maven.org/maven2/拉取依赖包" target="_blank" rel="noopener">https://repo1.maven.org/maven2/拉取依赖包</a></li>
+<li>maven-releases：私库正式发行版依赖包</li>
+<li>maven-snapshots：私库快照（调试版本）依赖包</li>
+<li>maven-public：仓库分组，把上面三个仓库组合在一起对外提供服务，可以点击进去添加或者删除仓库，这样就不需要在pom文件中配置多个地址，一个就够了。</li>
+</ul>
+<p><strong>component type</strong></p>
+<ul>
+<li>hosted：宿主仓库，存放我们自己项目生成的库</li>
+<li>3rd party：第三方依赖的仓库，这个仓库内容通常是由内部人员自行下载之后发布上去</li>
+<li>proxy：远程仓库的代理，如果在本地找不到，则会从远程中央仓库中下载，再返回给用户，起到中转下载的作用。</li>
+</ul>
+</li>
+</ul>
+<p>具体介绍，可以参考<a href="https://help.sonatype.com/repomanager3/configuration/repository-management" target="_blank" rel="noopener">官网Nexus教程</a>或者<a href="https://blog.csdn.net/qq_26585943/article/details/79771313" target="_blank" rel="noopener">搭建局域网Maven私服并结合Android Studio实现代码复用</a>。</p>
+<h4 id="生成AAR文件"><a href="#生成AAR文件" class="headerlink" title="生成AAR文件"></a>生成AAR文件</h4><p>创建了内网的Maven仓库，就可以把一些功能模块上传上去。这里使用aar包作为讲解，不知道怎样生成的，可以参考如下：</p>
+<ul>
+<li><a href="https://www.jianshu.com/p/1777a634db5e" target="_blank" rel="noopener">Android Studio 打包及引用 AAR</a></li>
+</ul>
+<h4 id="上传依赖包"><a href="#上传依赖包" class="headerlink" title="上传依赖包"></a>上传依赖包</h4><h5 id="手动上传"><a href="#手动上传" class="headerlink" title="手动上传"></a>手动上传</h5><ul>
+<li><p>点击Upload，选择一个仓库</p>
+</li>
+<li><p>添加依赖包的信息</p>
+</li>
+</ul>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-03-15253504070683.jpg-wtmark" alt=""></p>
+<h5 id="gradle上传"><a href="#gradle上传" class="headerlink" title="gradle上传"></a>gradle上传</h5><p>一两个依赖包上传还好，但是，如果多个，不可能这样手动上传，这个时候，就可以通过编写gralde进行上传。</p>
+<p>在<code>build.grald</code>文件中，编写一个上传的task。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'maven'</span></span><br><span class="line">uploadArchives &#123;</span><br><span class="line">    repositories.mavenDeployer &#123;</span><br><span class="line">        pom.groupId = GROUP</span><br><span class="line">        pom.artifactId = ARTIFACTID</span><br><span class="line">        pom.version = VERSION</span><br><span class="line">        repository(<span class="string">url:</span> NEXUS_URL) &#123;</span><br><span class="line">            authentication(<span class="string">userName:</span> USER_NAME, <span class="string">password:</span> USER_PASSWORD)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>属性变量可以放在同个目录下的<code>gradle.properties</code>中，没有则需要自行创建。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GROUP = com.guidongyuan.studytest</span><br><span class="line">ARTIFACTID = testandroidlibrary</span><br><span class="line">VERSION = <span class="number">1.0</span><span class="number">.0</span></span><br><span class="line">NEXUS_URL = <span class="string">http:</span><span class="comment">//localhost:8081/repository/testRepository/</span></span><br><span class="line">USER_NAME = admin</span><br><span class="line">USER_PASSWORD = admin123</span><br></pre></td></tr></table></figure>
+<p>然后，在终端中，执行<code>./gradlew uploadArchives</code>就可以上传。</p>
+<p>另外也可以创建一个gradle文件如gradle_push.gradle编写task任务，不过需要在<code>build.grald</code>文件中，进行引用。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">from:</span> <span class="string">"./gradle_push.gradle"</span></span><br></pre></td></tr></table></figure>
+<p>上传完成后，可以在nexus中查找到。</p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-17-15265146063221.jpg-wtmark" alt=""></p>
+<h5 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h5><p>上传到仓库后，引用的时候，就可以直接定义仓库和依赖库</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">maven &#123;</span><br><span class="line">    url <span class="string">"http://localhost:8081/repository/testRepository/"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">'com.guidongyuan.studytest:testandroidlibrary:1.0.0'</span></span><br></pre></td></tr></table></figure>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li><a href="https://help.sonatype.com/repomanager3/installation" target="_blank" rel="noopener">sonatype官网安装教程</a></li>
+<li><a href="https://blog.csdn.net/qq_26585943/article/details/79771313" target="_blank" rel="noopener">搭建局域网Maven私服并结合Android Studio实现代码复用</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/构建工具/" rel="tag"># 构建工具</a>
+          
+            <a href="/tags/Maven/" rel="tag"># Maven</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/01/构建工具(三)：Maven包介绍/" rel="next" title="构建工具(三)：Maven包介绍">
+                <i class="fa fa-chevron-left"></i> 构建工具(三)：Maven包介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/17/我们一起学ReactNative(三)：JavaScript语法基础/" rel="prev" title="我们一起学ReactNative(三)：JavaScript语法基础">
+                我们一起学ReactNative(三)：JavaScript语法基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQzOC82MDA2"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg"
+               alt="亦袁非猿" />
+          <p class="site-author-name" itemprop="name">亦袁非猿</p>
+           
+              <p class="site-description motion-element" itemprop="description">while(写出来){  <br>
+  理解力++; <br>
+  表达力++; }
+</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven仓库"><span class="nav-number">1.</span> <span class="nav-text">Maven仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#仓库介绍"><span class="nav-number">1.1.</span> <span class="nav-text">仓库介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#远程中央仓库"><span class="nav-number">1.1.1.</span> <span class="nav-text">远程中央仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地仓库"><span class="nav-number">1.1.2.</span> <span class="nav-text">本地仓库</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建内网Maven私服"><span class="nav-number">1.2.</span> <span class="nav-text">搭建内网Maven私服</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装配置Nexus"><span class="nav-number">1.2.1.</span> <span class="nav-text">安装配置Nexus</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nexus仓库介绍"><span class="nav-number">1.2.2.</span> <span class="nav-text">Nexus仓库介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成AAR文件"><span class="nav-number">1.2.3.</span> <span class="nav-text">生成AAR文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上传依赖包"><span class="nav-number">1.2.4.</span> <span class="nav-text">上传依赖包</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#手动上传"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">手动上传</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#gradle上传"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">gradle上传</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#引用"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">引用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">1.3.</span> <span class="nav-text">参考链接</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亦袁非猿</span>
+</div>
+
+
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("Ivcwx7f8x7ghc8SWU0YMuIFI-gzGzoHsz", "mQEm0lIov3tBcrPByox6zHc0");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

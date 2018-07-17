@@ -1,1 +1,1184 @@
-<!doctype html><html class="theme-next mist use-motion" lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css"><meta name="keywords" content="技术,正则表达式,"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1"><meta name="description" content="最近项目中用到正则表达式，每次用到，就查一下看一下正则表达式30分钟入门教程，不久后又忘记，对一些复杂一点的也不是很理解，导致每次都花费很多时间，就彻底整理一遍，找了《正则表达式必知必会》参考，整理出匹配的表达式和文本范例，下次看也高效一点。"><meta name="keywords" content="技术,正则表达式"><meta property="og:type" content="article"><meta property="og:title" content="正则表达式"><meta property="og:url" content="http://yoursite.com/2017/07/09/正则表达式/index.html"><meta property="og:site_name" content="亦袁非猿"><meta property="og:description" content="最近项目中用到正则表达式，每次用到，就查一下看一下正则表达式30分钟入门教程，不久后又忘记，对一些复杂一点的也不是很理解，导致每次都花费很多时间，就彻底整理一遍，找了《正则表达式必知必会》参考，整理出匹配的表达式和文本范例，下次看也高效一点。"><meta property="og:locale" content="zh-Hans"><meta property="og:updated_time" content="2017-07-09T14:43:12.000Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="正则表达式"><meta name="twitter:description" content="最近项目中用到正则表达式，每次用到，就查一下看一下正则表达式30分钟入门教程，不久后又忘记，对一些复杂一点的也不是很理解，导致每次都花费很多时间，就彻底整理一遍，找了《正则表达式必知必会》参考，整理出匹配的表达式和文本范例，下次看也高效一点。"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Mist",sidebar:{position:"left",display:"post",offset:12,offset_float:0,b2t:!1,scrollpercent:!1},fancybox:!0,motion:!0,duoshuo:{userId:"0",author:"博主"},algolia:{applicationID:"OF78IO15IZ",apiKey:"75e8a500a6a0237315a8a25669328dbf",indexName:"First Index",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="http://yoursite.com/2017/07/09/正则表达式/"><title>正则表达式 | 亦袁非猿</title></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">亦袁非猿</span><span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle"></p></div><div class="site-nav-toggle"> <button><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br> 首页</a></li><li class="menu-item menu-item-categories"><a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br> 分类</a></li><li class="menu-item menu-item-tags"><a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br> 标签</a></li><li class="menu-item menu-item-archives"><a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br> 时间轴</a></li></ul></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/09/正则表达式/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="亦袁非猿"><meta itemprop="description" content=""><meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="亦袁非猿"></span><header class="post-header"><h1 class="post-title" itemprop="name headline"> 正则表达式</h1><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T20:54:19+08:00">2017-07-09</time></span> <span class="post-category"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span> <span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span></span> <span id="/2017/07/09/正则表达式/" class="leancloud_visitors" data-flag-title="正则表达式"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span> <span class="post-meta-item-text">阅读次数</span><span class="leancloud-visitors-count"></span></span></div></header><div class="post-body" itemprop="articleBody"><blockquote><p>最近项目中用到正则表达式，每次用到，就查一下看一下<a href="https://deerchao.net/tutorials/regex/regex.htm" target="_blank" rel="noopener">正则表达式30分钟入门教程</a>，不久后又忘记，对一些复杂一点的也不是很理解，导致每次都花费很多时间，就彻底整理一遍，找了《正则表达式必知必会》参考，整理出匹配的表达式和文本范例，下次看也高效一点。</p></blockquote><a id="more"></a><p><strong>定义：</strong>正则表达式就是用于描述这些规则的工具。<br><strong>用途：</strong></p><ol><li>查找特定的信息(搜索)</li><li>查找并编辑特定的信息(替换)</li></ol><h3 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h3><table><thead><tr><th>代码</th><th>说明</th></tr></thead><tbody><tr><td>.</td><td>匹配除换行符以外的任意字符</td></tr><tr><td>\w</td><td>匹配字母或数字或下划线或汉字</td></tr><tr><td>\s</td><td>匹配任意的空白符</td></tr><tr><td>\d</td><td>匹配数字</td></tr><tr><td>\b</td><td>匹配单词的开始或者结束</td></tr><tr><td>^</td><td>匹配字符串的开始</td></tr><tr><td>$</td><td>匹配字符串的结束</td></tr></tbody></table><ul><li><p>匹配单个字符</p><p>表达式：<code>my</code></p><p>文本：<mark>My</mark> name is yuan,her name is li,<mark>my</mark> brother name is ling.</p></li><li><p>匹配数字</p><p>表达式：<code>\d</code></p><p>file<mark>1</mark>.txt</p></li><li><p><code>\s</code>表示任意的空白符，包括<code>\r</code>空格，<code>\n</code>换行，<code>\t</code>Tab键，分别匹配空格，Tab键，换行。</p><p>表达式：<code>txt\sf</code></p><p>文本：<br>file1.<mark>txt f</mark>ile2.<mark>txt　　f</mark>ile3.<mark>txt</mark><br><mark>f</mark>ile4.txt</p></li></ul><h4 id="单词边界"><a href="#单词边界" class="headerlink" title="单词边界"></a>单词边界</h4><p>边界可以由<code>\b</code>进行限定，<code>\b</code>不匹配任何字符，其只匹配一个位置，这个位置位于一个能否用来构成单词的字符（也就是和<code>\w</code>相匹配的字符）和一个不能用来构成单词的字符（也就是与`\W相匹配的字符）之间。</p><ul><li><p>匹配开头为<code>n</code>的单词，需要添加元字符<code>\b</code>，否则会匹配<code>yuan ling</code>，</p><p>表达式：<code>\bn</code></p><p>文本：My <mark>name</mark> is yuan,her <mark>name</mark> is li,my brother <mark>name</mark> is ling.</p></li><li><p>匹配<code>li</code>而不匹配<code>ling</code>，<code>\b</code>匹配了单词的开头和结尾</p><p>表达式：<code>li\b</code></p><p>文本：My name is yuan,her name is <mark>li</mark>,my brother name is ling.</p></li><li><p><code>^</code>也是限制匹配词的开始，不过是针对整个字符串，匹配其中开头的<code>My</code>，而不是中间的<code>my</code>，表达式为：<code>^my</code>，<code>$</code>则是限制字符串的结束</p></li></ul><h4 id="反义符"><a href="#反义符" class="headerlink" title="反义符"></a>反义符</h4><table><thead><tr><th style="text-align:center">代码</th><th style="text-align:center">说明</th></tr></thead><tbody><tr><td style="text-align:center">\W</td><td style="text-align:center">匹配任意不是字母，数字，下划线，汉字的字符</td></tr><tr><td style="text-align:center">\S</td><td style="text-align:center">匹配任意不是空白符的字符</td></tr><tr><td style="text-align:center">\D</td><td style="text-align:center">匹配任意不是数字的字符</td></tr><tr><td style="text-align:center">\B</td><td style="text-align:center">匹配不是单词开头或者结束的位置</td></tr><tr><td style="text-align:center">[^X]</td><td style="text-align:center">匹配除了X以外的任意字符</td></tr><tr><td style="text-align:center">[^aeiou]</td><td style="text-align:center">匹配除了aeiou这几个字母以外的人任意字符</td></tr></tbody></table><ul><li><p><code>[0-9]</code>表示匹配0-9的数字，和<code>\d</code>一样。 <code>[a-z]</code>表示匹配a-z的所有单词，<code>[A-Z]</code>表示匹配A-Z的所有单词，<code>[a-zA-Z]</code>则匹配所有大小写单词单词。</p></li><li><p>连字符<code>-</code>在字符集[ ]之间才有特殊的意义，在字符集外只是一个普通字符，匹配其本身不需要被转义。</p></li></ul><h4 id="转义符"><a href="#转义符" class="headerlink" title="转义符"></a>转义符</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下字符有特殊意义，匹配该字符需要添加 \</span></span><br><span class="line">* . ? + $ ^ [ ] ( ) &#123; &#125; | \ /</span><br></pre></td></tr></table></figure><ul><li>上面的字符在字符集[ ]中会被解释为普通字符，不需要转义，但为了避免误解，最好进行转义。</li></ul><h3 id="限定符"><a href="#限定符" class="headerlink" title="限定符"></a>限定符</h3><table><thead><tr><th>代码</th><th>说明</th></tr></thead><tbody><tr><td>*</td><td>重复零次或更多次</td></tr><tr><td>+</td><td>重复一次或更多次</td></tr><tr><td>?</td><td>重复零次或者一次</td></tr><tr><td>{n}</td><td>重复n次</td></tr><tr><td>{n,}</td><td>重复n次或更多次</td></tr><tr><td>{n,m}</td><td>重复n到m次</td></tr></tbody></table><p>在给一个字符集合加上限定符的时候，必须把限定符放在其外面</p><ul><li>表达式：<code>n\d*</code> 文本：<mark>n</mark> <mark>n1</mark> <mark>n123</mark></li><li>表达式：<code>n\d+</code> 文本：n <mark>n1</mark> <mark>n123</mark></li><li>表达式：<code>n\d?</code> 文本：<mark>n</mark> <mark>n1</mark> <mark>n1</mark>23</li><li>表达式：<code>n\d{1}</code> 文本：n <mark>n1</mark> <mark>n1</mark>23</li><li>表达式：<code>n\d{1,}</code> 文本：n <mark>n1</mark> <mark>n123</mark></li><li>表达式：<code>n\d{1,2}</code> 文本：n <mark>n1</mark> <mark>n12</mark>3</li></ul><h3 id="贪婪与懒惰"><a href="#贪婪与懒惰" class="headerlink" title="贪婪与懒惰"></a>贪婪与懒惰</h3><p>正则匹配默认情况下，是匹配尽可能多的字符，即贪婪匹配。如果需要匹配尽可能少的字符，就需要通过限定符转化为懒惰匹配。</p><table><thead><tr><th>代码</th><th>说明</th></tr></thead><tbody><tr><td>*?</td><td>重复任意次，但尽可能少重复</td></tr><tr><td>+?</td><td>重复1次或更多次，但尽可能少重复</td></tr><tr><td>??</td><td>重复0次或者1次，但尽可能少重复</td></tr><tr><td>{n,m}?</td><td>重复n到m次，但尽可能少重复</td></tr><tr><td>{n,}?</td><td>重复n次以上，但尽可能少重复</td></tr></tbody></table><p><strong>注：由于匹配到的文本想通过高亮显示出现，没办法使用代码块，导致<code>&lt;H1&gt;</code>会被网页识别为标题，因此，下面通过<code>《</code>替代<code>&lt;</code>和<code>》</code>替换<code>&gt;</code>，一方面在Markdown中正确显示，又在网页中可以正确显示</strong></p><ul><li><p>匹配《H1》标签之间的内容，默认是贪婪匹配，会匹配尽可能的多。</p><p>表达式：<code>《H1》.*《/H1》</code></p><p>文本：<br><mark>《H1》Welcome to my Homepage《/H1》Content is divided into two sections.《H1》This is not valid HTML《/H1》</mark></p></li><li><p>过度匹配，需要采用懒惰模式，匹配尽可能的少</p><p>表达式：<code>《H1》.*？《/H1》</code></p><p>文本：<br><mark>《H1》Welcome to my Homepage《/H1》</mark>Content is divided into two sections.<mark>《H1》This is not valid HTML《/H1》</mark></p></li></ul><h3 id="子表达式"><a href="#子表达式" class="headerlink" title="子表达式"></a>子表达式</h3><p>子表达式通过（和）把一系列元素括起来，把其当成一个独立元素使用。</p><p>默认情况下，每个分组会自动拥有一个组号，规则是：从左向右，以分组的左括号为标志，第一个出现的组号为1，第二个为2，以此类推。第0个匹配可以用来代表整个正则表达式。组号必须添加<code>\</code>进行转义。</p><ul><li><p>在表达式<code>((A)(B(C)))</code>中，存在4个分组</p><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">((<span class="name">A</span>)(<span class="name">B</span>(<span class="name">C</span>)))  </span><br><span class="line">(<span class="name">A</span>)  </span><br><span class="line">(<span class="name">B</span>(<span class="name">C</span>))  </span><br><span class="line">(<span class="name">C</span>)</span><br></pre></td></tr></table></figure></li></ul><h4 id="捕获"><a href="#捕获" class="headerlink" title="捕获"></a>捕获</h4><table><thead><tr><th>代码</th><th>说明</th></tr></thead><tbody><tr><td>(exp)</td><td>匹配exp，并捕获文本到自动命名的组里</td></tr><tr><td>(?\<name \>exp)</name></td><td>匹配exp，并捕获文本到名称为name的组里，也可以写成(?’name’exp)</td></tr><tr><td>(?:exp)</td><td>匹配exp，不捕获匹配的文本，也不给词分组分配组号</td></tr></tbody></table><ul><li><p>匹配年份，如果不使用子表达式，则只会匹配<mark>19</mark>，因为<code>|</code>操作符是吧位于它左边和右边的两个部分都作为一个整体来看待的，就变成匹配<code>19</code>和<code>20\d{2}</code></p><p>表达式：<code>(19|20)\d{2}</code></p><p>文本：<mark>1999</mark></p></li><li><p>​匹配HTML标题中的内容，会发现，H2 对应的 H3 为错误的，不应该被匹配到</p><p>表达式：<code>《H[1-6]》.*?《/H[1-6]》</code></p><p>文本：<br><mark>《H1》Welcome to my Homepage《/H1》</mark><br>Content is divided into two sections.<br><mark>《H2》This is not valid HTML《/H3》</mark></p></li><li><p>如果不想匹配到错误的内容，只要使用回溯引用，确保标签头和标签尾一致。把<code>[1-6]</code>作为一个表达式，在后面使用<code>\1</code>去匹配。</p><p>表达式：<code>《H([1-6])》.*?《/H\1》</code></p><p> 文本：<br><mark>《H1》Welcome to my Homepage《/H1》</mark><br>Content is divided into two sections.<br>《H2》This is not valid HTML《/H3》</p></li><li><p>如果使用组号进行匹配，在正则表达式复杂的情况下，如果进行修改，比如在前面添加一个分组，所有的分组编号都要进行修改。因此，使用分组重命名就可以避免。</p><p>表达式：<code>《H(?&lt;number&gt;[1-6])》.*?《/H\number》</code></p><p>文本：<br><mark>《H1》Welcome to my Homepage《/H1》</mark><br>Content is divided into two sections.<br>《H2》This is not valid HTML《/H3》</p></li><li><p>有时候在使用<code>|</code>的时候，需要用到<code>()</code>，但是实际上，不需要进行捕获，在后面也不需要用到此分组，为了提高效率，可以使用<code>(?:exp)</code></p><p>表达式：<code>(19|20)\d{2}《H([1-6])》.*《H\2》</code></p><p>文本：<br><mark>1993《H1》head《/H1》</mark></p></li><li><p>如果使用<code>(?:exp)</code>，则没有该分组了，<code>\2</code>也需要换成<code>\1</code></p><p>表达式：<code>(?:19|20)\d{2}《H([1-6])》.*《/H\1》</code></p><p>文本：<br><mark>1993《H1》head《/H1》</mark></p></li></ul><h4 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h4><table><thead><tr><th>代码</th><th>说明</th></tr></thead><tbody><tr><td>(?=exp)</td><td>正向前查找</td></tr><tr><td>(?!exp)</td><td>负向前查找</td></tr><tr><td>(?&lt;=exp)</td><td>正向后查找</td></tr><tr><td>(?&lt;!exp)</td><td>负向后查找</td></tr></tbody></table><p>有些时候，匹配到的内容，不是你真正需要的，如果把它搜索出来，再手动去掉，比较麻烦，那么需要被匹配到的文本不包含在最终返回的匹配结果中，也就是“不消费”。</p><ul><li><p>匹配URL地址，把协议名部分提取出来</p><p>表达式：<code>.+(?=:)</code></p><p>文本：<br><mark>http</mark>://www.baidu.com<br><mark>https</mark>://www.baidu.com</p></li><li><p>提取产品中的价格</p><p>表达式：<code>(?&lt;=\$)[0-9.]+</code></p><p>文本：<br>apple: \$<mark>1</mark><br>banana: \$<mark>2</mark></p></li><li><p>匹配数量不匹配价格</p><p>表达式：<code>\b(?&lt;!\$)\d+\b</code></p><p>文本：I paid $30 for <mark>100</mark> apples;</p></li></ul><h3 id="嵌入条件"><a href="#嵌入条件" class="headerlink" title="嵌入条件"></a>嵌入条件</h3><p>正则表达式里的条件用？来定义，只有符合条件才执行后面的匹配。</p><table><thead><tr><th>代码</th><th>说明</th></tr></thead><tbody><tr><td>(?(condition)true)</td><td>存在则执行true</td></tr><tr><td>(?(condition)true\</td><td>false)</td><td>存在则执行true，错误则执行false</td></tr></tbody></table><ul><li><p>匹配电话号码，如果存在（ 则需要），否则需要 -</p><p>表达式：<code>(\()?\d{3}(?(1)\)|-)\d{3}-\d{4}</code></p><p>文本：<br><mark>123-456-7890</mark><br><mark>(123)456-7890</mark><br>(123-456-7890<br>(123)-456-7890</p></li></ul><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol><li><a href="https://deerchao.net/tutorials/regex/regex.htm" target="_blank" rel="noopener">正则表达式30分钟入门教程</a></li><li><a href="http://tool.chinaz.com/regex" target="_blank" rel="noopener">站长工具 正则测试</a></li><li>《正则表达式必知必会》</li></ol></div><div></div><div></div><div></div><footer class="post-footer"><div class="post-tags"> <a href="/tags/技术/" rel="tag"># 技术</a> <a href="/tags/正则表达式/" rel="tag"># 正则表达式</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2017/04/25/Hexo绑定域名/" rel="next" title="Hexo绑定域名"><i class="fa fa-chevron-left"></i> Hexo绑定域名</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"> <a href="/2017/07/20/正则表达式-java上的应用/" rel="prev" title="正则表达式-java上的应用">正则表达式-java上的应用<i class="fa fa-chevron-right"></i></a></div></div></footer></article><div class="post-spread"></div></div></div><div class="comments" id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQzOC82MDA2"></div></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview"> 站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg" alt="亦袁非猿"><p class="site-author-name" itemprop="name">亦袁非猿</p><p class="site-description motion-element" itemprop="description">while(写出来){<br> 理解力++;<br> 表达力++; }</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/archives"><span class="site-state-item-count">28</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"> <a href="/categories/index.html"><span class="site-state-item-count">5</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"> <a href="/tags/index.html"><span class="site-state-item-count">20</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="links-of-author motion-element"></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#元字符"><span class="nav-number">1.</span> <span class="nav-text">元字符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单词边界"><span class="nav-number">1.1.</span> <span class="nav-text">单词边界</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反义符"><span class="nav-number">1.2.</span> <span class="nav-text">反义符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#转义符"><span class="nav-number">1.3.</span> <span class="nav-text">转义符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#限定符"><span class="nav-number">2.</span> <span class="nav-text">限定符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贪婪与懒惰"><span class="nav-number">3.</span> <span class="nav-text">贪婪与懒惰</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子表达式"><span class="nav-number">4.</span> <span class="nav-text">子表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#捕获"><span class="nav-number">4.1.</span> <span class="nav-text">捕获</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#断言"><span class="nav-number">4.2.</span> <span class="nav-text">断言</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌入条件"><span class="nav-number">5.</span> <span class="nav-text">嵌入条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright"> &copy; <span itemprop="copyrightYear">2018</span><span class="with-love"><i class="fa fa-heart"></i></span> <span class="author" itemprop="copyrightHolder">亦袁非猿</span></div><p>Hosted by <a href="https://pages.coding.me" style="font-weight:700">Coding Pages</a></p></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script><script type="text/javascript">!function(e,t){var n,c=e.getElementsByTagName(t)[0];"function"!=typeof LivereTower&&((n=e.createElement(t)).src="https://cdn-city.livere.com/js/embed.dist.js",n.async=!0,c.parentNode.insertBefore(n,c))}(document,"script")</script><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script><script>AV.initialize("Ivcwx7f8x7ghc8SWU0YMuIFI-gzGzoHsz","mQEm0lIov3tBcrPByox6zHc0")</script><script>function showTime(e){var t=new AV.Query(e),c=[],u=$(".leancloud_visitors");u.each(function(){c.push($(this).attr("id").trim())}),t.containedIn("url",c),t.find().done(function(e){var t=".leancloud-visitors-count";if(0!==e.length){for(var n=0;n<e.length;n++){var o=e[n],i=o.get("url"),s=o.get("time"),r=document.getElementById(i);$(r).find(t).text(s)}for(n=0;n<c.length;n++){i=c[n],r=document.getElementById(i);var l=$(r).find(t);""==l.text()&&l.text(0)}}else u.find(t).text(0)}).fail(function(e,t){console.log("Error: "+t.code+" "+t.message)})}function addCount(i){var e=$(".leancloud_visitors"),s=e.attr("id").trim(),r=e.attr("data-flag-title").trim(),t=new AV.Query(i);t.equalTo("url",s),t.find({success:function(e){if(0<e.length){var t=e[0];t.fetchWhenSave(!0),t.increment("time"),t.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to save Visitor num, with error message: "+t.message)}})}else{var n=new i,o=new AV.ACL;o.setPublicReadAccess(!0),o.setPublicWriteAccess(!0),n.setACL(o),n.set("title",r),n.set("url",s),n.set("time",1),n.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to create")}})}},error:function(e){console.log("Error:"+e.code+" "+e.message)}})}$(function(){var e=AV.Object.extend("Counter");1==$(".leancloud_visitors").length?addCount(e):1<$(".post-title-link").length&&showTime(e)})</script></body></html>
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="技术,正则表达式," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="最近项目中用到正则表达式，每次用到，就查一下看一下正则表达式30分钟入门教程，不久后又忘记，对一些复杂一点的也不是很理解，导致每次都花费很多时间，就彻底整理一遍，找了《正则表达式必知必会》参考，整理出匹配的表达式和文本范例，下次看也高效一点。">
+<meta name="keywords" content="技术,正则表达式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式">
+<meta property="og:url" content="http://yoursite.com/2017/07/09/正则表达式/index.html">
+<meta property="og:site_name" content="亦袁非猿">
+<meta property="og:description" content="最近项目中用到正则表达式，每次用到，就查一下看一下正则表达式30分钟入门教程，不久后又忘记，对一些复杂一点的也不是很理解，导致每次都花费很多时间，就彻底整理一遍，找了《正则表达式必知必会》参考，整理出匹配的表达式和文本范例，下次看也高效一点。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-07-09T14:43:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="正则表达式">
+<meta name="twitter:description" content="最近项目中用到正则表达式，每次用到，就查一下看一下正则表达式30分钟入门教程，不久后又忘记，对一些复杂一点的也不是很理解，导致每次都花费很多时间，就彻底整理一遍，找了《正则表达式必知必会》参考，整理出匹配的表达式和文本范例，下次看也高效一点。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'OF78IO15IZ',
+      apiKey: '75e8a500a6a0237315a8a25669328dbf',
+      indexName: 'First Index',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/09/正则表达式/"/>
+
+
+
+
+
+  <title>正则表达式 | 亦袁非猿</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亦袁非猿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/09/正则表达式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亦袁非猿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亦袁非猿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                正则表达式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T20:54:19+08:00">
+                2017-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/07/09/正则表达式/" class="leancloud_visitors" data-flag-title="正则表达式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>最近项目中用到正则表达式，每次用到，就查一下看一下<a href="https://deerchao.net/tutorials/regex/regex.htm" target="_blank" rel="noopener">正则表达式30分钟入门教程</a>，不久后又忘记，对一些复杂一点的也不是很理解，导致每次都花费很多时间，就彻底整理一遍，找了《正则表达式必知必会》参考，整理出匹配的表达式和文本范例，下次看也高效一点。</p>
+</blockquote>
+<a id="more"></a>
+<p><strong>定义：</strong>正则表达式就是用于描述这些规则的工具。<br><strong>用途：</strong>  </p>
+<ol>
+<li>查找特定的信息(搜索)  </li>
+<li>查找并编辑特定的信息(替换)</li>
+</ol>
+<h3 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h3><table>
+<thead>
+<tr>
+<th>代码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.</td>
+<td>匹配除换行符以外的任意字符</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配字母或数字或下划线或汉字</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任意的空白符</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配数字</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配单词的开始或者结束</td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配字符串的开始</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配字符串的结束</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>匹配单个字符</p>
+<p>表达式：<code>my</code></p>
+<p>文本：<mark>My</mark> name is yuan,her name is li,<mark>my</mark> brother name is ling.</p>
+</li>
+<li><p>匹配数字</p>
+<p>表达式：<code>\d</code></p>
+<p>file<mark>1</mark>.txt  </p>
+</li>
+<li><p><code>\s</code>表示任意的空白符，包括<code>\r</code>空格，<code>\n</code>换行，<code>\t</code>Tab键，分别匹配空格，Tab键，换行。</p>
+<p>表达式：<code>txt\sf</code></p>
+<p>文本：<br>file1.<mark>txt f</mark>ile2.<mark>txt　　f</mark>ile3.<mark>txt</mark><br><mark>f</mark>ile4.txt</p>
+</li>
+</ul>
+<h4 id="单词边界"><a href="#单词边界" class="headerlink" title="单词边界"></a>单词边界</h4><p>边界可以由<code>\b</code>进行限定，<code>\b</code>不匹配任何字符，其只匹配一个位置，这个位置位于一个能否用来构成单词的字符（也就是和<code>\w</code>相匹配的字符）和一个不能用来构成单词的字符（也就是与`\W相匹配的字符）之间。</p>
+<ul>
+<li><p>匹配开头为<code>n</code>的单词，需要添加元字符<code>\b</code>，否则会匹配<code>yuan ling</code>，</p>
+<p>表达式：<code>\bn</code></p>
+<p>文本：My <mark>name</mark> is yuan,her <mark>name</mark> is li,my brother <mark>name</mark> is ling.</p>
+</li>
+<li><p>匹配<code>li</code>而不匹配<code>ling</code>，<code>\b</code>匹配了单词的开头和结尾</p>
+<p>表达式：<code>li\b</code></p>
+<p>文本：My name is yuan,her name is <mark>li</mark>,my brother name is ling.</p>
+</li>
+<li><p><code>^</code>也是限制匹配词的开始，不过是针对整个字符串，匹配其中开头的<code>My</code>，而不是中间的<code>my</code>，表达式为：<code>^my</code>，<code>$</code>则是限制字符串的结束</p>
+</li>
+</ul>
+<h4 id="反义符"><a href="#反义符" class="headerlink" title="反义符"></a>反义符</h4><table>
+<thead>
+<tr>
+<th style="text-align:center">代码</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\W</td>
+<td style="text-align:center">匹配任意不是字母，数字，下划线，汉字的字符</td>
+</tr>
+<tr>
+<td style="text-align:center">\S</td>
+<td style="text-align:center">匹配任意不是空白符的字符</td>
+</tr>
+<tr>
+<td style="text-align:center">\D</td>
+<td style="text-align:center">匹配任意不是数字的字符</td>
+</tr>
+<tr>
+<td style="text-align:center">\B</td>
+<td style="text-align:center">匹配不是单词开头或者结束的位置</td>
+</tr>
+<tr>
+<td style="text-align:center">[^X]</td>
+<td style="text-align:center">匹配除了X以外的任意字符</td>
+</tr>
+<tr>
+<td style="text-align:center">[^aeiou]</td>
+<td style="text-align:center">匹配除了aeiou这几个字母以外的人任意字符</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><code>[0-9]</code>表示匹配0-9的数字，和<code>\d</code>一样。  <code>[a-z]</code>表示匹配a-z的所有单词，<code>[A-Z]</code>表示匹配A-Z的所有单词，<code>[a-zA-Z]</code>则匹配所有大小写单词单词。</p>
+</li>
+<li><p>连字符<code>-</code>在字符集[ ]之间才有特殊的意义，在字符集外只是一个普通字符，匹配其本身不需要被转义。</p>
+</li>
+</ul>
+<h4 id="转义符"><a href="#转义符" class="headerlink" title="转义符"></a>转义符</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下字符有特殊意义，匹配该字符需要添加 \</span></span><br><span class="line">* . ? + $ ^ [ ] ( ) &#123; &#125; | \ /</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上面的字符在字符集[ ]中会被解释为普通字符，不需要转义，但为了避免误解，最好进行转义。</li>
+</ul>
+<h3 id="限定符"><a href="#限定符" class="headerlink" title="限定符"></a>限定符</h3><table>
+<thead>
+<tr>
+<th>代码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td>重复零次或更多次</td>
+</tr>
+<tr>
+<td>+</td>
+<td>重复一次或更多次</td>
+</tr>
+<tr>
+<td>?</td>
+<td>重复零次或者一次</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>重复n次</td>
+</tr>
+<tr>
+<td>{n,}</td>
+<td>重复n次或更多次</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>重复n到m次</td>
+</tr>
+</tbody>
+</table>
+<p>在给一个字符集合加上限定符的时候，必须把限定符放在其外面</p>
+<ul>
+<li>表达式：<code>n\d*</code>  文本：<mark>n</mark>  <mark>n1</mark>  <mark>n123</mark></li>
+<li>表达式：<code>n\d+</code>  文本：n  <mark>n1</mark>  <mark>n123</mark></li>
+<li>表达式：<code>n\d?</code>  文本：<mark>n</mark>  <mark>n1</mark>  <mark>n1</mark>23</li>
+<li>表达式：<code>n\d{1}</code>  文本：n  <mark>n1</mark>  <mark>n1</mark>23</li>
+<li>表达式：<code>n\d{1,}</code>  文本：n  <mark>n1</mark>  <mark>n123</mark></li>
+<li>表达式：<code>n\d{1,2}</code>  文本：n  <mark>n1</mark>  <mark>n12</mark>3</li>
+</ul>
+<h3 id="贪婪与懒惰"><a href="#贪婪与懒惰" class="headerlink" title="贪婪与懒惰"></a>贪婪与懒惰</h3><p>正则匹配默认情况下，是匹配尽可能多的字符，即贪婪匹配。如果需要匹配尽可能少的字符，就需要通过限定符转化为懒惰匹配。</p>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*?</td>
+<td>重复任意次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>+?</td>
+<td>重复1次或更多次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>??</td>
+<td>重复0次或者1次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>{n,m}?</td>
+<td>重复n到m次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>{n,}?</td>
+<td>重复n次以上，但尽可能少重复</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注：由于匹配到的文本想通过高亮显示出现，没办法使用代码块，导致<code>&lt;H1&gt;</code>会被网页识别为标题，因此，下面通过<code>《</code>替代<code>&lt;</code>和<code>》</code>替换<code>&gt;</code>，一方面在Markdown中正确显示，又在网页中可以正确显示</strong></p>
+<ul>
+<li><p>匹配《H1》标签之间的内容，默认是贪婪匹配，会匹配尽可能的多。</p>
+<p>表达式：<code>《H1》.*《/H1》</code></p>
+<p>文本：<br><mark>《H1》Welcome to my Homepage《/H1》Content is divided into two sections.《H1》This is not valid HTML《/H1》</mark></p>
+</li>
+<li><p>过度匹配，需要采用懒惰模式，匹配尽可能的少</p>
+<p>表达式：<code>《H1》.*？《/H1》</code></p>
+<p>文本：<br><mark>《H1》Welcome to my Homepage《/H1》</mark>Content is divided into two sections.<mark>《H1》This is not valid HTML《/H1》</mark></p>
+</li>
+</ul>
+<h3 id="子表达式"><a href="#子表达式" class="headerlink" title="子表达式"></a>子表达式</h3><p>子表达式通过（和）把一系列元素括起来，把其当成一个独立元素使用。</p>
+<p>默认情况下，每个分组会自动拥有一个组号，规则是：从左向右，以分组的左括号为标志，第一个出现的组号为1，第二个为2，以此类推。第0个匹配可以用来代表整个正则表达式。组号必须添加<code>\</code>进行转义。</p>
+<ul>
+<li><p>在表达式<code>((A)(B(C)))</code>中，存在4个分组</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">((<span class="name">A</span>)(<span class="name">B</span>(<span class="name">C</span>)))  </span><br><span class="line">(<span class="name">A</span>)  </span><br><span class="line">(<span class="name">B</span>(<span class="name">C</span>))  </span><br><span class="line">(<span class="name">C</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="捕获"><a href="#捕获" class="headerlink" title="捕获"></a>捕获</h4><table>
+<thead>
+<tr>
+<th>代码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(exp)</td>
+<td>匹配exp，并捕获文本到自动命名的组里</td>
+</tr>
+<tr>
+<td>(?\<name\>exp)</name\></td>
+<td>匹配exp，并捕获文本到名称为name的组里，也可以写成(?’name’exp)</td>
+</tr>
+<tr>
+<td>(?:exp)</td>
+<td>匹配exp，不捕获匹配的文本，也不给词分组分配组号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>匹配年份，如果不使用子表达式，则只会匹配<mark>19</mark>，因为<code>|</code>操作符是吧位于它左边和右边的两个部分都作为一个整体来看待的，就变成匹配<code>19</code>和<code>20\d{2}</code></p>
+<p>表达式：<code>(19|20)\d{2}</code></p>
+<p>文本：<mark>1999</mark></p>
+</li>
+<li><p>​匹配HTML标题中的内容，会发现，H2 对应的 H3 为错误的，不应该被匹配到</p>
+<p>表达式：<code>《H[1-6]》.*?《/H[1-6]》</code></p>
+<p>文本：<br><mark>《H1》Welcome to my Homepage《/H1》</mark><br>Content is divided into two sections.<br><mark>《H2》This is not valid HTML《/H3》</mark></p>
+</li>
+<li><p>如果不想匹配到错误的内容，只要使用回溯引用，确保标签头和标签尾一致。把<code>[1-6]</code>作为一个表达式，在后面使用<code>\1</code>去匹配。</p>
+<p>表达式：<code>《H([1-6])》.*?《/H\1》</code></p>
+<p> 文本：<br><mark>《H1》Welcome to my Homepage《/H1》</mark><br>Content is divided into two sections.<br>《H2》This is not valid HTML《/H3》</p>
+</li>
+<li><p>如果使用组号进行匹配，在正则表达式复杂的情况下，如果进行修改，比如在前面添加一个分组，所有的分组编号都要进行修改。因此，使用分组重命名就可以避免。</p>
+<p>表达式：<code>《H(?&lt;number&gt;[1-6])》.*?《/H\number》</code></p>
+<p>文本：<br><mark>《H1》Welcome to my Homepage《/H1》</mark><br>Content is divided into two sections.<br>《H2》This is not valid HTML《/H3》</p>
+</li>
+<li><p>有时候在使用<code>|</code>的时候，需要用到<code>()</code>，但是实际上，不需要进行捕获，在后面也不需要用到此分组，为了提高效率，可以使用<code>(?:exp)</code></p>
+<p>表达式：<code>(19|20)\d{2}《H([1-6])》.*《H\2》</code></p>
+<p>文本：<br><mark>1993《H1》head《/H1》</mark></p>
+</li>
+<li><p>如果使用<code>(?:exp)</code>，则没有该分组了，<code>\2</code>也需要换成<code>\1</code></p>
+<p>表达式：<code>(?:19|20)\d{2}《H([1-6])》.*《/H\1》</code></p>
+<p>文本：<br><mark>1993《H1》head《/H1》</mark>  </p>
+</li>
+</ul>
+<h4 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h4><table>
+<thead>
+<tr>
+<th>代码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(?=exp)</td>
+<td>正向前查找</td>
+</tr>
+<tr>
+<td>(?!exp)</td>
+<td>负向前查找</td>
+</tr>
+<tr>
+<td>(?&lt;=exp)</td>
+<td>正向后查找</td>
+</tr>
+<tr>
+<td>(?&lt;!exp)</td>
+<td>负向后查找</td>
+</tr>
+</tbody>
+</table>
+<p>有些时候，匹配到的内容，不是你真正需要的，如果把它搜索出来，再手动去掉，比较麻烦，那么需要被匹配到的文本不包含在最终返回的匹配结果中，也就是“不消费”。</p>
+<ul>
+<li><p>匹配URL地址，把协议名部分提取出来</p>
+<p>表达式：<code>.+(?=:)</code></p>
+<p>文本：<br><mark>http</mark>://www.baidu.com<br><mark>https</mark>://www.baidu.com</p>
+</li>
+<li><p>提取产品中的价格</p>
+<p>表达式：<code>(?&lt;=\$)[0-9.]+</code></p>
+<p>文本：<br>apple: \$<mark>1</mark><br>banana: \$<mark>2</mark></p>
+</li>
+<li><p>匹配数量不匹配价格</p>
+<p>表达式：<code>\b(?&lt;!\$)\d+\b</code></p>
+<p>文本：I paid $30 for <mark>100</mark> apples;  </p>
+</li>
+</ul>
+<h3 id="嵌入条件"><a href="#嵌入条件" class="headerlink" title="嵌入条件"></a>嵌入条件</h3><p>正则表达式里的条件用？来定义，只有符合条件才执行后面的匹配。</p>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(?(condition)true)</td>
+<td>存在则执行true</td>
+</tr>
+<tr>
+<td>(?(condition)true\</td>
+<td>false)</td>
+<td>存在则执行true，错误则执行false</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>匹配电话号码，如果存在（ 则需要），否则需要 -</p>
+<p>表达式：<code>(\()?\d{3}(?(1)\)|-)\d{3}-\d{4}</code></p>
+<p>文本：<br><mark>123-456-7890</mark><br><mark>(123)456-7890</mark><br>(123-456-7890<br>(123)-456-7890</p>
+</li>
+</ul>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li><a href="https://deerchao.net/tutorials/regex/regex.htm" target="_blank" rel="noopener">正则表达式30分钟入门教程</a></li>
+<li><a href="http://tool.chinaz.com/regex" target="_blank" rel="noopener">站长工具 正则测试</a></li>
+<li>《正则表达式必知必会》</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/正则表达式/" rel="tag"># 正则表达式</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/25/Hexo绑定域名/" rel="next" title="Hexo绑定域名">
+                <i class="fa fa-chevron-left"></i> Hexo绑定域名
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/20/正则表达式-java上的应用/" rel="prev" title="正则表达式-java上的应用">
+                正则表达式-java上的应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQzOC82MDA2"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg"
+               alt="亦袁非猿" />
+          <p class="site-author-name" itemprop="name">亦袁非猿</p>
+           
+              <p class="site-description motion-element" itemprop="description">while(写出来){  <br>
+  理解力++; <br>
+  表达力++; }
+</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#元字符"><span class="nav-number">1.</span> <span class="nav-text">元字符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单词边界"><span class="nav-number">1.1.</span> <span class="nav-text">单词边界</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反义符"><span class="nav-number">1.2.</span> <span class="nav-text">反义符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#转义符"><span class="nav-number">1.3.</span> <span class="nav-text">转义符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#限定符"><span class="nav-number">2.</span> <span class="nav-text">限定符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贪婪与懒惰"><span class="nav-number">3.</span> <span class="nav-text">贪婪与懒惰</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子表达式"><span class="nav-number">4.</span> <span class="nav-text">子表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#捕获"><span class="nav-number">4.1.</span> <span class="nav-text">捕获</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#断言"><span class="nav-number">4.2.</span> <span class="nav-text">断言</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌入条件"><span class="nav-number">5.</span> <span class="nav-text">嵌入条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亦袁非猿</span>
+</div>
+
+
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("Ivcwx7f8x7ghc8SWU0YMuIFI-gzGzoHsz", "mQEm0lIov3tBcrPByox6zHc0");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
