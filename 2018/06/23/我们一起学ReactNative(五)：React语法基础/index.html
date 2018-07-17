@@ -1,1 +1,936 @@
-<!doctype html><html class="theme-next mist use-motion" lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css"><meta name="keywords" content="ReactNative,语法基础,"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1"><meta name="description" content="学完JavaScript后，就可以进下一步，学习React的开发了，学习Reac需要掌握几个知识点，JSX语法、组件、状态，生命周期。"><meta name="keywords" content="ReactNative,语法基础"><meta property="og:type" content="article"><meta property="og:title" content="我们一起学ReactNative(五)：React语法基础"><meta property="og:url" content="http://yoursite.com/2018/06/23/我们一起学ReactNative(五)：React语法基础/index.html"><meta property="og:site_name" content="亦袁非猿"><meta property="og:description" content="学完JavaScript后，就可以进下一步，学习React的开发了，学习Reac需要掌握几个知识点，JSX语法、组件、状态，生命周期。"><meta property="og:locale" content="zh-Hans"><meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-06-22-15296686573950.jpg-wtmark"><meta property="og:updated_time" content="2018-06-24T07:38:09.350Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="我们一起学ReactNative(五)：React语法基础"><meta name="twitter:description" content="学完JavaScript后，就可以进下一步，学习React的开发了，学习Reac需要掌握几个知识点，JSX语法、组件、状态，生命周期。"><meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2018-06-22-15296686573950.jpg-wtmark"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Mist",sidebar:{position:"left",display:"post",offset:12,offset_float:0,b2t:!1,scrollpercent:!1},fancybox:!0,motion:!0,duoshuo:{userId:"0",author:"博主"},algolia:{applicationID:"OF78IO15IZ",apiKey:"75e8a500a6a0237315a8a25669328dbf",indexName:"First Index",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="http://yoursite.com/2018/06/23/我们一起学ReactNative(五)：React语法基础/"><title>我们一起学ReactNative(五)：React语法基础 | 亦袁非猿</title></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">亦袁非猿</span><span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle"></p></div><div class="site-nav-toggle"> <button><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br> 首页</a></li><li class="menu-item menu-item-categories"><a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br> 分类</a></li><li class="menu-item menu-item-tags"><a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br> 标签</a></li><li class="menu-item menu-item-archives"><a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br> 时间轴</a></li></ul></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/23/我们一起学ReactNative(五)：React语法基础/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="亦袁非猿"><meta itemprop="description" content=""><meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="亦袁非猿"></span><header class="post-header"><h1 class="post-title" itemprop="name headline"> 我们一起学ReactNative(五)：React语法基础</h1><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-23T14:06:04+08:00">2018-06-23</time></span> <span class="post-category"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span> <span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ReactNative/" itemprop="url" rel="index"><span itemprop="name">ReactNative</span></a></span></span> <span id="/2018/06/23/我们一起学ReactNative(五)：React语法基础/" class="leancloud_visitors" data-flag-title="我们一起学ReactNative(五)：React语法基础"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span> <span class="post-meta-item-text">阅读次数</span><span class="leancloud-visitors-count"></span></span></div></header><div class="post-body" itemprop="articleBody"><p>学完JavaScript后，就可以进下一步，学习React的开发了，学习Reac需要掌握几个知识点，JSX语法、组件、状态，生命周期。</p><a id="more"></a><h2 id="React语法基础"><a href="#React语法基础" class="headerlink" title="React语法基础"></a>React语法基础</h2><p>关于React的语法，可以参考<a href="http://www.ruanyifeng.com/blog/2015/03/react.html" target="_blank" rel="noopener">React 入门实例教程</a>，基本可以对几个基础语法点进行理解，不过文章面对的是React.js，具体语法有一点点区别。下面的案例，基本语法点保持一致，但是面对的是ReactNative。</p><p>编写的时候，如果想方便，也可以在<a href="http://dabbott.github.io/react-native-web-player/" target="_blank" rel="noopener">在线模拟器</a>上进行练习。</p><h3 id="显示一个组件"><a href="#显示一个组件" class="headerlink" title="显示一个组件"></a>显示一个组件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// demo1.js</span><br><span class="line">// 导入依赖包</span><br><span class="line">import React, &#123; Component &#125; from &apos;react&apos;</span><br><span class="line">import &#123;</span><br><span class="line">  AppRegistry,</span><br><span class="line">  Text,</span><br><span class="line">  View,</span><br><span class="line">&#125; from &apos;react-native&apos;</span><br><span class="line"></span><br><span class="line">// 定义一个组件</span><br><span class="line">export default class App extends Component&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;View&gt;</span><br><span class="line">                &lt;Text&gt;Hello World!&lt;/Text&gt;</span><br><span class="line">            &lt;/View&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// JS运行所有React Native应用的入口。应用的根组件应当通过AppRegistry.registerComponent方法注册自己，然后原生系统才可以加载应用的代码包</span><br><span class="line">AppRegistry.registerComponent(&apos;App&apos;, () =&gt; App)</span><br></pre></td></tr></table></figure><h3 id="JSX语法"><a href="#JSX语法" class="headerlink" title="JSX语法"></a>JSX语法</h3><p>通过JSX语法，可以使得HTML和JavaScript语法混写，如果想写HTML语法，就使用<code>&lt;&gt;</code>，如果使用JavaScript语法，则使用<code>{}</code>。</p><p>JSX不是一种标记语言，实质是调用<code>React.createElement</code>函数，所以在开发中使用其时，要在头部定义<code>import React from &#39;react&#39;;</code>。</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// demo2.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">let</span> name = <span class="string">"yuan"</span></span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;View&gt;</span><br><span class="line">                &lt;Text&gt;Hello &#123;name&#125;!<span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line">            &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure><h4 id="语法规则"><a href="#语法规则" class="headerlink" title="语法规则"></a>语法规则</h4><ul><li><p>标签首字母必须大写</p></li><li><p>开始和结束标签配对</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;组件&gt;内容&lt;<span class="regexp">/组件&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 如果无内容的组件，标签应写成自封闭形式</span></span><br><span class="line"><span class="regexp">&lt;组件/</span>&gt;</span><br></pre></td></tr></table></figure></li><li><p>必须为单一子节点，如果有多个节点，最外层可以用<code>&lt;View&gt;&lt;/View&gt;</code>嵌套起来</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误做法</span></span><br><span class="line"><span class="keyword">return</span> (</span><br><span class="line">    &lt;View&gt;</span><br><span class="line">        &lt;Text&gt;Hello World!<span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line">	&lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">    &lt;View&gt;</span></span><br><span class="line"><span class="regexp">        &lt;Text&gt;Hello World!&lt;/</span>Text&gt;</span><br><span class="line">	&lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 正确做法</span></span><br><span class="line"><span class="regexp">return (</span></span><br><span class="line"><span class="regexp">    &lt;View&gt;</span></span><br><span class="line"><span class="regexp">        &lt;View&gt;</span></span><br><span class="line"><span class="regexp">            &lt;Text&gt;Hello World!&lt;/</span>Text&gt;</span><br><span class="line">        &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">        &lt;View&gt;</span></span><br><span class="line"><span class="regexp">            &lt;Text&gt;Hello World!&lt;/</span>Text&gt;</span><br><span class="line">        &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>View&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li></ul><h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>在JSX代码内，注释只能使用<code>{/* 注释内容 */}</code></p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// demo3.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">let</span> name = <span class="string">"yuan"</span></span><br><span class="line">        <span class="comment">// JSX外的注释</span></span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;View&gt;</span><br><span class="line">                &#123;<span class="comment">/*JSX的注释*/</span>&#125;</span><br><span class="line">                &lt;Text&gt;Hello &#123;name&#125;!<span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line">            &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure><h3 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h3><p>在React Native开发中，一个个布局可以通过创建组件的方式搭建起来，然后通过return返回一个在页面上展示的React元素。定义一个组件有两种方式，一种是通过function，称为<strong>函数定义组件</strong>，功能比较简单的组件可以采用该方法。另外一种是通过继承class，称为<strong>类定义组件</strong>。可以把组件类似认为，在Android开发中，在java类中创建自定义View，然后把View添加到原有布局中。</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// demo4.js</span></span><br><span class="line"><span class="comment">// 函数定义组件，采用箭头函数</span></span><br><span class="line"><span class="keyword">const</span> HelloWorld = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;Text&gt;Hello world!<span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 类定义组件，与上面的效果一致</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;Text&gt;Hello World!<span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="组件属性props"><a href="#组件属性props" class="headerlink" title="组件属性props"></a>组件属性props</h4><p>每次在使用的时候，不可能组件内容都一样，所以，需要可以在使用的时候，传入不同的值，改变组件里面的内容，那么就可以使用关键字<code>props</code>。</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// demo5.js</span></span><br><span class="line"><span class="comment">// 函数定义组件，属性需要传递进去</span></span><br><span class="line"><span class="keyword">const</span> HelloWorld = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;Text&gt;Hello &#123;props.name&#125;!<span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 类定义组件，属性通过this.props获取，与上面的效果一致</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;Text&gt;Hello &#123;<span class="keyword">this</span>.props.name&#125;!<span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;View&gt;</span><br><span class="line">                &lt;HelloWorld name=<span class="string">"yuan"</span>/&gt;</span><br><span class="line">            &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure><p>自定义属性，字符串应使用双引号，其他值用<code>{}</code>括起来，布尔值可省略，默认为<code>true</code>。</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Person age=&#123;<span class="number">30</span>&#125; sex=<span class="string">"male"</span> married/&gt;</span><br></pre></td></tr></table></figure><h4 id="类定义组件属性"><a href="#类定义组件属性" class="headerlink" title="类定义组件属性"></a>类定义组件属性</h4><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    <span class="comment">// 如果组件没有设置该属性，则会使用默认值</span></span><br><span class="line">    <span class="keyword">static</span> defaultProps = &#123;</span><br><span class="line">        name:<span class="string">"yuan"</span>,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 约定组件属性所需要的类型(为字符串)，如果类型不符合，编译的时候会报错</span></span><br><span class="line">	<span class="keyword">static</span> propTypes = &#123;</span><br><span class="line">        name: React.PropTypes.string,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;Text&gt;Hello &#123;<span class="keyword">this</span>.props.name&#125;!<span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h4><ul><li><strong>函数内</strong>的局部变量，只能函数内读写，函数运行完后销毁（闭包除外）</li><li><strong>class内</strong>的成员变量，在单个class的实例内读写，实例销毁时一并销毁<ul><li>使用时不要忘记<strong>this.</strong></li></ul></li><li><strong>class内</strong>的静态成员变量，在所有class的实例内共享，不会自动销毁<ul><li>其他模块可通过此class访问（类public</li></ul></li><li><strong>class外</strong>的变量，在所有class的实例内共享（公有），不会自动销毁<ul><li>除非明确export，否则其他模块不可访问（类private）</li></ul></li></ul><h3 id="状态state"><a href="#状态state" class="headerlink" title="状态state"></a>状态state</h3><p>上面讲到了不同的属性值，可以用<code>props</code>，但是其值一经指定，在组件的生命周期中则不再改变。 对于需要改变的数据，我们就需要使用<code>state</code>。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// demo6.js</span></span><br><span class="line"><span class="comment">// 定义一个文字按钮的组件</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LikeButton</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    <span class="comment">// 设置默认状态值为false，同时也声明为boolean类型</span></span><br><span class="line">    state = &#123;</span><br><span class="line">        liked : <span class="literal">false</span></span><br><span class="line">    &#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 定义一个函数，响应点击事件，改变state的值，方法名可以任意</span></span><br><span class="line">    onPress = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">            liked: !<span class="keyword">this</span>.state.liked</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">var</span> text = <span class="keyword">this</span>.state.liked ? <span class="string">'like'</span> : <span class="string">'haven\'t liked'</span>;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;View&gt;</span><br><span class="line">            	&#123;<span class="comment">/*声明了点击事件执行的方法*/</span>&#125;</span><br><span class="line">                &lt;Text onPress=&#123;<span class="keyword">this</span>.onPress&#125;&gt;</span><br><span class="line">                    You &#123;text&#125; <span class="keyword">this</span>. Click to toggle.</span><br><span class="line">                &lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>View&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;View&gt;</span><br><span class="line">                &lt;LikeButton/&gt;</span><br><span class="line">            &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure><ul><li><p>state的变化，必须通过setState()方法，不能直接赋值修改</p></li><li><p>setState是异常操作，修改不会马上生效</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">onPress = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.liked)</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">        liked: !<span class="keyword">this</span>.state.liked</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.liked)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 结果的输出，两次都保持一样，执行setState()后，该值不会立马生效，还是保持原来的状态值</span></span><br></pre></td></tr></table></figure></li><li><p>setState被执行后，会触发render，对界面重新渲染，所以，不要再renser，对数据进行改变，避免会调用到setState，导致死循环。</p></li></ul><h3 id="组件的生命周期"><a href="#组件的生命周期" class="headerlink" title="组件的生命周期"></a>组件的生命周期</h3><p>组件的生命周期，可以分为三个状态：</p><ul><li>Mounting：已插入真实 DOM</li><li>Updating：正在被重新渲染</li><li>Unmounting：已移出真实 DOM</li></ul><p>React 为每个状态都提供了两种处理函数，<code>will</code> 函数在进入状态之前调用，<code>did</code> 函数在进入状态之后调用，三种状态共计五种处理函数：</p><ul><li>componentWillMount()</li><li>componentDidMount()</li><li>componentWillUpdate(object nextProps, object nextState)</li><li>componentDidUpdate(object prevProps, object prevState)</li><li>componentWillUnmount()</li></ul><p>此外，React 还提供两种特殊状态的处理函数：</p><ul><li>componentWillReceiveProps(object nextProps)：已加载组件收到新的参数时调用</li><li>shouldComponentUpdate(object nextProps, object nextState)：组件判断是否重新渲染时调用</li></ul><h4 id="各种组件处理函数的流程图如下"><a href="#各种组件处理函数的流程图如下" class="headerlink" title="各种组件处理函数的流程图如下"></a>各种组件处理函数的流程图如下</h4><p><img src="http://ol45hsxko.bkt.clouddn.com/2018-06-22-15296686573950.jpg-wtmark" alt=""></p><p><strong>实例代码</strong></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// dmeo7.js</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TextOpacity</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    state = &#123;</span><br><span class="line">        opacity : <span class="number">1.0</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">        <span class="keyword">this</span>.timer = setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">let</span> opacity = <span class="keyword">this</span>.state.opacity;</span><br><span class="line">                opacity -= <span class="number">0.05</span>;</span><br><span class="line">                <span class="keyword">if</span> (opacity &lt; <span class="number">0.1</span>) &#123;</span><br><span class="line">                    opacity = <span class="number">1.0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">                    opacity: opacity</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;,<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 卸载后清空时钟</span></span><br><span class="line">    comnponentWillUnmount() &#123;</span><br><span class="line">        clearInterval(<span class="keyword">this</span>.timer)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;Text style=&#123;&#123;<span class="attr">opacity</span>:<span class="keyword">this</span>.state.opacity&#125;&#125;&gt;</span><br><span class="line">                Hello world</span><br><span class="line">            &lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default class App extends Component&#123;</span></span><br><span class="line"><span class="regexp">    render() &#123;</span></span><br><span class="line"><span class="regexp">        return (</span></span><br><span class="line"><span class="regexp">            &lt;View&gt;</span></span><br><span class="line"><span class="regexp">                &lt;TextOpacity/</span>&gt;</span><br><span class="line">            &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure><p>上面代码在<code>TextOpacity</code>组件加载以后，默认设置透明度为1，然后通过 <code>componentDidMount</code> 方法设置一个定时器，每隔100毫秒，就重新通过<code>setState</code>设置组件的透明度，从而引发重新渲染调用<code>render</code>。</p><h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul><li><a href="http://www.ruanyifeng.com/blog/2015/03/react.html" target="_blank" rel="noopener">React 入门实例教程</a></li><li><a href="https://reactnative.cn/" target="_blank" rel="noopener">ReactNative中文网</a></li></ul></div><div></div><div></div><div></div><footer class="post-footer"><div class="post-tags"> <a href="/tags/ReactNative/" rel="tag"># ReactNative</a> <a href="/tags/语法基础/" rel="tag"># 语法基础</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2018/06/14/我们一起学ReactNative(四)：原有Android项目引入ReactNative/" rel="next" title="我们一起学ReactNative(四)：原有Android项目引入ReactNative"><i class="fa fa-chevron-left"></i> 我们一起学ReactNative(四)：原有Android项目引入ReactNative</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"> <a href="/2018/06/25/为七牛图片添加水印处理/" rel="prev" title="为七牛图片添加水印处理">为七牛图片添加水印处理<i class="fa fa-chevron-right"></i></a></div></div></footer></article><div class="post-spread"></div></div></div><div class="comments" id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQzOC82MDA2"></div></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview"> 站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg" alt="亦袁非猿"><p class="site-author-name" itemprop="name">亦袁非猿</p><p class="site-description motion-element" itemprop="description">while(写出来){<br> 理解力++;<br> 表达力++; }</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/archives"><span class="site-state-item-count">27</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"> <a href="/categories/index.html"><span class="site-state-item-count">5</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"> <a href="/tags/index.html"><span class="site-state-item-count">19</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="links-of-author motion-element"></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#React语法基础"><span class="nav-number">1.</span> <span class="nav-text">React语法基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#显示一个组件"><span class="nav-number">1.1.</span> <span class="nav-text">显示一个组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSX语法"><span class="nav-number">1.2.</span> <span class="nav-text">JSX语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#语法规则"><span class="nav-number">1.2.1.</span> <span class="nav-text">语法规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注释"><span class="nav-number">1.2.2.</span> <span class="nav-text">注释</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组件"><span class="nav-number">1.3.</span> <span class="nav-text">组件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#组件属性props"><span class="nav-number">1.3.1.</span> <span class="nav-text">组件属性props</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类定义组件属性"><span class="nav-number">1.3.2.</span> <span class="nav-text">类定义组件属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量作用域"><span class="nav-number">1.3.3.</span> <span class="nav-text">变量作用域</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态state"><span class="nav-number">1.4.</span> <span class="nav-text">状态state</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组件的生命周期"><span class="nav-number">1.5.</span> <span class="nav-text">组件的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#各种组件处理函数的流程图如下"><span class="nav-number">1.5.1.</span> <span class="nav-text">各种组件处理函数的流程图如下</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">1.6.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright"> &copy; <span itemprop="copyrightYear">2018</span><span class="with-love"><i class="fa fa-heart"></i></span> <span class="author" itemprop="copyrightHolder">亦袁非猿</span></div><p>Hosted by <a href="https://pages.coding.me" style="font-weight:700">Coding Pages</a></p></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script><script type="text/javascript">!function(e,t){var n,c=e.getElementsByTagName(t)[0];"function"!=typeof LivereTower&&((n=e.createElement(t)).src="https://cdn-city.livere.com/js/embed.dist.js",n.async=!0,c.parentNode.insertBefore(n,c))}(document,"script")</script><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script><script>AV.initialize("Ivcwx7f8x7ghc8SWU0YMuIFI-gzGzoHsz","mQEm0lIov3tBcrPByox6zHc0")</script><script>function showTime(e){var t=new AV.Query(e),c=[],u=$(".leancloud_visitors");u.each(function(){c.push($(this).attr("id").trim())}),t.containedIn("url",c),t.find().done(function(e){var t=".leancloud-visitors-count";if(0!==e.length){for(var n=0;n<e.length;n++){var o=e[n],i=o.get("url"),s=o.get("time"),r=document.getElementById(i);$(r).find(t).text(s)}for(n=0;n<c.length;n++){i=c[n],r=document.getElementById(i);var l=$(r).find(t);""==l.text()&&l.text(0)}}else u.find(t).text(0)}).fail(function(e,t){console.log("Error: "+t.code+" "+t.message)})}function addCount(i){var e=$(".leancloud_visitors"),s=e.attr("id").trim(),r=e.attr("data-flag-title").trim(),t=new AV.Query(i);t.equalTo("url",s),t.find({success:function(e){if(0<e.length){var t=e[0];t.fetchWhenSave(!0),t.increment("time"),t.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to save Visitor num, with error message: "+t.message)}})}else{var n=new i,o=new AV.ACL;o.setPublicReadAccess(!0),o.setPublicWriteAccess(!0),n.setACL(o),n.set("title",r),n.set("url",s),n.set("time",1),n.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to create")}})}},error:function(e){console.log("Error:"+e.code+" "+e.message)}})}$(function(){var e=AV.Object.extend("Counter");1==$(".leancloud_visitors").length?addCount(e):1<$(".post-title-link").length&&showTime(e)})</script></body></html>
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ReactNative,语法基础," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="学完JavaScript后，就可以进下一步，学习React的开发了，学习Reac需要掌握几个知识点，JSX语法、组件、状态，生命周期。">
+<meta name="keywords" content="ReactNative,语法基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我们一起学ReactNative(五)：React语法基础">
+<meta property="og:url" content="http://yoursite.com/2018/06/23/我们一起学ReactNative(五)：React语法基础/index.html">
+<meta property="og:site_name" content="亦袁非猿">
+<meta property="og:description" content="学完JavaScript后，就可以进下一步，学习React的开发了，学习Reac需要掌握几个知识点，JSX语法、组件、状态，生命周期。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-06-22-15296686573950.jpg-wtmark">
+<meta property="og:updated_time" content="2018-06-24T07:38:09.350Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="我们一起学ReactNative(五)：React语法基础">
+<meta name="twitter:description" content="学完JavaScript后，就可以进下一步，学习React的开发了，学习Reac需要掌握几个知识点，JSX语法、组件、状态，生命周期。">
+<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2018-06-22-15296686573950.jpg-wtmark">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'OF78IO15IZ',
+      apiKey: '75e8a500a6a0237315a8a25669328dbf',
+      indexName: 'First Index',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/23/我们一起学ReactNative(五)：React语法基础/"/>
+
+
+
+
+
+  <title>我们一起学ReactNative(五)：React语法基础 | 亦袁非猿</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亦袁非猿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/23/我们一起学ReactNative(五)：React语法基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亦袁非猿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亦袁非猿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                我们一起学ReactNative(五)：React语法基础
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-23T14:06:04+08:00">
+                2018-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ReactNative/" itemprop="url" rel="index">
+                    <span itemprop="name">ReactNative</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/23/我们一起学ReactNative(五)：React语法基础/" class="leancloud_visitors" data-flag-title="我们一起学ReactNative(五)：React语法基础">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>学完JavaScript后，就可以进下一步，学习React的开发了，学习Reac需要掌握几个知识点，JSX语法、组件、状态，生命周期。</p>
+<a id="more"></a>
+<h2 id="React语法基础"><a href="#React语法基础" class="headerlink" title="React语法基础"></a>React语法基础</h2><p>关于React的语法，可以参考<a href="http://www.ruanyifeng.com/blog/2015/03/react.html" target="_blank" rel="noopener">React 入门实例教程</a>，基本可以对几个基础语法点进行理解，不过文章面对的是React.js，具体语法有一点点区别。下面的案例，基本语法点保持一致，但是面对的是ReactNative。</p>
+<p>编写的时候，如果想方便，也可以在<a href="http://dabbott.github.io/react-native-web-player/" target="_blank" rel="noopener">在线模拟器</a>上进行练习。</p>
+<h3 id="显示一个组件"><a href="#显示一个组件" class="headerlink" title="显示一个组件"></a>显示一个组件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// demo1.js</span><br><span class="line">// 导入依赖包</span><br><span class="line">import React, &#123; Component &#125; from &apos;react&apos;</span><br><span class="line">import &#123;</span><br><span class="line">  AppRegistry,</span><br><span class="line">  Text,</span><br><span class="line">  View,</span><br><span class="line">&#125; from &apos;react-native&apos;</span><br><span class="line"></span><br><span class="line">// 定义一个组件</span><br><span class="line">export default class App extends Component&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;View&gt;</span><br><span class="line">                &lt;Text&gt;Hello World!&lt;/Text&gt;</span><br><span class="line">            &lt;/View&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// JS运行所有React Native应用的入口。应用的根组件应当通过AppRegistry.registerComponent方法注册自己，然后原生系统才可以加载应用的代码包</span><br><span class="line">AppRegistry.registerComponent(&apos;App&apos;, () =&gt; App)</span><br></pre></td></tr></table></figure>
+<h3 id="JSX语法"><a href="#JSX语法" class="headerlink" title="JSX语法"></a>JSX语法</h3><p>通过JSX语法，可以使得HTML和JavaScript语法混写，如果想写HTML语法，就使用<code>&lt;&gt;</code>，如果使用JavaScript语法，则使用<code>{}</code>。</p>
+<p>JSX不是一种标记语言，实质是调用<code>React.createElement</code>函数，所以在开发中使用其时，要在头部定义<code>import React from &#39;react&#39;;</code>。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// demo2.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">let</span> name = <span class="string">"yuan"</span></span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;View&gt;</span><br><span class="line">                &lt;Text&gt;Hello &#123;name&#125;!<span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line">            &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="语法规则"><a href="#语法规则" class="headerlink" title="语法规则"></a>语法规则</h4><ul>
+<li><p>标签首字母必须大写</p>
+</li>
+<li><p>开始和结束标签配对</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;组件&gt;内容&lt;<span class="regexp">/组件&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 如果无内容的组件，标签应写成自封闭形式</span></span><br><span class="line"><span class="regexp">&lt;组件/</span>&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>必须为单一子节点，如果有多个节点，最外层可以用<code>&lt;View&gt;&lt;/View&gt;</code>嵌套起来</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误做法</span></span><br><span class="line"><span class="keyword">return</span> (</span><br><span class="line">    &lt;View&gt;</span><br><span class="line">        &lt;Text&gt;Hello World!<span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line">	&lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">    &lt;View&gt;</span></span><br><span class="line"><span class="regexp">        &lt;Text&gt;Hello World!&lt;/</span>Text&gt;</span><br><span class="line">	&lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 正确做法</span></span><br><span class="line"><span class="regexp">return (</span></span><br><span class="line"><span class="regexp">    &lt;View&gt;</span></span><br><span class="line"><span class="regexp">        &lt;View&gt;</span></span><br><span class="line"><span class="regexp">            &lt;Text&gt;Hello World!&lt;/</span>Text&gt;</span><br><span class="line">        &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">        &lt;View&gt;</span></span><br><span class="line"><span class="regexp">            &lt;Text&gt;Hello World!&lt;/</span>Text&gt;</span><br><span class="line">        &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>View&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>在JSX代码内，注释只能使用<code>{/* 注释内容 */}</code></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// demo3.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">let</span> name = <span class="string">"yuan"</span></span><br><span class="line">        <span class="comment">// JSX外的注释</span></span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;View&gt;</span><br><span class="line">                &#123;<span class="comment">/*JSX的注释*/</span>&#125;</span><br><span class="line">                &lt;Text&gt;Hello &#123;name&#125;!<span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line">            &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h3><p>在React Native开发中，一个个布局可以通过创建组件的方式搭建起来，然后通过return返回一个在页面上展示的React元素。定义一个组件有两种方式，一种是通过function，称为<strong>函数定义组件</strong>，功能比较简单的组件可以采用该方法。另外一种是通过继承class，称为<strong>类定义组件</strong>。可以把组件类似认为，在Android开发中，在java类中创建自定义View，然后把View添加到原有布局中。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// demo4.js</span></span><br><span class="line"><span class="comment">// 函数定义组件，采用箭头函数</span></span><br><span class="line"><span class="keyword">const</span> HelloWorld = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;Text&gt;Hello world!<span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 类定义组件，与上面的效果一致</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;Text&gt;Hello World!<span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="组件属性props"><a href="#组件属性props" class="headerlink" title="组件属性props"></a>组件属性props</h4><p>每次在使用的时候，不可能组件内容都一样，所以，需要可以在使用的时候，传入不同的值，改变组件里面的内容，那么就可以使用关键字<code>props</code>。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// demo5.js</span></span><br><span class="line"><span class="comment">// 函数定义组件，属性需要传递进去</span></span><br><span class="line"><span class="keyword">const</span> HelloWorld = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;Text&gt;Hello &#123;props.name&#125;!<span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 类定义组件，属性通过this.props获取，与上面的效果一致</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;Text&gt;Hello &#123;<span class="keyword">this</span>.props.name&#125;!<span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;View&gt;</span><br><span class="line">                &lt;HelloWorld name=<span class="string">"yuan"</span>/&gt;</span><br><span class="line">            &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>自定义属性，字符串应使用双引号，其他值用<code>{}</code>括起来，布尔值可省略，默认为<code>true</code>。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Person age=&#123;<span class="number">30</span>&#125; sex=<span class="string">"male"</span> married/&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="类定义组件属性"><a href="#类定义组件属性" class="headerlink" title="类定义组件属性"></a>类定义组件属性</h4><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    <span class="comment">// 如果组件没有设置该属性，则会使用默认值</span></span><br><span class="line">    <span class="keyword">static</span> defaultProps = &#123;</span><br><span class="line">        name:<span class="string">"yuan"</span>,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 约定组件属性所需要的类型(为字符串)，如果类型不符合，编译的时候会报错</span></span><br><span class="line">	<span class="keyword">static</span> propTypes = &#123;</span><br><span class="line">        name: React.PropTypes.string,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;Text&gt;Hello &#123;<span class="keyword">this</span>.props.name&#125;!<span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h4><ul>
+<li><strong>函数内</strong>的局部变量，只能函数内读写，函数运行完后销毁（闭包除外）</li>
+<li><strong>class内</strong>的成员变量，在单个class的实例内读写，实例销毁时一并销毁<ul>
+<li>使用时不要忘记<strong>this.</strong></li>
+</ul>
+</li>
+<li><strong>class内</strong>的静态成员变量，在所有class的实例内共享，不会自动销毁<ul>
+<li>其他模块可通过此class访问（类public</li>
+</ul>
+</li>
+<li><strong>class外</strong>的变量，在所有class的实例内共享（公有），不会自动销毁<ul>
+<li>除非明确export，否则其他模块不可访问（类private）</li>
+</ul>
+</li>
+</ul>
+<h3 id="状态state"><a href="#状态state" class="headerlink" title="状态state"></a>状态state</h3><p>上面讲到了不同的属性值，可以用<code>props</code>，但是其值一经指定，在组件的生命周期中则不再改变。 对于需要改变的数据，我们就需要使用<code>state</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// demo6.js</span></span><br><span class="line"><span class="comment">// 定义一个文字按钮的组件</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LikeButton</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    <span class="comment">// 设置默认状态值为false，同时也声明为boolean类型</span></span><br><span class="line">    state = &#123;</span><br><span class="line">        liked : <span class="literal">false</span></span><br><span class="line">    &#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 定义一个函数，响应点击事件，改变state的值，方法名可以任意</span></span><br><span class="line">    onPress = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">            liked: !<span class="keyword">this</span>.state.liked</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">var</span> text = <span class="keyword">this</span>.state.liked ? <span class="string">'like'</span> : <span class="string">'haven\'t liked'</span>;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;View&gt;</span><br><span class="line">            	&#123;<span class="comment">/*声明了点击事件执行的方法*/</span>&#125;</span><br><span class="line">                &lt;Text onPress=&#123;<span class="keyword">this</span>.onPress&#125;&gt;</span><br><span class="line">                    You &#123;text&#125; <span class="keyword">this</span>. Click to toggle.</span><br><span class="line">                &lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>View&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;View&gt;</span><br><span class="line">                &lt;LikeButton/&gt;</span><br><span class="line">            &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>state的变化，必须通过setState()方法，不能直接赋值修改</p>
+</li>
+<li><p>setState是异常操作，修改不会马上生效</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">onPress = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.liked)</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">        liked: !<span class="keyword">this</span>.state.liked</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.liked)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 结果的输出，两次都保持一样，执行setState()后，该值不会立马生效，还是保持原来的状态值</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>setState被执行后，会触发render，对界面重新渲染，所以，不要再renser，对数据进行改变，避免会调用到setState，导致死循环。</p>
+</li>
+</ul>
+<h3 id="组件的生命周期"><a href="#组件的生命周期" class="headerlink" title="组件的生命周期"></a>组件的生命周期</h3><p>组件的生命周期，可以分为三个状态：</p>
+<ul>
+<li>Mounting：已插入真实 DOM</li>
+<li>Updating：正在被重新渲染</li>
+<li>Unmounting：已移出真实 DOM</li>
+</ul>
+<p>React 为每个状态都提供了两种处理函数，<code>will</code> 函数在进入状态之前调用，<code>did</code> 函数在进入状态之后调用，三种状态共计五种处理函数：</p>
+<ul>
+<li>componentWillMount()</li>
+<li>componentDidMount()</li>
+<li>componentWillUpdate(object nextProps, object nextState)</li>
+<li>componentDidUpdate(object prevProps, object prevState)</li>
+<li>componentWillUnmount()</li>
+</ul>
+<p>此外，React 还提供两种特殊状态的处理函数：</p>
+<ul>
+<li>componentWillReceiveProps(object nextProps)：已加载组件收到新的参数时调用</li>
+<li>shouldComponentUpdate(object nextProps, object nextState)：组件判断是否重新渲染时调用</li>
+</ul>
+<h4 id="各种组件处理函数的流程图如下"><a href="#各种组件处理函数的流程图如下" class="headerlink" title="各种组件处理函数的流程图如下"></a>各种组件处理函数的流程图如下</h4><p><img src="http://ol45hsxko.bkt.clouddn.com/2018-06-22-15296686573950.jpg-wtmark" alt=""></p>
+<p><strong>实例代码</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// dmeo7.js</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TextOpacity</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    state = &#123;</span><br><span class="line">        opacity : <span class="number">1.0</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">        <span class="keyword">this</span>.timer = setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">let</span> opacity = <span class="keyword">this</span>.state.opacity;</span><br><span class="line">                opacity -= <span class="number">0.05</span>;</span><br><span class="line">                <span class="keyword">if</span> (opacity &lt; <span class="number">0.1</span>) &#123;</span><br><span class="line">                    opacity = <span class="number">1.0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">                    opacity: opacity</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;,<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 卸载后清空时钟</span></span><br><span class="line">    comnponentWillUnmount() &#123;</span><br><span class="line">        clearInterval(<span class="keyword">this</span>.timer)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;Text style=&#123;&#123;<span class="attr">opacity</span>:<span class="keyword">this</span>.state.opacity&#125;&#125;&gt;</span><br><span class="line">                Hello world</span><br><span class="line">            &lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default class App extends Component&#123;</span></span><br><span class="line"><span class="regexp">    render() &#123;</span></span><br><span class="line"><span class="regexp">        return (</span></span><br><span class="line"><span class="regexp">            &lt;View&gt;</span></span><br><span class="line"><span class="regexp">                &lt;TextOpacity/</span>&gt;</span><br><span class="line">            &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>上面代码在<code>TextOpacity</code>组件加载以后，默认设置透明度为1，然后通过 <code>componentDidMount</code> 方法设置一个定时器，每隔100毫秒，就重新通过<code>setState</code>设置组件的透明度，从而引发重新渲染调用<code>render</code>。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a href="http://www.ruanyifeng.com/blog/2015/03/react.html" target="_blank" rel="noopener">React 入门实例教程</a></li>
+<li><a href="https://reactnative.cn/" target="_blank" rel="noopener">ReactNative中文网</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ReactNative/" rel="tag"># ReactNative</a>
+          
+            <a href="/tags/语法基础/" rel="tag"># 语法基础</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/14/我们一起学ReactNative(四)：原有Android项目引入ReactNative/" rel="next" title="我们一起学ReactNative(四)：原有Android项目引入ReactNative">
+                <i class="fa fa-chevron-left"></i> 我们一起学ReactNative(四)：原有Android项目引入ReactNative
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/25/为七牛图片添加水印处理/" rel="prev" title="为七牛图片添加水印处理">
+                为七牛图片添加水印处理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQzOC82MDA2"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg"
+               alt="亦袁非猿" />
+          <p class="site-author-name" itemprop="name">亦袁非猿</p>
+           
+              <p class="site-description motion-element" itemprop="description">while(写出来){  <br>
+  理解力++; <br>
+  表达力++; }
+</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#React语法基础"><span class="nav-number">1.</span> <span class="nav-text">React语法基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#显示一个组件"><span class="nav-number">1.1.</span> <span class="nav-text">显示一个组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSX语法"><span class="nav-number">1.2.</span> <span class="nav-text">JSX语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#语法规则"><span class="nav-number">1.2.1.</span> <span class="nav-text">语法规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注释"><span class="nav-number">1.2.2.</span> <span class="nav-text">注释</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组件"><span class="nav-number">1.3.</span> <span class="nav-text">组件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#组件属性props"><span class="nav-number">1.3.1.</span> <span class="nav-text">组件属性props</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类定义组件属性"><span class="nav-number">1.3.2.</span> <span class="nav-text">类定义组件属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量作用域"><span class="nav-number">1.3.3.</span> <span class="nav-text">变量作用域</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态state"><span class="nav-number">1.4.</span> <span class="nav-text">状态state</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组件的生命周期"><span class="nav-number">1.5.</span> <span class="nav-text">组件的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#各种组件处理函数的流程图如下"><span class="nav-number">1.5.1.</span> <span class="nav-text">各种组件处理函数的流程图如下</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">1.6.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亦袁非猿</span>
+</div>
+
+
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("Ivcwx7f8x7ghc8SWU0YMuIFI-gzGzoHsz", "mQEm0lIov3tBcrPByox6zHc0");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
