@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="读书笔记,Java,JVM," />
 
 
 
@@ -90,17 +90,23 @@
 
 
 
-<meta name="description" content="while(写出来){     理解力++;    表达力++; }">
+<meta name="description" content="Java程序最初是通过解释器进行解释执行的，当某段代码（称为“热点代码”）运行特别频繁，为了提高效率，在运行时，虚拟机通过即时编译器（JIT）把这些代码编译成与本地平台相关的机器码。">
+<meta name="keywords" content="读书笔记,Java,JVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《深入理解Java虚拟机》十一：晚期（运行期）优化">
 <meta property="og:url" content="http://yoursite.com/2018/08/02/《深入理解Java虚拟机》十一：晚期（运行期）优化/index.html">
 <meta property="og:site_name" content="亦袁非猿">
-<meta property="og:description" content="while(写出来){     理解力++;    表达力++; }">
+<meta property="og:description" content="Java程序最初是通过解释器进行解释执行的，当某段代码（称为“热点代码”）运行特别频繁，为了提高效率，在运行时，虚拟机通过即时编译器（JIT）把这些代码编译成与本地平台相关的机器码。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-01T22:34:03.731Z">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/%E6%99%9A%E6%9C%9F%E8%BF%90%E8%A1%8C%E6%9C%9F%E4%BC%98%E5%8C%96.png-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180724203218300.png-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180724203709710.png-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180724203732373.png-wtmark">
+<meta property="og:updated_time" content="2018-08-01T22:35:09.256Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入理解Java虚拟机》十一：晚期（运行期）优化">
-<meta name="twitter:description" content="while(写出来){     理解力++;    表达力++; }">
+<meta name="twitter:description" content="Java程序最初是通过解释器进行解释执行的，当某段代码（称为“热点代码”）运行特别频繁，为了提高效率，在运行时，虚拟机通过即时编译器（JIT）把这些代码编译成与本地平台相关的机器码。">
+<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/%E6%99%9A%E6%9C%9F%E8%BF%90%E8%A1%8C%E6%9C%9F%E4%BC%98%E5%8C%96.png-wtmark">
 
 
 
@@ -313,6 +319,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深入理解Java虚拟机/" itemprop="url" rel="index">
+                    <span itemprop="name">深入理解Java虚拟机</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -348,7 +376,67 @@
       
 
       
-        
+        <blockquote>
+<p>Java程序最初是通过解释器进行解释执行的，当某段代码（称为“热点代码”）运行特别频繁，为了提高效率，在运行时，虚拟机通过<strong>即时编译器（JIT）</strong>把这些代码编译成与本地平台相关的机器码。  </p>
+</blockquote>
+<a id="more"></a>
+<h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><p><img src="http://ol45hsxko.bkt.clouddn.com/%E6%99%9A%E6%9C%9F%E8%BF%90%E8%A1%8C%E6%9C%9F%E4%BC%98%E5%8C%96.png-wtmark" alt="晚期运行期优化"></p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>即时编译器编译性能的好坏、代码优化程度的高低却是衡量一款商用虚拟机优秀与否的最关键的指标之一，它也是虚拟机中最核心且最能体现虚拟机技术水平的部分。</p>
+<h2 id="解释器与编译器（HotSpot）"><a href="#解释器与编译器（HotSpot）" class="headerlink" title="解释器与编译器（HotSpot）"></a>解释器与编译器（HotSpot）</h2><p>主流的商用虚拟机，都同时包含解释器与编译器，两者配合工作。</p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180724203218300.png-wtmark" alt="image-20180724203218300"></p>
+<h3 id="编译对象与触发条件"><a href="#编译对象与触发条件" class="headerlink" title="编译对象与触发条件"></a>编译对象与触发条件</h3><h4 id="编译对象（热点代码）"><a href="#编译对象（热点代码）" class="headerlink" title="编译对象（热点代码）"></a>编译对象（热点代码）</h4><ul>
+<li>被多次调用的方法</li>
+<li>被多次执行的循环体</li>
+</ul>
+<h4 id="触发条件（热点探测）"><a href="#触发条件（热点探测）" class="headerlink" title="触发条件（热点探测）"></a>触发条件（热点探测）</h4><ul>
+<li><strong>基于采样的热点探测</strong><br>采用这种方法的虚拟机会周期性地检查各个线程的栈顶，如果发现某个（或某些）方法经常出现在栈顶，那这个方法就是“热点方法”。<br><strong>优点：</strong>实现简单高效、容易获取方法调用关系<br><strong>缺点：</strong>很难精确地确定一个方法的热度，容易受线程阻塞影响  </li>
+<li><strong>基于计数器的热点探测（HotSpot虚拟机使用）</strong><br>采用这种方法的虚拟机会为每个方法（甚至是代码块）建立计数器，统计方法的执行次数，如果执行次数超过一定的阈值就认为它是“热点方法”。<br><strong>优点：</strong>统计结果相对更加精确和严谨<br><strong>缺点：</strong>实现麻烦，需要为每个方法建立并维护计数器  <ul>
+<li>计数器<ul>
+<li>方法调用计数器<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180724203709710.png-wtmark" alt="image-20180724203709710"></li>
+</ul>
+<ul>
+<li>回边计数器<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180724203732373.png-wtmark" alt="image-20180724203732373"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h4><ul>
+<li>Client Compile编译器<br>简单快速的三段式编译器，主要的关注点在于局部性的优化，而放弃了许多耗时较长的全局优化手段。  </li>
+<li>Server Compiler编译器<br>专门面向服务端的经典应用并为服务端的性能配置特别调整过的编译器，会执行所有经典的优化动作、实施一些与Java语言特性密切相关的优化技术，还可能进行一些不稳定的激化优化。相对来说执行比较慢，但代码质量高，减少本地diamante的执行时间。</li>
+</ul>
+<h2 id="编译优化技术"><a href="#编译优化技术" class="headerlink" title="编译优化技术"></a>编译优化技术</h2><p>以编译方式执行本地代码比解释方式更快，主要有两个原因：  </p>
+<ol>
+<li>解释执行字节码需要额外消耗时间</li>
+<li>虚拟机设计团队几乎把对代码的所有优化措施都集中在了即时编译器之中</li>
+</ol>
+<h3 id="语言无关的经典优化技术"><a href="#语言无关的经典优化技术" class="headerlink" title="语言无关的经典优化技术"></a>语言无关的经典优化技术</h3><ul>
+<li>公共子表达式消除<ul>
+<li><strong>局部公共子表达式消除：</strong>优化仅限于程序的基本块内</li>
+<li><strong>全局公共子表达式消除：</strong>优化的范围涵盖了多个基本块  </li>
+</ul>
+</li>
+<li>数组范围检查消除</li>
+<li>方法内联  <ul>
+<li>消除方法调用的成本</li>
+<li>为其他优化手段建立良好的基础</li>
+</ul>
+</li>
+<li>逃逸分析<br>如果确定一个对象不会逃逸出方法之外，让该对象在栈上分配内存，对象所占用的内存空间就可以随栈帧出栈而销毁。<ul>
+<li><strong>方法逃逸：</strong>当一个对象在方法中被定义后，它可能被外部方法所引用</li>
+<li><strong>线程逃逸：</strong>被外部线程访问到，譬如赋值给类变量或可以在其他线程中访问的实例变量</li>
+</ul>
+</li>
+</ul>
+<h3 id="Java与C-C-的编译器对比"><a href="#Java与C-C-的编译器对比" class="headerlink" title="Java与C/C++的编译器对比"></a>Java与C/C++的编译器对比</h3><p>Java虚拟机可以因为下列原因导致输出的本地代码有一些劣势，虽然存在这些性能的劣势，但为了换取开发效率上的优势，也算值得。</p>
+<ol>
+<li>因为即时编译器运行占用的是用户程序的运行时间，具有很大的时间压力，它能提供的优化手段也严重受制于编译成本</li>
+<li>Java语言是动态的类型安全语言，这就意味着需要由虚拟机来确保程序不会违反语言语义或访问非结构化内存</li>
+<li>Java语言中虽然没有virtual关键字，但是使用虚方法的频率却远远大于C/C++语言</li>
+<li>Java语言是可以动态扩展的语言，运行时加载新的类可能改变程序类型的继承关系</li>
+<li>Java语言中对象的内存分配都是堆上进行的，只有方法中的局部变量才能在栈上分配</li>
+</ol>
+
       
     </div>
 
@@ -374,6 +462,16 @@
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
+          
+        </div>
       
 
       
@@ -441,8 +539,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg"
@@ -507,6 +614,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#大纲"><span class="nav-number">1.</span> <span class="nav-text">大纲</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">2.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解释器与编译器（HotSpot）"><span class="nav-number">3.</span> <span class="nav-text">解释器与编译器（HotSpot）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译对象与触发条件"><span class="nav-number">3.1.</span> <span class="nav-text">编译对象与触发条件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编译对象（热点代码）"><span class="nav-number">3.1.1.</span> <span class="nav-text">编译对象（热点代码）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#触发条件（热点探测）"><span class="nav-number">3.1.2.</span> <span class="nav-text">触发条件（热点探测）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编译过程"><span class="nav-number">3.1.3.</span> <span class="nav-text">编译过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译优化技术"><span class="nav-number">4.</span> <span class="nav-text">编译优化技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语言无关的经典优化技术"><span class="nav-number">4.1.</span> <span class="nav-text">语言无关的经典优化技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java与C-C-的编译器对比"><span class="nav-number">4.2.</span> <span class="nav-text">Java与C/C++的编译器对比</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
