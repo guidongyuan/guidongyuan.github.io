@@ -99,10 +99,10 @@
 <meta property="og:description" content="Java虚拟机定义了一种Java内存模型来屏蔽掉各种硬件和操作系统内存的内存访问差异，实现各种平台下达到一致性的内存访问效果。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/Java内存模型与线程.png-wtmarkz7">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/15330020990121.jpg-wtmarkz5">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/15330020990121.jpg-wtmarkz7">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180802064625797.png-wtmarkz5">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180802071006086.png-wtmarkz5">
-<meta property="og:updated_time" content="2018-08-02T22:26:45.881Z">
+<meta property="og:updated_time" content="2018-08-02T22:36:18.185Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入理解Java虚拟机》十二：Java内存模型与线程">
 <meta name="twitter:description" content="Java虚拟机定义了一种Java内存模型来屏蔽掉各种硬件和操作系统内存的内存访问差异，实现各种平台下达到一致性的内存访问效果。">
@@ -382,7 +382,7 @@
 <a id="more"></a>
 <h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><p><img src="http://ol45hsxko.bkt.clouddn.com/Java内存模型与线程.png-wtmarkz7" alt="Java内存模型与线程"></p>
 <h2 id="硬件的效率与一致性"><a href="#硬件的效率与一致性" class="headerlink" title="硬件的效率与一致性"></a>硬件的效率与一致性</h2><p>计算机的存储设备与处理器的运算速度有几个数量级的差距，现在计算机系统加入高级缓存来作为内存与处理器之间的缓存，但是要处理<strong>缓存一致性</strong>的问题。</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/15330020990121.jpg-wtmarkz5" alt=""></p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/15330020990121.jpg-wtmarkz7" alt=""></p>
 <h2 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h2><h3 id="主要目标"><a href="#主要目标" class="headerlink" title="主要目标"></a>主要目标</h3><p><strong>Java内存模型的主要目标</strong>是定义程序中各个变量的访问规则，即在虚拟机中将变量存储到内存和从内存中取出变量这样的底层细节。<br>Java内存模型规定了所有的变量都存储在主内存（虚拟机内存的一部分）中，每条线程还有自己的工作内存（类似处理器的高速缓存），保存了被该线程使用到的变量的主内存副本拷贝，线程对变量的所有操作（读取、赋值等）都必须在工作内存中进行，而不能直接读写主内存中的变量。</p>
 <p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180802064625797.png-wtmarkz5" alt="image-20180802064625797"></p>
 <p>那从变量、主内存、工作内存的定义来看，主内存主要对应于Java堆中的对象实例数据部分，而工作内存则对应于虚拟机栈中的部分区域。</p>
