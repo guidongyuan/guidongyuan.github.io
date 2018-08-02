@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="年度总结," />
+  <meta name="keywords" content="读书笔记,Java,JVM," />
 
 
 
@@ -90,20 +90,23 @@
 
 
 
-<meta name="description" content="2016年就这么过去了,觉得应该记录点什么,总结也好,随想也好.第一次写年度总结,毕竟,对于我来说,这一年,对人生具有转折的意义,结束了十几年学生生涯,终于毕业出来工作了.">
-<meta name="keywords" content="年度总结">
+<meta name="description" content="Java虚拟机定义了一种Java内存模型来屏蔽掉各种硬件和操作系统内存的内存访问差异，实现各种平台下达到一致性的内存访问效果。">
+<meta name="keywords" content="读书笔记,Java,JVM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2016年总结:职业的起点">
-<meta property="og:url" content="http://yoursite.com/2017/01/03/2016年总结/index.html">
+<meta property="og:title" content="《深入理解Java虚拟机》十二：Java内存模型与线程">
+<meta property="og:url" content="http://yoursite.com/2018/08/02/《深入理解Java虚拟机》十二：Java内存模型与线程/index.html">
 <meta property="og:site_name" content="亦袁非猿">
-<meta property="og:description" content="2016年就这么过去了,觉得应该记录点什么,总结也好,随想也好.第一次写年度总结,毕竟,对于我来说,这一年,对人生具有转折的意义,结束了十几年学生生涯,终于毕业出来工作了.">
+<meta property="og:description" content="Java虚拟机定义了一种Java内存模型来屏蔽掉各种硬件和操作系统内存的内存访问差异，实现各种平台下达到一致性的内存访问效果。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oiduu4gde.bkt.clouddn.com/20170103498FotorCreated.jpg">
-<meta property="og:updated_time" content="2017-04-15T09:29:20.000Z">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/Java内存模型与线程.png-wtmarkz7">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/15330020990121.jpg-wtmarkz5">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180802064625797.png-wtmarkz5">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180802071006086.png-wtmarkz5">
+<meta property="og:updated_time" content="2018-08-02T11:57:03.970Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2016年总结:职业的起点">
-<meta name="twitter:description" content="2016年就这么过去了,觉得应该记录点什么,总结也好,随想也好.第一次写年度总结,毕竟,对于我来说,这一年,对人生具有转折的意义,结束了十几年学生生涯,终于毕业出来工作了.">
-<meta name="twitter:image" content="http://oiduu4gde.bkt.clouddn.com/20170103498FotorCreated.jpg">
+<meta name="twitter:title" content="《深入理解Java虚拟机》十二：Java内存模型与线程">
+<meta name="twitter:description" content="Java虚拟机定义了一种Java内存模型来屏蔽掉各种硬件和操作系统内存的内存访问差异，实现各种平台下达到一致性的内存访问效果。">
+<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/Java内存模型与线程.png-wtmarkz7">
 
 
 
@@ -131,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/01/03/2016年总结/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/02/《深入理解Java虚拟机》十二：Java内存模型与线程/"/>
 
 
 
 
 
-  <title>2016年总结:职业的起点 | 亦袁非猿</title>
+  <title>《深入理解Java虚拟机》十二：Java内存模型与线程 | 亦袁非猿</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -266,7 +269,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/03/2016年总结/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/02/《深入理解Java虚拟机》十二：Java内存模型与线程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="亦袁非猿">
@@ -287,7 +290,7 @@
             
             
               
-                2016年总结:职业的起点
+                《深入理解Java虚拟机》十二：Java内存模型与线程
               
             
           </h1>
@@ -305,8 +308,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-03T14:58:13+08:00">
-                2017-01-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-02T07:12:00+08:00">
+                2018-08-02
               </time>
             
 
@@ -328,8 +331,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/总结/" itemprop="url" rel="index">
-                    <span itemprop="name">总结</span>
+                  <a href="/categories/深入理解Java虚拟机/" itemprop="url" rel="index">
+                    <span itemprop="name">深入理解Java虚拟机</span>
                   </a>
                 </span>
 
@@ -345,7 +348,7 @@
 
           
           
-             <span id="/2017/01/03/2016年总结/" class="leancloud_visitors" data-flag-title="2016年总结:职业的起点">
+             <span id="/2018/08/02/《深入理解Java虚拟机》十二：Java内存模型与线程/" class="leancloud_visitors" data-flag-title="《深入理解Java虚拟机》十二：Java内存模型与线程">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -374,62 +377,80 @@
 
       
         <blockquote>
-<p>2016年就这么过去了,觉得应该记录点什么,总结也好,随想也好.<br>第一次写年度总结,毕竟,对于我来说,这一年,对人生具有转折的意义,结束了十几年学生生涯,终于毕业出来工作了.</p>
+<p>Java虚拟机定义了一种Java内存模型来屏蔽掉各种硬件和操作系统内存的内存访问差异，实现各种平台下达到一致性的内存访问效果。</p>
 </blockquote>
 <a id="more"></a>
-<p>​    在掘金看到别人的年度总结,顿时觉得有点惭愧.内心不断地告诉自己,是时候开始动笔总结一下,即使在这一年没有什么收获,没有很明显的进步,也要克服自己的惰性,努力尝试着去表达,去学会归纳自己的想法,而不是去回避自己做的不好的一面.对比那些优秀的人的年度总结,一年下来,发表了多少高质量的文章,多少访问量,有可能永远都追赶不上,但至少,对比上一年的自己,在下一年的这个时候,能够自豪的说,我进步了,我缩小了和他们拉开差距的速度了,也就足矣!</p>
-<h3 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h3><p>​     <strong>终于成为一名真正的程序员了.结束了大学那段对自己的专业方向不感兴趣,毕业后应该从事什么的迷茫期?这一年应该是高考后最充实,最值得回味的一年,不再处于犹豫无知所措的阶段而把大把时光浪费掉.唯有遗憾的是,在工作之余没有怎样去阅读多一些书籍,对工作解决好的问题,学到的知识没有去整理归纳,源码的阅读也很少,主要时间都还是停留在怎样去实现一个功能</strong></p>
-<p>​    今年最大的变化莫过于它了.延续2015年的工作,在一家创业公司工作,前两个月基本把整个项目的工作完成了,就开始新的旅程:去校招拿到offer的新公司实习.挺感谢有一个机会,能让自己从零开始去做一个完整的项目,记得当时一个同事说的话:不管一个项目怎样,都要认真的去做,去好好完善优化它,不要以为这是为公司做的,因为等你以后出去,这就是展示你能力的作品,这是为你个人而做.</p>
-<p>​    由于一定原因,在新公司实习的两个月,被分配到Java web小组,那段时间,应该是工作以来压力最大的时刻,每天都生怕学得太慢而实习不通过.一大堆杂七杂八都学了,java web,js等前端知识,虽然只是了解点皮毛,边做边学,再次遇到贵人,小组一个工作了几年的师兄带着.深刻体会到,时刻都要保持着学习的动力,没有什么东西可以让你慢慢学好再开始工作.毕业后正式回来工作,觉得目前应该专注一方面,外加web的项目已完成,结合自己兴趣,成功回到了Android的怀抱.I Love Android!!!</p>
-<p>​    新的Android团队,主要工作都是对项目进行重构优化,也紧跟主流技术发展,从Eclipse移到Android Studio,遵循Material Design设计风格,插件化,热更新,代码质量检测等等,感受到整个团队都在努力做好整个产品,而不仅仅是实现某一些功能.瞬间让我觉得,以前自己做的App是如此的简陋,也危机感重重,自己需要学的东西还有太多了.整个小组的氛围都特别融洽,原来工作还可以这么有趣.</p>
-<h3 id="身体"><a href="#身体" class="headerlink" title="身体"></a>身体</h3><p>​    <strong>一年下来坚持跑步95次,292.05公里,后来健身锻炼,体重保持不变,微弱可以看到一点点肌肉</strong></p>
-<p>​    “每天工作到九点,下班都没有时间了,而且太晚运动对身体也不好.”</p>
-<p>​    “我现在晚上都是8点半才开始跑步.”</p>
-<p>​    和一个师妹的对话,让我瞬间明白,原来,这一切都是我懒惰的借口,回想一下,之前在学校跑步运动也基本上都是8点多9点,于是,也就重新拾起了跑步.主要集中在几个月,4月跑了24次,7月跑了21次,9月跑了23次,10月跑了16次.后来觉得自己体重下降,再加上公司有了健身房,也就放弃室外跑步,转战室内健身.<br><img src="http://oiduu4gde.bkt.clouddn.com/20170103498FotorCreated.jpg" alt="20170103498FotorCreated.jpg"></p>
-<h3 id="读书"><a href="#读书" class="headerlink" title="读书"></a>读书</h3><p>​    <strong>看了24本书籍,其中11本东野圭吾的小说,长短的书评加起来应该有10篇左右,用思维导图学习整理了《精进》，《把时间当做朋友》的读书笔记</strong></p>
-<p>​    一开始看的书比较散,而且都是比较轻松的小说类型.在阅读方面,在最后的一两个月,放慢了阅读的速度.遇到好书,会边看边整理笔记,看完再统一整理.虽然阅读一本书的书的时间要超过以前的三倍,但至少在翻看笔记的时候,基本可以回忆起整数的大概内容.最大的遗憾就是,专业书籍没有完整地看完一本,买了很多,但都只是很零碎得看,也看得相对少一点.</p>
+<h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><p><img src="http://ol45hsxko.bkt.clouddn.com/Java内存模型与线程.png-wtmarkz7" alt="Java内存模型与线程"></p>
+<h2 id="硬件的效率与一致性"><a href="#硬件的效率与一致性" class="headerlink" title="硬件的效率与一致性"></a>硬件的效率与一致性</h2><p>计算机的存储设备与处理器的运算速度有几个数量级的差距，现在计算机系统加入高级缓存来作为内存与处理器之间的缓存，但是要处理<strong>缓存一致性</strong>的问题。</p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/15330020990121.jpg-wtmarkz5" alt=""></p>
+<h2 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h2><h3 id="主要目标"><a href="#主要目标" class="headerlink" title="主要目标"></a>主要目标</h3><p><strong>Java内存模型的主要目标</strong>是定义程序中各个变量的访问规则，即在虚拟机中将变量存储到内存和从内存中取出变量这样的底层细节。<br>Java内存模型规定了所有的变量都存储在主内存（虚拟机内存的一部分）中，每条线程还有自己的工作内存（类似处理器的高速缓存），保存了被该线程使用到的变量的主内存副本拷贝，线程对变量的所有操作（读取、赋值等）都必须在工作内存中进行，而不能直接读写主内存中的变量。</p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180802064625797.png-wtmarkz5" alt="image-20180802064625797"></p>
+<p>那从变量、主内存、工作内存的定义来看，主内存主要对应于Java堆中的对象实例数据部分，而工作内存则对应于虚拟机栈中的部分区域。</p>
+<h3 id="交互关系"><a href="#交互关系" class="headerlink" title="交互关系"></a>交互关系</h3><p>关于主内存与工作内存之间具体的交互协议，Java内存模型中定义了以下8种操作确保每一种操作都是原子的、不可再分的。<br><strong>8种原则子操作：</strong>   </p>
 <ul>
-<li>天谴行动 </li>
-<li>槽边往事</li>
-<li>阿弥陀佛 么么哒</li>
-<li>群山回响</li>
-<li>富爸爸穷爸爸</li>
-<li>小狗钱钱</li>
-<li>嫌疑人X的献身</li>
-<li>无声告白</li>
-<li>岛上书店</li>
-<li>虚无的十字架</li>
-<li>秘密</li>
-<li>信</li>
-<li>放学后</li>
-<li>假面酒店</li>
-<li>盛夏方程式</li>
-<li>幻夜</li>
-<li>疾风回旋曲</li>
-<li>彷徨之刃</li>
-<li>精进:如何成为一个很厉害的人</li>
-<li>把时间当做朋友</li>
-<li>硬派健身</li>
-<li>一平米健身</li>
-<li>摄影笔记</li>
-<li>失乐园</li>
+<li>lock（锁定）</li>
+<li>unlock（解锁）</li>
+<li>read（读取）</li>
+<li>load（载入）</li>
+<li>use（使用）</li>
+<li>assign（赋值）</li>
+<li>store（存储）</li>
+<li>write（写入）  </li>
 </ul>
-<h3 id="旅行"><a href="#旅行" class="headerlink" title="旅行"></a>旅行</h3><p>​    <strong>北上首都京城冻成狗,南下宝岛台湾晒成炭</strong></p>
-<p>​    元旦看到特价机票,并相约基友一起去北京,毕竟长这么大也没有去国家的首都看看.用了一天时间购买必备物质,第二天就出发了.虽然行程有点匆忙,一边玩一边规划第二天的路线,基本把整个北京该玩的都玩透了,该吃都吃了,原来规划好,费用真的可以很便,很大功劳应该归宿于各大APP.</p>
-<p>​    当时北京之旅后,就计划在毕业前去台湾旅行,主要是学生签证出行相对简单一点,再加上考虑毕业后,很难凑出一大段时间去旅游.最大的感悟就是,其实台湾的普通民众对待大陆游客还是很友好.台湾景点可玩性少了一点,偏向于清新文艺范,吃货的天堂.</p>
-<h3 id="杂念"><a href="#杂念" class="headerlink" title="杂念"></a>杂念</h3><p>​    工作后,才觉得要考虑的事情变多了,开始去考虑如何去处理好生活和工作,毕竟,这样的状态有可能会陪伴自己几年甚至几十年.才发现,原来很多东西,真的很难去处理得极致,没有能力去追求多完美的结果,仅仅只需要找到其中的平衡点,不同的年龄阶段优先级的不同.比如工作和生活,必定某一项需要有所偏重,多一点加班,少一点玩乐.正确与否,也只能以后再判断了.</p>
-<h3 id="2017年的目标"><a href="#2017年的目标" class="headerlink" title="2017年的目标"></a>2017年的目标</h3><ul>
-<li><p>多做高收益值,长半衰期事件,阅读书籍不再贪图选择容易阅读,故事性比较强的专业书籍,目标为4本.</p>
+<p>这8种操作外加volatile关键字等判断起来有点繁琐，可以采用一个等效判断原则：<strong>先行发生原则</strong></p>
+<h3 id="先行发生原则"><a href="#先行发生原则" class="headerlink" title="先行发生原则"></a>先行发生原则</h3><p>先行发生原则是Java内存模型中定义的两项操作之间的偏序关系，如果说操作A先行发生于操作B，其实就是说在发生操作B之前，操作A产生的影响能被操作B观察到，“影响”包括修改了内存中共享变量的值、发送了消息、调用了方法等。<br><strong>8种推导原则：</strong>  </p>
+<ul>
+<li>程序次序规则</li>
+<li>管程锁定规则</li>
+<li>volatile变量规则</li>
+<li>线程启动规则</li>
+<li>线程终止规则</li>
+<li>线程中断规则</li>
+<li>对象终结规则</li>
+<li>传递性</li>
+</ul>
+<h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><p>Java虚拟机通过关键字volatile提供了最轻量级的同步机制  </p>
+<ul>
+<li>保证此变量对所有线程的可见性</li>
+<li>禁止指令重排序优</li>
+</ul>
+<h3 id="Java并发过程的3个特性"><a href="#Java并发过程的3个特性" class="headerlink" title="Java并发过程的3个特性"></a>Java并发过程的3个特性</h3><ul>
+<li>原子性<ul>
+<li>synchronized关键字</li>
+</ul>
 </li>
-<li><p>对待工作学到的知识,或者工作之余学到的东西,进行总结,整理出笔记写成博客,不少于4遍文章</p>
+<li>可见性<ul>
+<li>volatile，synchronized，final关键字</li>
+</ul>
 </li>
-<li><p>健身锻炼计划不中断,整一年锻炼次数不低于100次</p>
-</li>
-<li><p>提高自己的消费观念,告别2016年那种随意剁手的坏习惯.</p>
-</li>
-<li><p>优先级最低目标,学习photoshop,lightroom摄影后期</p>
+<li>有序性<ul>
+<li>volatile，synchronized关键字</li>
+</ul>
 </li>
 </ul>
+<h3 id="Java与线程"><a href="#Java与线程" class="headerlink" title="Java与线程"></a>Java与线程</h3><h4 id="实现线程的方式"><a href="#实现线程的方式" class="headerlink" title="实现线程的方式"></a>实现线程的方式</h4><ul>
+<li>使用内核线程实现</li>
+<li>使用用户线程实现</li>
+<li>使用用户线程加轻量级进程混合实现</li>
+</ul>
+<h4 id="Java线程调度"><a href="#Java线程调度" class="headerlink" title="Java线程调度"></a>Java线程调度</h4><p>线程调度是指系统为线程分配处理器使用权的过程，分别为  </p>
+<ul>
+<li>协同式线程调度</li>
+<li>抢占式线程调度（Java使用）</li>
+</ul>
+<h4 id="状态切换"><a href="#状态切换" class="headerlink" title="状态切换"></a>状态切换</h4><p>Java语言定义了5种线程状态，分别为  </p>
+<ul>
+<li>新建（new）</li>
+<li>运行（Runable）</li>
+<li>等待<ul>
+<li>无限期等待（Waiting）</li>
+<li>限期等待（Timed Waiting）</li>
+</ul>
+</li>
+<li>阻塞（Blocked）</li>
+<li>结束（Termianted）</li>
+</ul>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180802071006086.png-wtmarkz5" alt="image-20180802071006086"></p>
 
       
     </div>
@@ -459,7 +480,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/年度总结/" rel="tag"># 年度总结</a>
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
           
         </div>
       
@@ -472,8 +497,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/12/31/《精进:如何成为一个很厉害的人》/" rel="next" title="《精进:如何成为一个很厉害的人》">
-                <i class="fa fa-chevron-left"></i> 《精进:如何成为一个很厉害的人》
+              <a href="/2018/08/02/《深入理解Java虚拟机》十一：晚期（运行期）优化/" rel="next" title="《深入理解Java虚拟机》十一：晚期（运行期）优化">
+                <i class="fa fa-chevron-left"></i> 《深入理解Java虚拟机》十一：晚期（运行期）优化
               </a>
             
           </div>
@@ -482,8 +507,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/15/monkey基本指令/" rel="prev" title="monkey基本指令">
-                monkey基本指令 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/02/《深入理解Java虚拟机》十三：线程安全与锁优化/" rel="prev" title="《深入理解Java虚拟机》十三：线程安全与锁优化">
+                《深入理解Java虚拟机》十三：线程安全与锁优化 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -618,7 +643,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#工作"><span class="nav-number">1.</span> <span class="nav-text">工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#身体"><span class="nav-number">2.</span> <span class="nav-text">身体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读书"><span class="nav-number">3.</span> <span class="nav-text">读书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#旅行"><span class="nav-number">4.</span> <span class="nav-text">旅行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#杂念"><span class="nav-number">5.</span> <span class="nav-text">杂念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2017年的目标"><span class="nav-number">6.</span> <span class="nav-text">2017年的目标</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#大纲"><span class="nav-number">1.</span> <span class="nav-text">大纲</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件的效率与一致性"><span class="nav-number">2.</span> <span class="nav-text">硬件的效率与一致性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java内存模型"><span class="nav-number">3.</span> <span class="nav-text">Java内存模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主要目标"><span class="nav-number">3.1.</span> <span class="nav-text">主要目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交互关系"><span class="nav-number">3.2.</span> <span class="nav-text">交互关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先行发生原则"><span class="nav-number">3.3.</span> <span class="nav-text">先行发生原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile"><span class="nav-number">3.4.</span> <span class="nav-text">volatile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java并发过程的3个特性"><span class="nav-number">3.5.</span> <span class="nav-text">Java并发过程的3个特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java与线程"><span class="nav-number">3.6.</span> <span class="nav-text">Java与线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实现线程的方式"><span class="nav-number">3.6.1.</span> <span class="nav-text">实现线程的方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java线程调度"><span class="nav-number">3.6.2.</span> <span class="nav-text">Java线程调度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态切换"><span class="nav-number">3.6.3.</span> <span class="nav-text">状态切换</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

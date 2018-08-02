@@ -100,9 +100,9 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/%E6%99%9A%E6%9C%9F%E8%BF%90%E8%A1%8C%E6%9C%9F%E4%BC%98%E5%8C%96.png-wtmark">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180724203218300.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180724203709710.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180724203732373.png-wtmark">
-<meta property="og:updated_time" content="2018-08-01T22:36:29.767Z">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180724203709710.png-wtmarkz5">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180724203732373.png-wtmarkz5">
+<meta property="og:updated_time" content="2018-08-02T11:57:03.955Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入理解Java虚拟机》十一：晚期（运行期）优化">
 <meta name="twitter:description" content="Java程序最初是通过解释器进行解释执行的，当某段代码（称为“热点代码”）运行特别频繁，为了提高效率，在运行时，虚拟机通过即时编译器（JIT）把这些代码编译成与本地平台相关的机器码。">
@@ -392,18 +392,18 @@
 <li><strong>基于采样的热点探测</strong><br>采用这种方法的虚拟机会周期性地检查各个线程的栈顶，如果发现某个（或某些）方法经常出现在栈顶，那这个方法就是“热点方法”。<br><strong>优点：</strong>实现简单高效、容易获取方法调用关系<br><strong>缺点：</strong>很难精确地确定一个方法的热度，容易受线程阻塞影响  </li>
 <li><strong>基于计数器的热点探测（HotSpot虚拟机使用）</strong><br>采用这种方法的虚拟机会为每个方法（甚至是代码块）建立计数器，统计方法的执行次数，如果执行次数超过一定的阈值就认为它是“热点方法”。<br><strong>优点：</strong>统计结果相对更加精确和严谨<br><strong>缺点：</strong>实现麻烦，需要为每个方法建立并维护计数器  <ul>
 <li>计数器<ul>
-<li>方法调用计数器<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180724203709710.png-wtmark" alt="image-20180724203709710"></li>
+<li>方法调用计数器<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180724203709710.png-wtmarkz5" alt="image-20180724203709710"></li>
 </ul>
 <ul>
-<li>回边计数器<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180724203732373.png-wtmark" alt="image-20180724203732373"></li>
+<li>回边计数器<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180724203732373.png-wtmarkz5" alt="image-20180724203732373"></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 <h4 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h4><ul>
-<li>Client Compile编译器<br>简单快速的三段式编译器，主要的关注点在于局部性的优化，而放弃了许多耗时较长的全局优化手段。  </li>
-<li>Server Compiler编译器<br>专门面向服务端的经典应用并为服务端的性能配置特别调整过的编译器，会执行所有经典的优化动作、实施一些与Java语言特性密切相关的优化技术，还可能进行一些不稳定的激化优化。相对来说执行比较慢，但代码质量高，减少本地diamante的执行时间。</li>
+<li><strong>Client Compile编译器</strong><br>简单快速的三段式编译器，主要的关注点在于局部性的优化，而放弃了许多耗时较长的全局优化手段。  </li>
+<li><strong>Server Compiler编译器</strong><br>专门面向服务端的经典应用并为服务端的性能配置特别调整过的编译器，会执行所有经典的优化动作、实施一些与Java语言特性密切相关的优化技术，还可能进行一些不稳定的激化优化。相对来说执行比较慢，但代码质量高，减少本地diamante的执行时间。</li>
 </ul>
 <h2 id="编译优化技术"><a href="#编译优化技术" class="headerlink" title="编译优化技术"></a>编译优化技术</h2><p>以编译方式执行本地代码比解释方式更快，主要有两个原因：  </p>
 <ol>
@@ -411,18 +411,18 @@
 <li>虚拟机设计团队几乎把对代码的所有优化措施都集中在了即时编译器之中</li>
 </ol>
 <h3 id="语言无关的经典优化技术"><a href="#语言无关的经典优化技术" class="headerlink" title="语言无关的经典优化技术"></a>语言无关的经典优化技术</h3><ul>
-<li>公共子表达式消除<ul>
+<li><strong>公共子表达式消除</strong><ul>
 <li><strong>局部公共子表达式消除：</strong>优化仅限于程序的基本块内</li>
 <li><strong>全局公共子表达式消除：</strong>优化的范围涵盖了多个基本块  </li>
 </ul>
 </li>
-<li>数组范围检查消除</li>
-<li>方法内联  <ul>
+<li><strong>数组范围检查消除</strong></li>
+<li><strong>方法内联</strong>  <ul>
 <li>消除方法调用的成本</li>
 <li>为其他优化手段建立良好的基础</li>
 </ul>
 </li>
-<li>逃逸分析<br>如果确定一个对象不会逃逸出方法之外，让该对象在栈上分配内存，对象所占用的内存空间就可以随栈帧出栈而销毁。<ul>
+<li><strong>逃逸分析</strong><br>如果确定一个对象不会逃逸出方法之外，让该对象在栈上分配内存，对象所占用的内存空间就可以随栈帧出栈而销毁。<ul>
 <li><strong>方法逃逸：</strong>当一个对象在方法中被定义后，它可能被外部方法所引用</li>
 <li><strong>线程逃逸：</strong>被外部线程访问到，譬如赋值给类变量或可以在其他线程中访问的实例变量</li>
 </ul>
@@ -491,6 +491,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/02/《深入理解Java虚拟机》十二：Java内存模型与线程/" rel="prev" title="《深入理解Java虚拟机》十二：Java内存模型与线程">
+                《深入理解Java虚拟机》十二：Java内存模型与线程 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -567,7 +571,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
