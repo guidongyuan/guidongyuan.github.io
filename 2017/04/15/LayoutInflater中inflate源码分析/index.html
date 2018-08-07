@@ -99,7 +99,7 @@
 <meta property="og:description" content="对项目中的代码进行优化，删除Layout中过度绘制的代码，无意中发现了一个问题，ListView中的item的高度设置后没有效果，listview算是Android开发中最常用的控件之一，一直都在用，但是却没有遇到过item中设置无效，找到解决办法后，意识到自己对平时调用的方法参数不够理解。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2017-04-15-14922619130815.jpg-wtmark">
-<meta property="og:updated_time" content="2018-07-02T04:41:25.045Z">
+<meta property="og:updated_time" content="2018-08-07T23:51:29.570Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LayoutInflater中inflate源码分析">
 <meta name="twitter:description" content="对项目中的代码进行优化，删除Layout中过度绘制的代码，无意中发现了一个问题，ListView中的item的高度设置后没有效果，listview算是Android开发中最常用的控件之一，一直都在用，但是却没有遇到过item中设置无效，找到解决办法后，意识到自己对平时调用的方法参数不够理解。">
@@ -418,7 +418,15 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Caused by: java.lang.UnsupportedOperationException: addView(View, LayoutParams) is not supported in AdapterView</span><br></pre></td></tr></table></figure>
 <p>如果想在一个界面中，想让rootView中添加一个View，让其属性有效，那么则改为</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">convertView = LayoutInflater.from(mContext).inflate(R.layout.item_listtest, parent, <span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p><strong>如果root为null，则直接返回xml的根布局，属性值无效。<br>如果root不为null，attachToRoot为false，则返回xml的根布局，属性值有效。<br>attachToRoot为true，则返回root，属性值有效。</strong></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p><strong>返回布局</strong></p>
+<ul>
+<li>如果root不为null，attachToRoot为true，xml被addView到root中，返回root布局</li>
+<li>如果root为null，或者attachToRoot为false，返回xml布局</li>
+</ul>
+<p><strong>属性值</strong></p>
+<ul>
+<li>如果root为null，属性值无效，因为属性值需要root布局去<code>root.generateLayoutParams()</code>，其他情况，属性值有效</li>
+</ul>
 
       
     </div>
