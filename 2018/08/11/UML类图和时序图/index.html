@@ -98,20 +98,20 @@
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="在做功能比较复杂的项目模块的时候，为了理请代码的逻辑，方便以后对接的同事方便查看，一般会整理一下流程图、类图和时序图。发现自己在画图的时候，有时候不太记得类图的个别图示，就整理一下输出了这篇文章。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728162538350.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728163641732.png-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728162538350.png-wtmarkz5">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728163641732.png-wtmarkz7">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728165213977.png-wtmarkz7">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728165555810.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728165817291.png-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728165555810.png-wtmarkz5">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728165817291.png-wtmarkz5">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728173446758.png-wtmark">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/15329408982758.jpg-wtmark">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728174548975.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728180119156.png-wtmark">
-<meta property="og:updated_time" content="2018-09-10T23:37:50.600Z">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728180119156.png-wtmarkz7">
+<meta property="og:updated_time" content="2018-09-10T23:39:59.059Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="UML类图和时序图">
 <meta name="twitter:description" content="在做功能比较复杂的项目模块的时候，为了理请代码的逻辑，方便以后对接的同事方便查看，一般会整理一下流程图、类图和时序图。发现自己在画图的时候，有时候不太记得类图的个别图示，就整理一下输出了这篇文章。">
-<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728162538350.png-wtmark">
+<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728162538350.png-wtmarkz5">
 
 
 
@@ -366,13 +366,13 @@
 <p>[TOC]</p>
 <h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><p>在开发中，经常会用到类图，尤其是功能模块涉及很多类的时候，使用类图，可以明了地显示各个类之间的关系。类图的学习还是比较简单，只要知道基本的图示作用，以及弄懂类之间的关系。</p>
 <h4 id="类图图示元素含义"><a href="#类图图示元素含义" class="headerlink" title="类图图示元素含义"></a>类图图示元素含义</h4><p>先对各个图示进行介绍，主要是接口、类以及各种关系连接线</p>
-<h5 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h5><p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728162538350.png-wtmark" alt="image-20180728162538350"></p>
+<h5 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h5><p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728162538350.png-wtmarkz5" alt="image-20180728162538350"></p>
 <ul>
 <li>第一行：接口名称，接口需要添加<code>《Interface》</code></li>
 <li>第二行：特性（字段或者属性）<br>格式为：<code>可见性 特性名称:特性类型</code></li>
 <li>第三行：操作（方法或者行为）<br>格式为：<code>可见性 操作名称(参数类型):返回值类型</code><br><strong>可见性</strong>：<code>+</code>表示public，<code>-</code>表示private，<code>#</code>表示protected</li>
 </ul>
-<h4 id="类"><a href="#类" class="headerlink" title="类"></a>类</h4><p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728163641732.png-wtmark" alt="image-20180728163641732"></p>
+<h4 id="类"><a href="#类" class="headerlink" title="类"></a>类</h4><p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728163641732.png-wtmarkz7" alt="image-20180728163641732"></p>
 <ul>
 <li>第一行：类名称，如果是抽象类，用<strong>斜体</strong>表示</li>
 <li>第二行：特性（字段或者属性）<br>格式为：<code>属性范围 特性名称:特性类型</code></li>
@@ -382,11 +382,11 @@
 <h3 id="类的关系"><a href="#类的关系" class="headerlink" title="类的关系"></a>类的关系</h3><p>上面的图示也列出类关系的6种连接线，接下来对各个关系进行详细介绍</p>
 <h4 id="实现关系"><a href="#实现关系" class="headerlink" title="实现关系"></a>实现关系</h4><ul>
 <li>是一种类与接口的关系</li>
-<li>表现在代码上，就是实现interface接口<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728165555810.png-wtmark" alt="image-20180728165555810"></li>
+<li>表现在代码上，就是实现interface接口<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728165555810.png-wtmarkz5" alt="image-20180728165555810"></li>
 </ul>
 <h4 id="泛型关系"><a href="#泛型关系" class="headerlink" title="泛型关系"></a>泛型关系</h4><ul>
 <li>是一种类与类的继承关系</li>
-<li>表现在代码上，就是通过extend继承<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728165817291.png-wtmark" alt="image-20180728165817291"></li>
+<li>表现在代码上，就是通过extend继承<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728165817291.png-wtmarkz5" alt="image-20180728165817291"></li>
 </ul>
 <h4 id="关联关系"><a href="#关联关系" class="headerlink" title="关联关系"></a>关联关系</h4><ul>
 <li>是一种拥有的关系, 它使一个类知道另一个类的属性和方法。</li>
@@ -405,7 +405,7 @@
 <li>聚合关系中的部分，能离开整体单独存在，比如汽车和轮胎是整体与部分的关系，轮胎可以单独存在。</li>
 <li>两者表现在代码上，和关联关系一样，是类中的一个成员属性。具体不同只能通过语义区分。<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728174548975.png-wtmark" alt="image-20180728174548975"></li>
 </ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>最后，借用《大话设计模式》中的一张UML类图来展示各个类图的关系<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728180119156.png-wtmark" alt="image-20180728180119156"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>最后，借用《大话设计模式》中的一张UML类图来展示各个类图的关系<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728180119156.png-wtmarkz7" alt="image-20180728180119156"></p>
 <h3 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h3><p>上面讲到的是类图，平时另外开发中，尤其是看源码的时候，用得比较多的，就是时序图了。类图用来表示各个类之间的关系，时序图，用来描述对象之间动态协作的顺序。<br>时序图使用起来也特别方便，要整理的时候，发现网上有文章整理很不错了，如<a href="https://www.cnblogs.com/ywqu/archive/2009/12/22/1629426.html" target="_blank" rel="noopener">UML建模之时序图（Sequence Diagram）</a>，就不再自行整理了。<br>写博客的目的，是为了理解归纳知识点，然后通过自己的思维习惯输出，下次忘记的时候，看自己的文章立马回顾起来。看别人的一篇也能回顾，也就不为了写文章而写文章了。</p>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
 <li>《大话设计模式》—UML类图</li>
