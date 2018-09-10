@@ -90,13 +90,13 @@
 
 
 
-<meta name="description" content="平时在开发中，或多或少都会用到JNI方面的技术，比如我们项目中，消息的加密和解密就是通过C来实现的，然后打包为.so动态库，并提供Java接口供应用层调用，这么做的目的主要就是为了提供应用的安全性，防止被反编译后被分析加密的逻辑。接下来就要介绍JNI和NDK的区别，怎样创建一个项目开发JNI">
+<meta name="description" content="平时在开发中，或多或少都会用到JNI方面的技术，比如我们项目中，消息的加密和解密就是通过C来实现的，然后打包为.so动态库，并提供Java接口供应用层调用，这么做的目的主要就是为了提供应用的安全性，防止被反编译后被分析加密的逻辑。接下来就要介绍JNI和NDK的区别，怎样创建一个项目开发JNI。">
 <meta name="keywords" content="NDK,JNI">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NDK(一)：编写第一个JNI项目">
 <meta property="og:url" content="http://yoursite.com/2018/08/28/编写第一个JNI项目/index.html">
 <meta property="og:site_name" content="亦袁非猿">
-<meta property="og:description" content="平时在开发中，或多或少都会用到JNI方面的技术，比如我们项目中，消息的加密和解密就是通过C来实现的，然后打包为.so动态库，并提供Java接口供应用层调用，这么做的目的主要就是为了提供应用的安全性，防止被反编译后被分析加密的逻辑。接下来就要介绍JNI和NDK的区别，怎样创建一个项目开发JNI">
+<meta property="og:description" content="平时在开发中，或多或少都会用到JNI方面的技术，比如我们项目中，消息的加密和解密就是通过C来实现的，然后打包为.so动态库，并提供Java接口供应用层调用，这么做的目的主要就是为了提供应用的安全性，防止被反编译后被分析加密的逻辑。接下来就要介绍JNI和NDK的区别，怎样创建一个项目开发JNI。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827082713032.png-wtmark">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827082921362.png-wtmark">
@@ -111,10 +111,10 @@
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180906130657422.png-wtmark">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180907140137140.png-wtmark">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180907140305906.png-wtmark">
-<meta property="og:updated_time" content="2018-09-10T23:10:44.440Z">
+<meta property="og:updated_time" content="2018-09-10T23:11:44.446Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NDK(一)：编写第一个JNI项目">
-<meta name="twitter:description" content="平时在开发中，或多或少都会用到JNI方面的技术，比如我们项目中，消息的加密和解密就是通过C来实现的，然后打包为.so动态库，并提供Java接口供应用层调用，这么做的目的主要就是为了提供应用的安全性，防止被反编译后被分析加密的逻辑。接下来就要介绍JNI和NDK的区别，怎样创建一个项目开发JNI">
+<meta name="twitter:description" content="平时在开发中，或多或少都会用到JNI方面的技术，比如我们项目中，消息的加密和解密就是通过C来实现的，然后打包为.so动态库，并提供Java接口供应用层调用，这么做的目的主要就是为了提供应用的安全性，防止被反编译后被分析加密的逻辑。接下来就要介绍JNI和NDK的区别，怎样创建一个项目开发JNI。">
 <meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827082713032.png-wtmark">
 
 
@@ -386,7 +386,7 @@
 
       
         <blockquote>
-<p>平时在开发中，或多或少都会用到JNI方面的技术，比如我们项目中，消息的加密和解密就是通过C来实现的，然后打包为.so动态库，并提供Java接口供应用层调用，这么做的目的主要就是为了提供应用的安全性，防止被反编译后被分析加密的逻辑。<br>接下来就要介绍JNI和NDK的区别，怎样创建一个项目开发JNI</p>
+<p>平时在开发中，或多或少都会用到JNI方面的技术，比如我们项目中，消息的加密和解密就是通过C来实现的，然后打包为.so动态库，并提供Java接口供应用层调用，这么做的目的主要就是为了提供应用的安全性，防止被反编译后被分析加密的逻辑。<br>接下来就要介绍JNI和NDK的区别，怎样创建一个项目开发JNI。</p>
 </blockquote>
 <a id="more"></a>
 <p>[TOC]</p>
@@ -440,7 +440,7 @@
 <p>方法名格式为<code>Java_包名_类名_方法名(JNIEnv,jobject){}</code>，编译运行生成动态库</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#StudyNdk.cpp</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;jni.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Java_com_guidongyuan_jnilib_MyClass_test</span><span class="params">(JNIEnv *env, jobject)</span></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"接收到Java的调用"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>方法太长的话，也可以通过<code>javah</code>命令生成<code>.h</code>文件，要注意当前所处路径，否则会报找不到类的错误</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 在包名的上一个路径</span><br><span class="line">➜  java pwd</span><br><span class="line">/Users/guidongyuan/code/Android/ndk/StudyNdk/jnilib/src/main/java</span><br><span class="line">➜  java javah -o MyClass.h com.guidongyuan.jnilib.MyClass</span><br><span class="line"><span class="meta">#</span> 可以看到多了一个.h文件</span><br><span class="line">➜  java ls</span><br><span class="line">MyClass.h com</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在包名的上一个路径</span></span><br><span class="line">➜  java pwd</span><br><span class="line">/Users/guidongyuan/code/Android/ndk/StudyNdk/jnilib/src/main/java</span><br><span class="line">➜  java javah -o MyClass.h com.guidongyuan.jnilib.MyClass</span><br><span class="line"><span class="meta">#</span><span class="bash"> 可以看到多了一个.h文件</span></span><br><span class="line">➜  java ls</span><br><span class="line">MyClass.h com</span><br></pre></td></tr></table></figure>
 <p>打开<code>MyClass.h</code>文件，则可以拷贝其方法名字</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* DO NOT EDIT THIS FILE - it is machine generated */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;jni.h&gt;</span></span></span><br><span class="line"><span class="comment">/* Header for class com_guidongyuan_jnilib_MyClass */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _Included_com_guidongyuan_jnilib_MyClass</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _Included_com_guidongyuan_jnilib_MyClass</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     com_guidongyuan_jnilib_MyClass</span></span><br><span class="line"><span class="comment"> * Method:    test</span></span><br><span class="line"><span class="comment"> * Signature: ()V</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">JNIEXPORT <span class="keyword">void</span> JNICALL Java_com_guidongyuan_jnilib_MyClass_test</span><br><span class="line">  (JNIEnv *, jobject);</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
 </li>
