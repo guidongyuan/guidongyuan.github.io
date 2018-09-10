@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ReactNative," />
+  <meta name="keywords" content="设计模式," />
 
 
 
@@ -90,18 +90,28 @@
 
 
 
-<meta name="description" content="本来想开发的时候，遇到什么，就查什么的，查的时候，发现挺乱的，前端的东西就是多，或者说，发展就是快。那就在开发前，先理清楚一些基本知识，对比一下它们之间的差别。">
-<meta name="keywords" content="ReactNative">
+<meta name="description" content="在做功能比较复杂的项目模块的时候，为了理请代码的逻辑，方便以后对接的同事方便查看，一般会整理一下流程图、类图和时序图。发现自己在画图的时候，有时候不太记得类图的个别图示，就整理一下输出了这篇文章。">
+<meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我们一起学React Native(二)：概念介绍">
-<meta property="og:url" content="http://yoursite.com/2018/04/18/我们一起学ReactNative(二)：概念介绍/index.html">
+<meta property="og:title" content="UML类图和时序图">
+<meta property="og:url" content="http://yoursite.com/2018/08/11/UML类图和时序图/index.html">
 <meta property="og:site_name" content="亦袁非猿">
-<meta property="og:description" content="本来想开发的时候，遇到什么，就查什么的，查的时候，发现挺乱的，前端的东西就是多，或者说，发展就是快。那就在开发前，先理清楚一些基本知识，对比一下它们之间的差别。">
+<meta property="og:description" content="在做功能比较复杂的项目模块的时候，为了理请代码的逻辑，方便以后对接的同事方便查看，一般会整理一下流程图、类图和时序图。发现自己在画图的时候，有时候不太记得类图的个别图示，就整理一下输出了这篇文章。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-13T23:24:18.702Z">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728162538350.png-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728163641732.png-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728165213977.png-wtmarkz7">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728165555810.png-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728165817291.png-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728173446758.png-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/15329408982758.jpg-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728174548975.png-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728180119156.png-wtmark">
+<meta property="og:updated_time" content="2018-09-10T23:37:50.600Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我们一起学React Native(二)：概念介绍">
-<meta name="twitter:description" content="本来想开发的时候，遇到什么，就查什么的，查的时候，发现挺乱的，前端的东西就是多，或者说，发展就是快。那就在开发前，先理清楚一些基本知识，对比一下它们之间的差别。">
+<meta name="twitter:title" content="UML类图和时序图">
+<meta name="twitter:description" content="在做功能比较复杂的项目模块的时候，为了理请代码的逻辑，方便以后对接的同事方便查看，一般会整理一下流程图、类图和时序图。发现自己在画图的时候，有时候不太记得类图的个别图示，就整理一下输出了这篇文章。">
+<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180728162538350.png-wtmark">
 
 
 
@@ -129,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/18/我们一起学ReactNative(二)：概念介绍/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/11/UML类图和时序图/"/>
 
 
 
 
 
-  <title>我们一起学React Native(二)：概念介绍 | 亦袁非猿</title>
+  <title>UML类图和时序图 | 亦袁非猿</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -264,7 +274,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/18/我们一起学ReactNative(二)：概念介绍/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/11/UML类图和时序图/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="亦袁非猿">
@@ -285,7 +295,7 @@
             
             
               
-                我们一起学React Native(二)：概念介绍
+                UML类图和时序图
               
             
           </h1>
@@ -303,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-18T06:34:49+08:00">
-                2018-04-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-11T07:18:31+08:00">
+                2018-08-11
               </time>
             
 
@@ -314,28 +324,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ReactNative/" itemprop="url" rel="index">
-                    <span itemprop="name">ReactNative</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -343,7 +331,7 @@
 
           
           
-             <span id="/2018/04/18/我们一起学ReactNative(二)：概念介绍/" class="leancloud_visitors" data-flag-title="我们一起学React Native(二)：概念介绍">
+             <span id="/2018/08/11/UML类图和时序图/" class="leancloud_visitors" data-flag-title="UML类图和时序图">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -372,45 +360,59 @@
 
       
         <blockquote>
-<p>本来想开发的时候，遇到什么，就查什么的，查的时候，发现挺乱的，前端的东西就是多，或者说，发展就是快。那就在开发前，先理清楚一些基本知识，对比一下它们之间的差别。</p>
+<p>在做功能比较复杂的项目模块的时候，为了理请代码的逻辑，方便以后对接的同事方便查看，一般会整理一下流程图、类图和时序图。<br>发现自己在画图的时候，有时候不太记得类图的个别图示，就整理一下输出了这篇文章。</p>
 </blockquote>
 <a id="more"></a>
-<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><h3 id="为什么有React-Native"><a href="#为什么有React-Native" class="headerlink" title="为什么有React Native"></a>为什么有React Native</h3><p>可以参考<a href="http://bbs.reactnative.cn/topic/14/react-native-%E6%8A%8A%E7%8E%B0%E4%BB%A3web%E7%A7%91%E6%8A%80%E5%B8%A6%E7%BB%99%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91%E8%80%85" target="_blank" rel="noopener">React Native: 把现代web科技带给移动开发者</a>，介绍了React Native的发展与目标。</p>
-<h3 id="React、React-js和React-Native之间的区别"><a href="#React、React-js和React-Native之间的区别" class="headerlink" title="React、React.js和React Native之间的区别"></a>React、React.js和React Native之间的区别</h3><p>React是基础框架，是一套基础设计实现理念，开发者不能直接使用它来开发移动应用或者网页。<br>在React框架上，发展出React.js框架用来开发网页；<br>在React框架上，发展出React Native框架用来开发移动应用。</p>
-<h4 id="React-js和React-Native具体区别"><a href="#React-js和React-Native具体区别" class="headerlink" title="React.js和React Native具体区别"></a>React.js和React Native具体区别</h4><ol>
-<li><p>实现目的不同</p>
-<p>React Js的目的是为了使前端的V层更具组件化，能更好的复用，它能够使用简单的html标签创建更多的自定义组件标签，内部绑定事件，同时可以让你从操作dom中解脱出来，只需要操作数据就会改变相应的dom；</p>
-<p>React Native的目的是希望我们能够使用前端的技术栈就可以创建出能够在不同平台运行的一个框架。可以创建出在移动端运行的app，但是性能可能比原生app差一点。</p>
+<p>[TOC]</p>
+<h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><p>在开发中，经常会用到类图，尤其是功能模块涉及很多类的时候，使用类图，可以明了地显示各个类之间的关系。类图的学习还是比较简单，只要知道基本的图示作用，以及弄懂类之间的关系。</p>
+<h4 id="类图图示元素含义"><a href="#类图图示元素含义" class="headerlink" title="类图图示元素含义"></a>类图图示元素含义</h4><p>先对各个图示进行介绍，主要是接口、类以及各种关系连接线</p>
+<h5 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h5><p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728162538350.png-wtmark" alt="image-20180728162538350"></p>
+<ul>
+<li>第一行：接口名称，接口需要添加<code>《Interface》</code></li>
+<li>第二行：特性（字段或者属性）<br>格式为：<code>可见性 特性名称:特性类型</code></li>
+<li>第三行：操作（方法或者行为）<br>格式为：<code>可见性 操作名称(参数类型):返回值类型</code><br><strong>可见性</strong>：<code>+</code>表示public，<code>-</code>表示private，<code>#</code>表示protected</li>
+</ul>
+<h4 id="类"><a href="#类" class="headerlink" title="类"></a>类</h4><p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728163641732.png-wtmark" alt="image-20180728163641732"></p>
+<ul>
+<li>第一行：类名称，如果是抽象类，用<strong>斜体</strong>表示</li>
+<li>第二行：特性（字段或者属性）<br>格式为：<code>属性范围 特性名称:特性类型</code></li>
+<li>第三行：操作（方法或者行为）<br>格式为：<code>操作范围 操作名称(参数类型):返回值类型</code></li>
+</ul>
+<h4 id="关系连接线"><a href="#关系连接线" class="headerlink" title="关系连接线"></a>关系连接线</h4><p>类之间的关系有6种，分别为实现关系、泛型关系、关联关系、依赖关系、聚会关系、组合关系。<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728165213977.png-wtmarkz7" alt="image-20180728165213977"></p>
+<h3 id="类的关系"><a href="#类的关系" class="headerlink" title="类的关系"></a>类的关系</h3><p>上面的图示也列出类关系的6种连接线，接下来对各个关系进行详细介绍</p>
+<h4 id="实现关系"><a href="#实现关系" class="headerlink" title="实现关系"></a>实现关系</h4><ul>
+<li>是一种类与接口的关系</li>
+<li>表现在代码上，就是实现interface接口<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728165555810.png-wtmark" alt="image-20180728165555810"></li>
+</ul>
+<h4 id="泛型关系"><a href="#泛型关系" class="headerlink" title="泛型关系"></a>泛型关系</h4><ul>
+<li>是一种类与类的继承关系</li>
+<li>表现在代码上，就是通过extend继承<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728165817291.png-wtmark" alt="image-20180728165817291"></li>
+</ul>
+<h4 id="关联关系"><a href="#关联关系" class="headerlink" title="关联关系"></a>关联关系</h4><ul>
+<li>是一种拥有的关系, 它使一个类知道另一个类的属性和方法。</li>
+<li>关系关系可以是单向的，也可以是双向的，互相关系。</li>
+<li>表现在代码上，一般是类中的一个成员属性。<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728173446758.png-wtmark" alt="image-20180728173446758"></li>
+</ul>
+<h4 id="依赖关系"><a href="#依赖关系" class="headerlink" title="依赖关系"></a>依赖关系</h4><ul>
+<li>是一种使用的关系,  即一个类的实现需要另一个类的协助。这种关系具有偶然性的、临时性的、非常弱的。</li>
+<li><p>表现在代码上，就是类B被作为类A的某个方法参数传递进来使用。</p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/15329408982758.jpg-wtmark" alt=""></p>
 </li>
-<li><p>原理略有不同</p>
-<p>ReactJs和React Native的原理是相同的，都是由js实现的虚拟dom来驱动界面view层渲染。  </p>
-<p>ReactJs是驱动html dom渲染；</p>
-<p>React Native是驱动android/ios原生组件渲染。</p>
-</li>
-<li><p>编程思路会有所不同:</p>
-<p>ReactJS直接渲染dom；<br>React Native是生成id，用bridge（最新用c++实现了）变成一个表，等待native去调用。</p>
-</li>
-<li><p>基础控件/标签</p>
-<p>ReactJS的控件为Web控件，如div、span、h1、ul等；</p>
-<p>React Native是抽象原生控件，如View、Text、Image等。</p>
-</li>
-</ol>
-<h3 id="JavaScript、ECMAScript、ES5和ES6的区别"><a href="#JavaScript、ECMAScript、ES5和ES6的区别" class="headerlink" title="JavaScript、ECMAScript、ES5和ES6的区别"></a>JavaScript、ECMAScript、ES5和ES6的区别</h3><h4 id="JavaScript和ECMAScript区别"><a href="#JavaScript和ECMAScript区别" class="headerlink" title="JavaScript和ECMAScript区别"></a>JavaScript和ECMAScript区别</h4><p>JavaScript是一门语言，和Java没有什么特别强的联系，纯属就是命名为了傍上明星Java而已。但是JavaScript是网景公司推出的，需要提交给ECMA International（欧洲计算机制造商协会），让执行标准化的公司确定新的语言标准。但是由于一定的原因，ECMA官方标准不采用JavaScript，而是采用ECMAScript，虽然我们一直采用JavaScript称呼。</p>
-<p><strong>那JavaScript和ECMAScript是不是就是一样呢？只是花名和正名的区别吗？</strong></p>
-<p>不是。因为JavaScript是一门语言，由3部分组成，就可以知道，其实ECMAScript只是其语言标准。</p>
-<ol>
-<li>ECMAScript语言标准：这个是其核心，规定了语言的各种组成部门，比如语言，语句等。</li>
-<li>DOM文档对象模式：DOM把整个页面映射为一个多层节点结果，这种结构有点类型Android中View的视图，也是一层一层的。</li>
-<li>BOM浏览器对象模式：</li>
-</ol>
-<h4 id="ES5和ES6的区别"><a href="#ES5和ES6的区别" class="headerlink" title="ES5和ES6的区别"></a>ES5和ES6的区别</h4><p>上面说到了ECMAScript是JavaScript的语言标准，随着时间的变化，一些旧的语言标准会被遗弃，新的语言特性会不断加进来。可以类似于Java，比如推出了Java8，会比Java7新增一些特性之类的。</p>
-<p>ES5是ECMAScript 5的简称，即是ECMAScript的第五版修订；<br>ES6是ECMAScript 6的简称，即是ECMAScript的第六版修改。后来ECMA修改了命名的规则，采用了年份，因为是在2015年完成新版本的标准化。所以ECMAScript 6也可以命名为ESMAScript2015(ES2015)，目前称为ES6的人还是比较多。这点也可以类似Java1.8和Java8。</p>
-<p>ES5和ES6的语言标准变化比较大，不仅仅是新增一两个新特性，具体我们在后面学习ES6的时候，边学习边比较吧！React Native开发中，都是推荐直接使用ES6进行开发了，但是平时在网上搜到的很多教程和例子都是ES5版本的，所以，我觉得，不需要去单独学习怎样用ES5编写React Native项目了，直接用ES6了。</p>
+</ul>
+<h4 id="组合关系和聚合关系"><a href="#组合关系和聚合关系" class="headerlink" title="组合关系和聚合关系"></a>组合关系和聚合关系</h4><ul>
+<li>两者都是整体与部分的关系</li>
+<li>组合关系中的部分，不能离开整体而单独存在的，比如公司和部门是整体与部分的关系，部门不能单独存在，没有公司就没有部门了。</li>
+<li>聚合关系中的部分，能离开整体单独存在，比如汽车和轮胎是整体与部分的关系，轮胎可以单独存在。</li>
+<li>两者表现在代码上，和关联关系一样，是类中的一个成员属性。具体不同只能通过语义区分。<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728174548975.png-wtmark" alt="image-20180728174548975"></li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>最后，借用《大话设计模式》中的一张UML类图来展示各个类图的关系<br><img src="http://ol45hsxko.bkt.clouddn.com/image-20180728180119156.png-wtmark" alt="image-20180728180119156"></p>
+<h3 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h3><p>上面讲到的是类图，平时另外开发中，尤其是看源码的时候，用得比较多的，就是时序图了。类图用来表示各个类之间的关系，时序图，用来描述对象之间动态协作的顺序。<br>时序图使用起来也特别方便，要整理的时候，发现网上有文章整理很不错了，如<a href="https://www.cnblogs.com/ywqu/archive/2009/12/22/1629426.html" target="_blank" rel="noopener">UML建模之时序图（Sequence Diagram）</a>，就不再自行整理了。<br>写博客的目的，是为了理解归纳知识点，然后通过自己的思维习惯输出，下次忘记的时候，看自己的文章立马回顾起来。看别人的一篇也能回顾，也就不为了写文章而写文章了。</p>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
-<li><a href="http://bbs.reactnative.cn/topic/14/react-native-%E6%8A%8A%E7%8E%B0%E4%BB%A3web%E7%A7%91%E6%8A%80%E5%B8%A6%E7%BB%99%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91%E8%80%85" target="_blank" rel="noopener">React Native: 把现代web科技带给移动开发者</a></li>
-<li><a href="http://www.cnblogs.com/lovesong/p/4908871.html" target="_blank" rel="noopener">浅谈JavaScript、ES5、ES6</a></li>
-<li><a href="https://huangxuan.me/2015/09/22/js-version/?utm_source=caibaojian.com" target="_blank" rel="noopener">ES5, ES6, ES2016, ES.Next: JavaScript 的版本是怎么回事？「译」</a></li>
-<li><a href="http://es6.ruanyifeng.com/#docs/intro" target="_blank" rel="noopener">《ECMAScript 6入门》ECMAScript 6 简介</a></li>
+<li>《大话设计模式》—UML类图</li>
+<li><a href="http://design-patterns.readthedocs.io/zh_CN/latest/read_uml.html#generalization" target="_blank" rel="noopener">看懂UML类图和时序图</a></li>
+<li><a href="https://www.cnblogs.com/olvo/archive/2012/05/03/2481014.html" target="_blank" rel="noopener">UML类图关系（泛化 、继承、实现、依赖、关联、聚合、组合</a></li>
+<li><a href="https://www.cnblogs.com/shindo/p/5579191.html" target="_blank" rel="noopener">五分钟读懂UML类图</a></li>
+<li><a href="https://www.cnblogs.com/ywqu/archive/2009/12/22/1629426.html" target="_blank" rel="noopener">UML建模之时序图（Sequence Diagram）</a></li>
 </ul>
 
       
@@ -441,7 +443,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/ReactNative/" rel="tag"># ReactNative</a>
+            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
           
         </div>
       
@@ -454,8 +456,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/17/我们一起学ReactNative(一)：环境配置/" rel="next" title="我们一起学React Native(一)：环境配置">
-                <i class="fa fa-chevron-left"></i> 我们一起学React Native(一)：环境配置
+              <a href="/2018/08/03/《深入理解Java虚拟机》十三：线程安全与锁优化/" rel="next" title="《深入理解Java虚拟机》十三：线程安全与锁优化">
+                <i class="fa fa-chevron-left"></i> 《深入理解Java虚拟机》十三：线程安全与锁优化
               </a>
             
           </div>
@@ -464,8 +466,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/04/21/构建工具(一)：Maven介绍及安装/" rel="prev" title="构建工具(一)：Maven介绍及安装">
-                构建工具(一)：Maven介绍及安装 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/28/编写第一个JNI项目/" rel="prev" title="NDK(一)：编写第一个JNI项目">
+                NDK(一)：编写第一个JNI项目 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -600,7 +602,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础概念"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么有React-Native"><span class="nav-number">1.1.</span> <span class="nav-text">为什么有React Native</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React、React-js和React-Native之间的区别"><span class="nav-number">1.2.</span> <span class="nav-text">React、React.js和React Native之间的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#React-js和React-Native具体区别"><span class="nav-number">1.2.1.</span> <span class="nav-text">React.js和React Native具体区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript、ECMAScript、ES5和ES6的区别"><span class="nav-number">1.3.</span> <span class="nav-text">JavaScript、ECMAScript、ES5和ES6的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript和ECMAScript区别"><span class="nav-number">1.3.1.</span> <span class="nav-text">JavaScript和ECMAScript区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ES5和ES6的区别"><span class="nav-number">1.3.2.</span> <span class="nav-text">ES5和ES6的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">1.4.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#类图"><span class="nav-number">1.</span> <span class="nav-text">类图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类图图示元素含义"><span class="nav-number">1.1.</span> <span class="nav-text">类图图示元素含义</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#接口"><span class="nav-number">1.1.1.</span> <span class="nav-text">接口</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类"><span class="nav-number">1.2.</span> <span class="nav-text">类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关系连接线"><span class="nav-number">1.3.</span> <span class="nav-text">关系连接线</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类的关系"><span class="nav-number">2.</span> <span class="nav-text">类的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实现关系"><span class="nav-number">2.1.</span> <span class="nav-text">实现关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#泛型关系"><span class="nav-number">2.2.</span> <span class="nav-text">泛型关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关联关系"><span class="nav-number">2.3.</span> <span class="nav-text">关联关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依赖关系"><span class="nav-number">2.4.</span> <span class="nav-text">依赖关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组合关系和聚合关系"><span class="nav-number">2.5.</span> <span class="nav-text">组合关系和聚合关系</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时序图"><span class="nav-number">4.</span> <span class="nav-text">时序图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>

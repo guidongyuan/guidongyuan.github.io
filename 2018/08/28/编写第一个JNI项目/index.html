@@ -98,24 +98,24 @@
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="平时在开发中，或多或少都会用到JNI方面的技术，比如我们项目中，消息的加密和解密就是通过C来实现的，然后打包为.so动态库，并提供Java接口供应用层调用，这么做的目的主要就是为了提供应用的安全性，防止被反编译后被分析加密的逻辑。接下来就要介绍JNI和NDK的区别，怎样创建一个项目开发JNI。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827082713032.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827082921362.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827083307623.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827084048635.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827084256925.png-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827082713032.png-wtmarkz5">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827082921362.png-wtmarkz5">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827083307623.png-wtmarkz5">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827084048635.png-wtmarkz5">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827084256925.png-wtmarkz5">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827172434885.png-wtmark">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827173444589.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827202406568.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827202438268.png-wtmark">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827202406568.png-wtmarkz5">
+<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827202438268.png-wtmarkz5">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180906130657422.png-wtmark">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180906130657422.png-wtmark">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180907140137140.png-wtmark">
 <meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180907140305906.png-wtmark">
-<meta property="og:updated_time" content="2018-09-10T23:11:44.446Z">
+<meta property="og:updated_time" content="2018-09-10T23:29:28.596Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NDK(一)：编写第一个JNI项目">
 <meta name="twitter:description" content="平时在开发中，或多或少都会用到JNI方面的技术，比如我们项目中，消息的加密和解密就是通过C来实现的，然后打包为.so动态库，并提供Java接口供应用层调用，这么做的目的主要就是为了提供应用的安全性，防止被反编译后被分析加密的逻辑。接下来就要介绍JNI和NDK的区别，怎样创建一个项目开发JNI。">
-<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827082713032.png-wtmark">
+<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827082713032.png-wtmarkz5">
 
 
 
@@ -406,16 +406,16 @@
 </ul>
 <h3 id="Java项目调用Xcode编译动态库"><a href="#Java项目调用Xcode编译动态库" class="headerlink" title="Java项目调用Xcode编译动态库"></a>Java项目调用Xcode编译动态库</h3><ol>
 <li><p>创建Xcode项目，选择Library，选择为<strong>C++库</strong></p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827082713032.png-wtmark" alt="image-20180827082713032"></p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827082921362.png-wtmark" alt="image-20180827082921362"></p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827082713032.png-wtmarkz5" alt="image-20180827082713032"></p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827082921362.png-wtmarkz5" alt="image-20180827082921362"></p>
 </li>
 <li><p>先删除多余文件和代码，引入<code>jni.h</code>头文件</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827083307623.png-wtmark" alt="image-20180827083307623"></p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827083307623.png-wtmarkz5" alt="image-20180827083307623"></p>
 </li>
 <li><p>设置<code>jni.h</code>头文件的路径，即Java环境的配置路径</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827084048635.png-wtmark" alt="image-20180827084048635"></p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827084048635.png-wtmarkz5" alt="image-20180827084048635"></p>
 <p>分别添加进<strong>include</strong>目录和<strong>include/darwin</strong>目录</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827084256925.png-wtmark" alt="image-20180827084256925"></p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827084256925.png-wtmarkz5" alt="image-20180827084256925"></p>
 <p>编译运行就不会报找不到头文件的错误了，同时，可以看到生成了动态库libStudyNdk.dylib，记录动态库的路径<code>/Users/guidongyuan/Library/Developer/Xcode/DerivedData/StudyNdk-bwbgrzjykrevnaeyglsvxjelvnth/Build/Products/Debug/libStudyNdk.dylib</code>，接下来会使用到。</p>
 <p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827172434885.png-wtmark" alt="image-20180827172434885"></p>
 </li>
@@ -469,9 +469,9 @@
 </li>
 </ul>
 <h4 id="创建支持-C-C-的新项目"><a href="#创建支持-C-C-的新项目" class="headerlink" title="创建支持 C/C++ 的新项目"></a>创建支持 C/C++ 的新项目</h4><p>创建新项目后，编译运行，可以看到代码结构如下，多了两个文件，如果想添加新的jni方法，就可以在native-lib.cpp中增加</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827202406568.png-wtmark" alt="image-20180827202406568"></p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827202406568.png-wtmarkz5" alt="image-20180827202406568"></p>
 <p>编译运行，界面如下，第一个hello world就完成了</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827202438268.png-wtmark" alt="image-20180827202438268"></p>
+<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827202438268.png-wtmarkz5" alt="image-20180827202438268"></p>
 <p>通过解压应用包也可以看到，导入了<strong>libnative-lib.so</strong>库</p>
 <p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180906130657422.png-wtmark" alt="image-20180906130657422"></p>
 <p>####　目录介绍</p>
@@ -531,8 +531,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/03/《深入理解Java虚拟机》十三：线程安全与锁优化/" rel="next" title="《深入理解Java虚拟机》十三：线程安全与锁优化">
-                <i class="fa fa-chevron-left"></i> 《深入理解Java虚拟机》十三：线程安全与锁优化
+              <a href="/2018/08/11/UML类图和时序图/" rel="next" title="UML类图和时序图">
+                <i class="fa fa-chevron-left"></i> UML类图和时序图
               </a>
             
           </div>
@@ -616,7 +616,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">38</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -638,7 +638,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
