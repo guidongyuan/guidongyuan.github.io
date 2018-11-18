@@ -98,20 +98,20 @@
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="本章的主要问题是：    哪些内存需要回收？  什么时候回收？  如何回收 ？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/垃圾收集器与内存分配策略.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-03-09-15205545355744.jpg-wtmark.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-03-09-15205549566253.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-03-09-15205551425308.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-03-10-15206595041720.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-03-10-15206603011826.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-03-10-15206677923132.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-03-10-15206682983887.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-03-10-15206704313256.jpg-wtmark.png-wtmark">
-<meta property="og:updated_time" content="2018-07-31T00:36:45.947Z">
+<meta property="og:image" content="http://guidongyuan.cn/images/垃圾收集器与内存分配策略.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/2018-03-09-15205545355744.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/2018-03-09-15205549566253.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/2018-03-09-15205551425308.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/2018-03-10-15206595041720.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/2018-03-10-15206603011826.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/2018-03-10-15206677923132.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/2018-03-10-15206682983887.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/2018-03-10-15206704313256.jpg">
+<meta property="og:updated_time" content="2018-11-17T14:10:11.379Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入理解Java虚拟机》三：垃圾收集器与内存分配策略">
 <meta name="twitter:description" content="本章的主要问题是：    哪些内存需要回收？  什么时候回收？  如何回收 ？">
-<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/垃圾收集器与内存分配策略.png-wtmark">
+<meta name="twitter:image" content="http://guidongyuan.cn/images/垃圾收集器与内存分配策略.png">
 
 
 
@@ -386,7 +386,7 @@
 <p>  哪些内存需要回收？<br>  什么时候回收？<br>  如何回收 ？</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h3><p><img src="http://ol45hsxko.bkt.clouddn.com/垃圾收集器与内存分配策略.png-wtmark" alt="垃圾收集器与内存分配策略"></p>
+<h3 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h3><p><img src="http://guidongyuan.cn/images/垃圾收集器与内存分配策略.png" alt="垃圾收集器与内存分配策略"></p>
 <h3 id="哪些内存需要回收？"><a href="#哪些内存需要回收？" class="headerlink" title="哪些内存需要回收？"></a>哪些内存需要回收？</h3><ul>
 <li><strong>Java堆</strong>：这部分内存的分配和回收都是动态的，只有在成员运行时才知道要创建哪些对象，因此，垃圾收集器主要所关注需要回收的就是这部分的内存；</li>
 <li>Java运行时的其他数据区域，如程序计数器，虚拟机栈，本地方法栈个区域随线程而生 ，随线程而灭，不需要过多考虑回收的问题；</li>
@@ -454,17 +454,17 @@
 <p>对于不执行的线程，则没办法响应中断请求，跑到安全点，这种情况就需要<strong>安全区域</strong>来解决。</p>
 <p><strong>安全区域：</strong>指在一段代码片段之中，引用关系不会发生变化。在这个区域中的任意地方开始GC都是安全的。我们也可以把安全区域看做是被扩展了的安全点。</p>
 <h3 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h3><p>下图为基于JDK 1.7 的HotSpot虚拟机，收集器之间存在连线，则说明可以搭配使用。新生代和老年代，采用不同的收集器。</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-03-09-15205545355744.jpg-wtmark.png-wtmark" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/2018-03-09-15205545355744.jpg" alt=""></p>
 <ul>
 <li><strong>并行收集（Parallel）：</strong>指多条垃圾收集线程并行工作，但此时用户线程仍然处于等待状态。  </li>
 <li><strong>并发收集（Concurrent）：</strong>指用户线程与垃圾收集线程同时执行（但不一定是并行的，可能会交替执行），用户程序在继续运行，而垃圾收集程序运行于另一个CPU上。</li>
 </ul>
-<h4 id="Serial收集器"><a href="#Serial收集器" class="headerlink" title="Serial收集器"></a>Serial收集器</h4><p><img src="http://ol45hsxko.bkt.clouddn.com/2018-03-09-15205549566253.jpg-wtmark" alt=""></p>
+<h4 id="Serial收集器"><a href="#Serial收集器" class="headerlink" title="Serial收集器"></a>Serial收集器</h4><p><img src="http://guidongyuan.cn/images/2018-03-09-15205549566253.jpg" alt=""></p>
 <ul>
 <li>最基本、发展历史最悠久的收集器，是一个单线程的收集器，进行垃圾收集时，必须暂停其他所有的工作线程，直到它收集结束。  </li>
 <li>简单高效。</li>
 </ul>
-<h4 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h4><p><img src="http://ol45hsxko.bkt.clouddn.com/2018-03-09-15205551425308.jpg-wtmark" alt=""></p>
+<h4 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h4><p><img src="http://guidongyuan.cn/images/2018-03-09-15205551425308.jpg" alt=""></p>
 <ul>
 <li>新生代</li>
 <li>ParNew收集器其实就是Serial收集器的多线程版本，并行收集。</li>
@@ -480,7 +480,7 @@
 </li>
 <li>具备ParNew收集器没有的GC自适应的调节策略，通过<code>-XX:+UseAdaptiveSizePolicy</code>开关控制打开，就不需要用户自行设置各种参数。</li>
 </ul>
-<h4 id="Serial-Old收集器"><a href="#Serial-Old收集器" class="headerlink" title="Serial Old收集器"></a>Serial Old收集器</h4><p><img src="http://ol45hsxko.bkt.clouddn.com/2018-03-10-15206595041720.jpg-wtmark" alt=""></p>
+<h4 id="Serial-Old收集器"><a href="#Serial-Old收集器" class="headerlink" title="Serial Old收集器"></a>Serial Old收集器</h4><p><img src="http://guidongyuan.cn/images/2018-03-10-15206595041720.jpg" alt=""></p>
 <ul>
 <li>Serial Old是Serial收集器的老年代版本，它同样是一个单线程收集器</li>
 <li>使用“标记整理”算法</li>
@@ -494,12 +494,12 @@
 </ul>
 </li>
 </ul>
-<h4 id="Parallel-Old收集器"><a href="#Parallel-Old收集器" class="headerlink" title="Parallel Old收集器"></a>Parallel Old收集器</h4><p><img src="http://ol45hsxko.bkt.clouddn.com/2018-03-10-15206603011826.jpg-wtmark" alt=""></p>
+<h4 id="Parallel-Old收集器"><a href="#Parallel-Old收集器" class="headerlink" title="Parallel Old收集器"></a>Parallel Old收集器</h4><p><img src="http://guidongyuan.cn/images/2018-03-10-15206603011826.jpg" alt=""></p>
 <ul>
 <li>Parallel Old是Parallel Scavenge收集器的老年代版本，使用多线程和“标记整理”算法</li>
 <li>搭配Parallel Scavenge，“吞吐量优先“收集器组合</li>
 </ul>
-<h4 id="CMS收集器"><a href="#CMS收集器" class="headerlink" title="CMS收集器"></a>CMS收集器</h4><p><img src="http://ol45hsxko.bkt.clouddn.com/2018-03-10-15206677923132.jpg-wtmark" alt=""></p>
+<h4 id="CMS收集器"><a href="#CMS收集器" class="headerlink" title="CMS收集器"></a>CMS收集器</h4><p><img src="http://guidongyuan.cn/images/2018-03-10-15206677923132.jpg" alt=""></p>
 <ul>
 <li>CMS（ConcurrentMarkSweep）收集器是一种以获取<strong>最短回收停顿时间</strong>为目标的收集器，并发收集，低停顿</li>
 <li>基于“标记—清除”算法实现的，过程如下<ol>
@@ -516,7 +516,7 @@
 </ol>
 </li>
 </ul>
-<h4 id="G1收集器"><a href="#G1收集器" class="headerlink" title="G1收集器"></a>G1收集器</h4><p><img src="http://ol45hsxko.bkt.clouddn.com/2018-03-10-15206682983887.jpg-wtmark" alt=""></p>
+<h4 id="G1收集器"><a href="#G1收集器" class="headerlink" title="G1收集器"></a>G1收集器</h4><p><img src="http://guidongyuan.cn/images/2018-03-10-15206682983887.jpg" alt=""></p>
 <ul>
 <li>当今收集器技术发展的最前沿成果之一，是一款面向服务端应用的垃圾收集器</li>
 <li>新生代和老年代不再是物理隔离的了，它们都是一部分Region（不需要连续）的集合</li>
@@ -536,7 +536,7 @@
 </li>
 </ul>
 <h4 id="分析GC日志"><a href="#分析GC日志" class="headerlink" title="分析GC日志"></a>分析GC日志</h4><p>当发生GC的时候，通过分析GC的日志可以知道其执行结果</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-03-10-15206704313256.jpg-wtmark.png-wtmark" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/2018-03-10-15206704313256.jpg" alt=""></p>
 <h3 id="内存分配和回收策略"><a href="#内存分配和回收策略" class="headerlink" title="内存分配和回收策略"></a>内存分配和回收策略</h3><p>Java中的自动内存管理，就是解决两个问题：</p>
 <ol>
 <li>给对象分配内存<br>大的方向分析，就是在堆上分配，对象主要分配在新生代的Eden区上，如果启动本地线程分配缓存，将按线程优先在TLAB上分配。  </li>
@@ -572,6 +572,21 @@
       
         
 
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+    	<div>
+    		<img style="display: block; margin: 0 auto;" src="/images/wetchat.png" alt="" />
+			<h3 style="text-align:center;">公众号：亦袁非猿</h3>
+			<h3 style="text-align:center;">欢迎关注，交流学习</h3>
+		</div>
+        
+    
+</div>
       
     </div>
 

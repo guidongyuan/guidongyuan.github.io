@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="NDK,ffmpeg,环境变量," />
+  <meta name="keywords" content="ffmpeg,NDK,环境变量," />
 
 
 
@@ -91,22 +91,22 @@
 
 
 <meta name="description" content="在Mac平台上，下载安装ffmpeg配置ffmpeg在Xcode的开发环境">
-<meta name="keywords" content="NDK,ffmpeg,环境变量">
+<meta name="keywords" content="ffmpeg,NDK,环境变量">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Xcode安装配置ffmpeg开发环境">
 <meta property="og:url" content="http://yoursite.com/2018/08/18/Mac Xcode安装配置ffmpeg开发环境/index.html">
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="在Mac平台上，下载安装ffmpeg配置ffmpeg在Xcode的开发环境">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180818191312836.png-wtmarkz5">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180818191717672.png-wtmarkz7">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180818192619825.png-wtmarkz5">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180818192657888.png-wtmarkz5">
-<meta property="og:updated_time" content="2018-09-10T23:47:52.562Z">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180818191312836.png-wtmarkz5">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180818191717672.png-wtmarkz7">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180818192619825.png-wtmarkz5">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180818192657888.png-wtmarkz5">
+<meta property="og:updated_time" content="2018-11-17T14:38:40.373Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xcode安装配置ffmpeg开发环境">
 <meta name="twitter:description" content="在Mac平台上，下载安装ffmpeg配置ffmpeg在Xcode的开发环境">
-<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180818191312836.png-wtmarkz5">
+<meta name="twitter:image" content="http://guidongyuan.cn/images/image-20180818191312836.png-wtmarkz5">
 
 
 
@@ -375,16 +375,16 @@
 </ol>
 <h2 id="导入到Xcode"><a href="#导入到Xcode" class="headerlink" title="导入到Xcode"></a>导入到Xcode</h2><ol>
 <li><p>新建Command Line Tool项目</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180818191312836.png-wtmarkz5" alt="image-20180818191312836"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180818191312836.png-wtmarkz5" alt="image-20180818191312836"></p>
 </li>
 <li><p>导入头文件</p>
 <p>点击项目名—&gt; 右侧Build Settings —&gt; 下拉找到Search Paths（也可以在搜索框直接搜索）—&gt; 点击Header Search Paths—&gt;输入头文件路径<code>/usr/local/Cellar/ffmpeg/3.4.2/include</code></p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180818191717672.png-wtmarkz7" alt="image-20180818191717672"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180818191717672.png-wtmarkz7" alt="image-20180818191717672"></p>
 </li>
 <li><p>导入库文件</p>
 <p>切换Build Phases的tab—&gt;Link Binary With Libraries—&gt;拖拉<code>/usr/local/Cellar/ffmpeg/3.4.2/lib</code>中的<code>.a</code>库到其中</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180818192619825.png-wtmarkz5" alt="image-20180818192619825"></p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180818192657888.png-wtmarkz5" alt="image-20180818192657888"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180818192619825.png-wtmarkz5" alt="image-20180818192619825"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180818192657888.png-wtmarkz5" alt="image-20180818192657888"></p>
 <p>切换回Build Settings的Search Paths中的Library Search Paths，可以看到内容为<code>/usr/local/Cellar/ffmpeg/3.4.2/lib</code></p>
 </li>
 <li><p>查看效果，输出版本号</p>
@@ -416,13 +416,28 @@
       
     </div>
 
+    <div>
+      
+        <div>
+    
+    	<div>
+    		<img style="display: block; margin: 0 auto;" src="/images/wetchat.png" alt="" />
+			<h3 style="text-align:center;">公众号：亦袁非猿</h3>
+			<h3 style="text-align:center;">欢迎关注，交流学习</h3>
+		</div>
+        
+    
+</div>
+      
+    </div>
+
     <footer class="post-footer">
       
         <div class="post-tags">
           
-            <a href="/tags/NDK/" rel="tag"># NDK</a>
-          
             <a href="/tags/ffmpeg/" rel="tag"># ffmpeg</a>
+          
+            <a href="/tags/NDK/" rel="tag"># NDK</a>
           
             <a href="/tags/环境变量/" rel="tag"># 环境变量</a>
           

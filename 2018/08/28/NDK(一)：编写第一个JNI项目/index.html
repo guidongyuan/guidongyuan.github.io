@@ -98,24 +98,24 @@
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="平时在开发中，或多或少都会用到JNI方面的技术，比如我们项目中，消息的加密和解密就是通过C来实现的，然后打包为.so动态库，并提供Java接口供应用层调用，这么做的目的主要就是为了提供应用的安全性，防止被反编译后被分析加密的逻辑。接下来就要介绍JNI和NDK的区别，怎样创建一个项目开发JNI。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827082713032.png-wtmarkz5">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827082921362.png-wtmarkz5">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827083307623.png-wtmarkz5">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827084048635.png-wtmarkz5">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827084256925.png-wtmarkz5">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827172434885.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827173444589.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827202406568.png-wtmarkz7">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827202438268.png-wtmarkz5">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180906130657422.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180906130657422.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180907140137140.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180907140305906.png-wtmark">
-<meta property="og:updated_time" content="2018-09-11T00:24:37.605Z">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180827082713032.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180827082921362.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180827083307623.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180827084048635.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180827084256925.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180827172434885.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180827173444589.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180827202406568.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180827202438268.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180906130657422.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180906130657422.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180907140137140.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180907140305906.png">
+<meta property="og:updated_time" content="2018-11-17T14:42:08.363Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NDK(一)：编写第一个JNI项目">
 <meta name="twitter:description" content="平时在开发中，或多或少都会用到JNI方面的技术，比如我们项目中，消息的加密和解密就是通过C来实现的，然后打包为.so动态库，并提供Java接口供应用层调用，这么做的目的主要就是为了提供应用的安全性，防止被反编译后被分析加密的逻辑。接下来就要介绍JNI和NDK的区别，怎样创建一个项目开发JNI。">
-<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180827082713032.png-wtmarkz5">
+<meta name="twitter:image" content="http://guidongyuan.cn/images/image-20180827082713032.png">
 
 
 
@@ -406,18 +406,18 @@
 </ul>
 <h3 id="Java项目调用Xcode编译动态库"><a href="#Java项目调用Xcode编译动态库" class="headerlink" title="Java项目调用Xcode编译动态库"></a>Java项目调用Xcode编译动态库</h3><ol>
 <li><p>创建Xcode项目，选择Library，选择为<strong>C++库</strong></p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827082713032.png-wtmarkz5" alt="image-20180827082713032"></p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827082921362.png-wtmarkz5" alt="image-20180827082921362"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180827082713032.png" alt="image-20180827082713032"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180827082921362.png" alt="image-20180827082921362"></p>
 </li>
 <li><p>先删除多余文件和代码，引入<code>jni.h</code>头文件</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827083307623.png-wtmarkz5" alt="image-20180827083307623"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180827083307623.png" alt="image-20180827083307623"></p>
 </li>
 <li><p>设置<code>jni.h</code>头文件的路径，即Java环境的配置路径</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827084048635.png-wtmarkz5" alt="image-20180827084048635"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180827084048635.png" alt="image-20180827084048635"></p>
 <p>分别添加进<strong>include</strong>目录和<strong>include/darwin</strong>目录</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827084256925.png-wtmarkz5" alt="image-20180827084256925"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180827084256925.png" alt="image-20180827084256925"></p>
 <p>编译运行就不会报找不到头文件的错误了，同时，可以看到生成了动态库libStudyNdk.dylib，记录动态库的路径<code>/Users/guidongyuan/Library/Developer/Xcode/DerivedData/StudyNdk-bwbgrzjykrevnaeyglsvxjelvnth/Build/Products/Debug/libStudyNdk.dylib</code>，接下来会使用到。</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827172434885.png-wtmark" alt="image-20180827172434885"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180827172434885.png" alt="image-20180827172434885"></p>
 </li>
 <li><p>编写Java代码调用native代码</p>
 <p>调用native代码，可以直接使用Test包中的测试类来进行测试，只要是Java类就可以了，可以在Android Studio中创建Java目录。上面介绍jni也说到，jni是与Java有关的，与Android没关系，只要是Java项目都可以使用到。</p>
@@ -446,7 +446,7 @@
 </li>
 <li><p>运行Java代码</p>
 <p>可以看到终端的输出，成功调用到native的代码</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827173444589.png-wtmark" alt="image-20180827173444589"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180827173444589.png" alt="image-20180827173444589"></p>
 </li>
 </ol>
 <h4 id="dylib动态库"><a href="#dylib动态库" class="headerlink" title="dylib动态库"></a>dylib动态库</h4><p>Windows系统的动态库是DLL文件，Linux系统是so文件，macOS系统的动态库则使用dylib文件作为动态库。</p>
@@ -469,20 +469,20 @@
 </li>
 </ul>
 <h4 id="创建支持-C-C-的新项目"><a href="#创建支持-C-C-的新项目" class="headerlink" title="创建支持 C/C++ 的新项目"></a>创建支持 C/C++ 的新项目</h4><p>创建新项目后，编译运行，可以看到代码结构如下，多了两个文件，如果想添加新的jni方法，就可以在native-lib.cpp中增加</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827202406568.png-wtmarkz7" alt="image-20180827202406568"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180827202406568.png" alt="image-20180827202406568"></p>
 <p>编译运行，界面如下，第一个hello world就完成了</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180827202438268.png-wtmarkz5" alt="image-20180827202438268"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180827202438268.png" alt="image-20180827202438268"></p>
 <p>通过解压应用包也可以看到，导入了<strong>libnative-lib.so</strong>库</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180906130657422.png-wtmark" alt="image-20180906130657422"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180906130657422.png" alt="image-20180906130657422"></p>
 <h4 id="目录介绍"><a href="#目录介绍" class="headerlink" title="目录介绍"></a>目录介绍</h4><h5 id="CMakeList-txt"><a href="#CMakeList-txt" class="headerlink" title="CMakeList.txt"></a>CMakeList.txt</h5><p>在该文件中，采用Cmake语法规则，自动生成相关的makefile文件，并编译出动态库或者静态库。接下来的文章会具体介绍到。</p>
 <h5 id="builde-gradle"><a href="#builde-gradle" class="headerlink" title="builde.gradle"></a>builde.gradle</h5><p>查看gradle文件可以看到多出来<code>externalNativeBuild</code>方法，第一个为设置编译的一些属性，另外一个设置CmakeLists.txt配置文件的路径。</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        externalNativeBuild &#123;</span><br><span class="line">     		cmake &#123;</span><br><span class="line">        		cppFlags <span class="string">""</span></span><br><span class="line">        		<span class="comment">// 设置编译c/c++ 源文件的cpu类型，默认不设置的话，编译为armeabi-v7a</span></span><br><span class="line">        		<span class="comment">// 如果不设置，连接不同的设备，gralde会自动根据连接的设备，如模拟器，armeabi-v7a架构的手机，编译出不同的架构</span></span><br><span class="line">        		abiFilters <span class="string">"armeabi-v7a"</span>,<span class="string">"x86"</span>,<span class="string">"arm64-v8a"</span></span><br><span class="line">    		&#125;</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    externalNativeBuild &#123;</span><br><span class="line">        cmake &#123;</span><br><span class="line">            <span class="comment">// 在同个目录下，直接写文件名就可以了</span></span><br><span class="line">            path <span class="string">"CMakeLists.txt"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>连接模拟器（x86架构）</strong></p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180906130657422.png-wtmark" alt="image-20180906130657422"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180906130657422.png" alt="image-20180906130657422"></p>
 <p><strong>连接小米4（armeabi-v7a架构）</strong></p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180907140137140.png-wtmark" alt="image-20180907140137140"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180907140137140.png" alt="image-20180907140137140"></p>
 <p><strong>连接小米6（arm64-v8a架构）</strong></p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180907140305906.png-wtmark" alt="image-20180907140305906"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180907140305906.png" alt="image-20180907140305906"></p>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
 <li><a href="https://blog.csdn.net/carson_ho/article/details/73250163" target="_blank" rel="noopener">Android：JNI 与 NDK到底是什么？</a></li>
 <li><a href="https://blog.csdn.net/sinat_14849739/article/details/77922358" target="_blank" rel="noopener">Android Studio创建Java项目</a></li>
@@ -510,6 +510,21 @@
       
         
 
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+    	<div>
+    		<img style="display: block; margin: 0 auto;" src="/images/wetchat.png" alt="" />
+			<h3 style="text-align:center;">公众号：亦袁非猿</h3>
+			<h3 style="text-align:center;">欢迎关注，交流学习</h3>
+		</div>
+        
+    
+</div>
       
     </div>
 

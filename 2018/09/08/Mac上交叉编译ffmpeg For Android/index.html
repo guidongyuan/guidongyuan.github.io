@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="NDK,ffmpeg," />
+  <meta name="keywords" content="ffmpeg,NDK," />
 
 
 
@@ -91,21 +91,21 @@
 
 
 <meta name="description" content="介绍通过mac os系统编译给Android平台上可以使用的ffmpeg静态库。">
-<meta name="keywords" content="NDK,ffmpeg">
+<meta name="keywords" content="ffmpeg,NDK">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mac上交叉编译ffmpeg For Android">
 <meta property="og:url" content="http://yoursite.com/2018/09/08/Mac上交叉编译ffmpeg For Android/index.html">
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="介绍通过mac os系统编译给Android平台上可以使用的ffmpeg静态库。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180908141513801.png-wtmarkz3">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180908172034663.png-wtmarkz5">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180908172105796.png-wtmark">
-<meta property="og:updated_time" content="2018-09-23T08:57:20.944Z">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180908141513801.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180908172034663.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180908172105796.png">
+<meta property="og:updated_time" content="2018-11-18T00:35:52.064Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac上交叉编译ffmpeg For Android">
 <meta name="twitter:description" content="介绍通过mac os系统编译给Android平台上可以使用的ffmpeg静态库。">
-<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180908141513801.png-wtmarkz3">
+<meta name="twitter:image" content="http://guidongyuan.cn/images/image-20180908141513801.png">
 
 
 
@@ -370,7 +370,7 @@
 </ul>
 <h2 id="下载ffmpeg源码"><a href="#下载ffmpeg源码" class="headerlink" title="下载ffmpeg源码"></a>下载ffmpeg源码</h2><ul>
 <li><p>直接在<a href="http://ffmpeg.org/" target="_blank" rel="noopener">ffmpage官网</a>，点击download，直接下载最新的release包。</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180908141513801.png-wtmarkz3" alt="image-20180908141513801"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180908141513801.png" alt=""></p>
 </li>
 <li><p>解压<code>.tar.bz2</code>文件</p>
 <p>以前用mac的解压工具出现文件损坏，这里直接采用命令行解压</p>
@@ -419,8 +419,8 @@
 <h3 id="shell脚本内容"><a href="#shell脚本内容" class="headerlink" title="shell脚本内容"></a>shell脚本内容</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="comment">#! 告诉系统其后路径所指定的程序即是解释此脚本文件的 Shell 程序</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行configure，后面的为其参数</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> \为换行符</span></span><br><span class="line">./configure \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置生成出来的路径目录，不写则用默认值[/usr/<span class="built_in">local</span>]</span></span><br><span class="line">--prefix=./androidLibs/armeabi-v7 \</span><br><span class="line">--enable-small \</span><br><span class="line">--disable-programs \</span><br><span class="line">--disable-avdevice \</span><br><span class="line">--disable-encoders \</span><br><span class="line">--disable-muxers \</span><br><span class="line">--disable-filters \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用了交叉编译</span></span><br><span class="line">--enable-cross-compile \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 为编译工具指定路径，交叉编译，使用arm架构</span></span><br><span class="line">--cross-prefix=/Users/guidongyuan/Library/Android/sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi- \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 关闭输出动态库</span></span><br><span class="line">--disable-shared \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置为输出静态库</span></span><br><span class="line">--enable-static \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定编译的头文件与库文件的查找目录</span></span><br><span class="line">--sysroot=/Users/guidongyuan/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 传递gcc编译的参数(包括查找头文件路径)，该属性可以在Android Stuido中获取</span></span><br><span class="line">--extra-cflags="-U_FILE_OFFSET_BITS -isystem /Users/guidongyuan/Library/Android/sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -mthumb -Wa,--noexecstack -Wformat -Werror=format-security -std=c++11  -O0 -fPIC" \</span><br><span class="line">--extra-cflags="-isysroot /Users/guidongyuan/Library/Android/sdk/ndk-bundle/sysroot" \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 选择机器架构</span></span><br><span class="line">--arch=arm \</span><br><span class="line">--target-os=android</span><br></pre></td></tr></table></figure>
 <p><strong>–extra-cflags</strong></p>
 <p>该值可以在Android Studio的支持NDK项目中复制，创建NDK项目可以参考<a href="">NDK(一)：编写第一个JNI项目</a>，具体路径为</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180908172034663.png-wtmarkz5" alt="image-20180908172034663"></p>
-<p> <img src="http://ol45hsxko.bkt.clouddn.com/image-20180908172105796.png-wtmark" alt="image-20180908172105796"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180908172034663.png" alt="image-20180908172034663"></p>
+<p> <img src="http://guidongyuan.cn/images/image-20180908172105796.png" alt="image-20180908172105796"></p>
 <p><strong>注意：</strong><code>FLAGS</code>属性值的其中的<code>-std=c++11</code>和<code>-fno-limit-debug-info</code>在编译的运行上面的<code>.sh</code>文件时提示异常和错误，于是选择把其去掉了。</p>
 <h2 id="错误解决"><a href="#错误解决" class="headerlink" title="错误解决"></a>错误解决</h2><ul>
 <li><p>查找错误</p>
@@ -464,13 +464,28 @@
       
     </div>
 
+    <div>
+      
+        <div>
+    
+    	<div>
+    		<img style="display: block; margin: 0 auto;" src="/images/wetchat.png" alt="" />
+			<h3 style="text-align:center;">公众号：亦袁非猿</h3>
+			<h3 style="text-align:center;">欢迎关注，交流学习</h3>
+		</div>
+        
+    
+</div>
+      
+    </div>
+
     <footer class="post-footer">
       
         <div class="post-tags">
           
-            <a href="/tags/NDK/" rel="tag"># NDK</a>
-          
             <a href="/tags/ffmpeg/" rel="tag"># ffmpeg</a>
+          
+            <a href="/tags/NDK/" rel="tag"># NDK</a>
           
         </div>
       

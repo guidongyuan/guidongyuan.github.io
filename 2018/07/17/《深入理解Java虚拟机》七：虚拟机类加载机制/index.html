@@ -98,13 +98,13 @@
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="在知乎上看到一个如何理解反射的提问，其中有一个答主，不是直接给怎样使用，而是从JVM的角度去介绍反射的原理。发现对类加载机制的相关知识遗忘一些，重新翻书回顾一下。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180716074630704.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180717074836974.png-wtmark">
-<meta property="og:updated_time" content="2018-07-31T00:36:45.959Z">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180716074630704.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180717074836974.png">
+<meta property="og:updated_time" content="2018-11-17T14:01:45.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入理解Java虚拟机》七：虚拟机类加载机制">
 <meta name="twitter:description" content="在知乎上看到一个如何理解反射的提问，其中有一个答主，不是直接给怎样使用，而是从JVM的角度去介绍反射的原理。发现对类加载机制的相关知识遗忘一些，重新翻书回顾一下。">
-<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/image-20180716074630704.png-wtmark">
+<meta name="twitter:image" content="http://guidongyuan.cn/images/image-20180716074630704.png">
 
 
 
@@ -380,7 +380,7 @@
 <a id="more"></a>
 <h2 id="虚拟机类加载机制"><a href="#虚拟机类加载机制" class="headerlink" title="虚拟机类加载机制"></a>虚拟机类加载机制</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><strong>定义：</strong>虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型，这就是虚拟机的类加载机制。</p>
 <p>Java语言是一门静态类型语言，但是可以动态扩展，更有灵活性，就是因为类型的加载、连接和初始化过程都是在程序运行期间完成的。</p>
-<h3 id="类的生命周期"><a href="#类的生命周期" class="headerlink" title="类的生命周期"></a>类的生命周期</h3><p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180716074630704.png-wtmark" alt="image-20180716074630704"></p>
+<h3 id="类的生命周期"><a href="#类的生命周期" class="headerlink" title="类的生命周期"></a>类的生命周期</h3><p><img src="http://guidongyuan.cn/images/image-20180716074630704.png" alt="image-20180716074630704"></p>
 <p>类从被加载到虚拟机内存中开始，到卸载出内存为止，它的整个生命周期包括：加载（Loading）、验证（Verification）、准备（Preparation）、解析（Resolution）、初始化（Initialization）、使用（Using）和卸载（Unloading）7个阶段。其中验证、准备、解析3个部分统称为连接（Linking）。</p>
 <p>Java虚拟机规范中，没有规定什么情况下需要开始加载的过程，但是，规定了<code>5</code>种情况必须对类进行初始化，称为<strong>主动引用</strong>，而加载必须在初始化之前。除此之外，所有引用类的方式都不会触发初始化，称为<strong>被动引用</strong>。</p>
 <h3 id="类加载的过程"><a href="#类加载的过程" class="headerlink" title="类加载的过程"></a>类加载的过程</h3><h4 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h4><p>在加载阶段，虚拟机需要完成以下3件事情：</p>
@@ -422,7 +422,7 @@
 <li><strong>扩展类加载器（ExtensionClassLoader）：</strong><br>负责加载<code>＜JAVA_HOME＞\lib\ext</code>目录中的类库，开发者可以直接使用扩展类加载器。</li>
 <li><strong>应用程序类加载器（ApplicationClassLoader）：</strong><br>这个类加载器是ClassLoader中的getSystemClassLoader()方法的返回值，所以一般也称它为<strong>系统类加载器</strong>，如果应用程序中没有自定义过自己的类加载器，一般情况下这个就是程序中默认的类加载器。</li>
 </ol>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/image-20180717074836974.png-wtmark" alt="image-20180717074836974"></p>
+<p><img src="http://guidongyuan.cn/images/image-20180717074836974.png" alt="image-20180717074836974"></p>
 <p>双亲委派模型要求除了顶层的启动类加载器外，其余的类加载器都应当有自己的父类加载器。父子关系一般不会以继承实现，而是<strong>组合关系</strong>。</p>
 <p><strong>双亲委派模型的工作过程是：</strong></p>
 <p>如果一个类加载器收到了类加载的请求，它首先不会自己去尝试加载这个类，而是把这个请求请求委派给父类加载器去完成，每一个层次都如此。<br>因此所有的加载请求最终都应该传送到顶层的启动类加载器中，就就使得相同类在不同的类加载环境中都是同一个类，应该都是传送到顶层的类加载器加载。<br>只有当父加载器反馈自己无法完成这个加载请求时，子加载器才会尝试自己去加载。</p>
@@ -448,6 +448,21 @@
       
         
 
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+    	<div>
+    		<img style="display: block; margin: 0 auto;" src="/images/wetchat.png" alt="" />
+			<h3 style="text-align:center;">公众号：亦袁非猿</h3>
+			<h3 style="text-align:center;">欢迎关注，交流学习</h3>
+		</div>
+        
+    
+</div>
       
     </div>
 

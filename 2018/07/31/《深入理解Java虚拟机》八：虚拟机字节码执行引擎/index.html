@@ -98,13 +98,13 @@
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="不同虚拟机在执行Java代码的时候，会选择不同方式，有可能采用其中一种也有可能两种结合：    解释执行（通过解释器执行） 编译执行（通过即时编译器产生本地代码执行）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E-1.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/java%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B.png-wtmark">
-<meta property="og:updated_time" content="2018-08-01T22:02:23.129Z">
+<meta property="og:image" content="http://guidongyuan.cn/images/虚拟机字节码执行引擎.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/java编译过程.png">
+<meta property="og:updated_time" content="2018-11-17T14:18:18.945Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入理解Java虚拟机》八：虚拟机字节码执行引擎">
 <meta name="twitter:description" content="不同虚拟机在执行Java代码的时候，会选择不同方式，有可能采用其中一种也有可能两种结合：    解释执行（通过解释器执行） 编译执行（通过即时编译器产生本地代码执行）">
-<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E-1.png-wtmark">
+<meta name="twitter:image" content="http://guidongyuan.cn/images/虚拟机字节码执行引擎.png">
 
 
 
@@ -382,7 +382,7 @@
 </ul>
 </blockquote>
 <a id="more"></a>
-<h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><p><img src="http://ol45hsxko.bkt.clouddn.com/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E-1.png-wtmark" alt="虚拟机字节码执行引擎"></p>
+<h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><p><img src="http://guidongyuan.cn/images/虚拟机字节码执行引擎.png" alt="虚拟机字节码执行引擎"></p>
 <h2 id="方法调用"><a href="#方法调用" class="headerlink" title="方法调用"></a>方法调用</h2><h3 id="栈帧结构"><a href="#栈帧结构" class="headerlink" title="栈帧结构"></a>栈帧结构</h3><p>栈帧（StackFrame）是用于支持虚拟机进行方法调用和方法执行的数据结构，它是虚拟机运行时数据区中的虚拟机栈的栈元素。<br>每一个方法从调用开始至执行完成的过程，都对应着一个栈帧在虚拟机栈里面从入栈到出栈的过程。<br>栈帧存储了方法的局部变量表、操作数栈、动态连接和方法返回地址等信息。</p>
 <h4 id="局部变量表"><a href="#局部变量表" class="headerlink" title="局部变量表"></a>局部变量表</h4><p>局部变量表的容量以变量槽（称Slot）为最小单位，每个Slot都应该能存放一个boolean、byte、char、short、int、float、reference或returnAddress类型的数据。</p>
 <h4 id="操作数栈"><a href="#操作数栈" class="headerlink" title="操作数栈"></a>操作数栈</h4><p>Java虚拟机的解释执行引擎称为“基于栈的执行引擎”，其中所指的“栈”就是操作数栈。</p>
@@ -414,7 +414,7 @@
 <li><strong>静态类型语言：</strong>在编译器已将方法完整的符号引用生成出来，作为方法调用指令的参数存储到Class文件中。这个方法引用包含次方法定义在哪个具体类型之中等信息，通过该符号引用，虚拟机可以翻译出这个方法的直接引用</li>
 <li><strong>动态类型语言：</strong>变量本身没有类型的，变量的值才有类型，编译时只能确定方法名称，参数，返回值，而不会去确定方法所在的具体类型</li>
 </ul>
-<h2 id="字节码执行（基于栈的解释执行引擎）"><a href="#字节码执行（基于栈的解释执行引擎）" class="headerlink" title="字节码执行（基于栈的解释执行引擎）"></a>字节码执行（基于栈的解释执行引擎）</h2><h3 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h3><p><img src="http://ol45hsxko.bkt.clouddn.com/java%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B.png-wtmark" alt="java编译过程"></p>
+<h2 id="字节码执行（基于栈的解释执行引擎）"><a href="#字节码执行（基于栈的解释执行引擎）" class="headerlink" title="字节码执行（基于栈的解释执行引擎）"></a>字节码执行（基于栈的解释执行引擎）</h2><h3 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h3><p><img src="http://guidongyuan.cn/images/java编译过程.png" alt="java编译过程"></p>
 <h2 id="基于栈的指令集与基于寄存器的指令集"><a href="#基于栈的指令集与基于寄存器的指令集" class="headerlink" title="基于栈的指令集与基于寄存器的指令集"></a>基于栈的指令集与基于寄存器的指令集</h2><h4 id="基于栈的指令集"><a href="#基于栈的指令集" class="headerlink" title="基于栈的指令集"></a>基于栈的指令集</h4><p><strong>优点</strong>  </p>
 <ul>
 <li>可移植，用户程序不会直接使用寄存器。访问频繁的数据，虚拟机可以自行决定再放到寄存器中提高性能。</li>
@@ -447,6 +447,21 @@
       
         
 
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+    	<div>
+    		<img style="display: block; margin: 0 auto;" src="/images/wetchat.png" alt="" />
+			<h3 style="text-align:center;">公众号：亦袁非猿</h3>
+			<h3 style="text-align:center;">欢迎关注，交流学习</h3>
+		</div>
+        
+    
+</div>
       
     </div>
 

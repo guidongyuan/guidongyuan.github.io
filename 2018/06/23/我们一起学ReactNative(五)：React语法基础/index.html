@@ -98,12 +98,12 @@
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="学完JavaScript后，就可以进下一步，学习React的开发了，学习Reac需要掌握几个知识点，JSX语法、组件、状态，生命周期。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-06-22-15296686573950.jpg-wtmark">
-<meta property="og:updated_time" content="2018-06-24T07:38:09.350Z">
+<meta property="og:image" content="http://guidongyuan.cn/images/15296686573950.jpg">
+<meta property="og:updated_time" content="2018-11-17T13:25:51.428Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我们一起学ReactNative(五)：React语法基础">
 <meta name="twitter:description" content="学完JavaScript后，就可以进下一步，学习React的开发了，学习Reac需要掌握几个知识点，JSX语法、组件、状态，生命周期。">
-<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2018-06-22-15296686573950.jpg-wtmark">
+<meta name="twitter:image" content="http://guidongyuan.cn/images/15296686573950.jpg">
 
 
 
@@ -445,7 +445,7 @@
 <li>componentWillReceiveProps(object nextProps)：已加载组件收到新的参数时调用</li>
 <li>shouldComponentUpdate(object nextProps, object nextState)：组件判断是否重新渲染时调用</li>
 </ul>
-<h4 id="各种组件处理函数的流程图如下"><a href="#各种组件处理函数的流程图如下" class="headerlink" title="各种组件处理函数的流程图如下"></a>各种组件处理函数的流程图如下</h4><p><img src="http://ol45hsxko.bkt.clouddn.com/2018-06-22-15296686573950.jpg-wtmark" alt=""></p>
+<h4 id="各种组件处理函数的流程图如下"><a href="#各种组件处理函数的流程图如下" class="headerlink" title="各种组件处理函数的流程图如下"></a>各种组件处理函数的流程图如下</h4><p><img src="http://guidongyuan.cn/images/15296686573950.jpg" alt=""></p>
 <p><strong>实例代码</strong></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// dmeo7.js</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TextOpacity</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    state = &#123;</span><br><span class="line">        opacity : <span class="number">1.0</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">        <span class="keyword">this</span>.timer = setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">let</span> opacity = <span class="keyword">this</span>.state.opacity;</span><br><span class="line">                opacity -= <span class="number">0.05</span>;</span><br><span class="line">                <span class="keyword">if</span> (opacity &lt; <span class="number">0.1</span>) &#123;</span><br><span class="line">                    opacity = <span class="number">1.0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">                    opacity: opacity</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;,<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 卸载后清空时钟</span></span><br><span class="line">    comnponentWillUnmount() &#123;</span><br><span class="line">        clearInterval(<span class="keyword">this</span>.timer)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;Text style=&#123;&#123;<span class="attr">opacity</span>:<span class="keyword">this</span>.state.opacity&#125;&#125;&gt;</span><br><span class="line">                Hello world</span><br><span class="line">            &lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default class App extends Component&#123;</span></span><br><span class="line"><span class="regexp">    render() &#123;</span></span><br><span class="line"><span class="regexp">        return (</span></span><br><span class="line"><span class="regexp">            &lt;View&gt;</span></span><br><span class="line"><span class="regexp">                &lt;TextOpacity/</span>&gt;</span><br><span class="line">            &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
 <p>上面代码在<code>TextOpacity</code>组件加载以后，默认设置透明度为1，然后通过 <code>componentDidMount</code> 方法设置一个定时器，每隔100毫秒，就重新通过<code>setState</code>设置组件的透明度，从而引发重新渲染调用<code>render</code>。</p>
@@ -475,6 +475,21 @@
       
         
 
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+    	<div>
+    		<img style="display: block; margin: 0 auto;" src="/images/wetchat.png" alt="" />
+			<h3 style="text-align:center;">公众号：亦袁非猿</h3>
+			<h3 style="text-align:center;">欢迎关注，交流学习</h3>
+		</div>
+        
+    
+</div>
       
     </div>
 

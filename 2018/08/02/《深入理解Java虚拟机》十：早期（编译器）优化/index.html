@@ -98,14 +98,14 @@
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="现在Java虚拟机团队把性能的优化集中到了后端的即时编译器.前期的优化，主要做了针对Java语言编码过程的优化措施来改善程序员的编码风格和提高编码效率。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/早期编译器优化.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/Javac的编译过程.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/Snipaste_2018-07-23_08-32-48.png-wtmark">
-<meta property="og:updated_time" content="2018-08-01T22:25:41.834Z">
+<meta property="og:image" content="http://guidongyuan.cn/images/早期编译器优化.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/Javac的编译过程.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/Snipaste_2018-07-23_08-32-48.png">
+<meta property="og:updated_time" content="2018-11-17T14:25:15.051Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入理解Java虚拟机》十：早期（编译器）优化">
 <meta name="twitter:description" content="现在Java虚拟机团队把性能的优化集中到了后端的即时编译器.前期的优化，主要做了针对Java语言编码过程的优化措施来改善程序员的编码风格和提高编码效率。">
-<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/早期编译器优化.png-wtmark">
+<meta name="twitter:image" content="http://guidongyuan.cn/images/早期编译器优化.png">
 
 
 
@@ -379,7 +379,7 @@
 <p>现在Java虚拟机团队把性能的优化集中到了后端的即时编译器.<br>前期的优化，主要做了针对Java语言编码过程的优化措施来改善程序员的编码风格和提高编码效率。</p>
 </blockquote>
 <a id="more"></a>
-<h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><p><img src="http://ol45hsxko.bkt.clouddn.com/早期编译器优化.png-wtmark" alt="早期编译器优化"></p>
+<h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><p><img src="http://guidongyuan.cn/images/早期编译器优化.png" alt="早期编译器优化"></p>
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Java语言的“编译期”其实是一段“不确定”的操作过程，编译期比较有代表性的编译期有3类：  </p>
 <ul>
 <li><strong>前端编译器（编译器的前端）</strong><ul>
@@ -398,14 +398,15 @@
 </ul>
 </li>
 </ul>
-<h2 id="Javac编译器"><a href="#Javac编译器" class="headerlink" title="Javac编译器"></a>Javac编译器</h2><h3 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h3><p><img src="http://ol45hsxko.bkt.clouddn.com/Javac的编译过程.png-wtmark" alt="Javac的编译过程"></p>
+<h2 id="Javac编译器"><a href="#Javac编译器" class="headerlink" title="Javac编译器"></a>Javac编译器</h2><h3 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h3><p><img src="http://guidongyuan.cn/images/Javac的编译过程.png" alt="Javac的编译过程"></p>
 <p>编译过程大致可以分为3个过程，分别为：  </p>
 <ol>
 <li>解析与填充符号表过程</li>
 <li>插入式注解处理器的注解处理过程</li>
 <li>语义分析与字节码生成过程</li>
 </ol>
-<p><strong>Javac编译过程的主体代码</strong><br><img src="http://ol45hsxko.bkt.clouddn.com/Snipaste_2018-07-23_08-32-48.png-wtmark" alt="Snipaste_2018-07-23_08-32-48"></p>
+<p><strong>Javac编译过程的主体代码</strong></p>
+<p><img src="http://guidongyuan.cn/images/Snipaste_2018-07-23_08-32-48.png" alt="Snipaste_2018-07-23_08-32-48"></p>
 <h3 id="解析与填充符号表过程"><a href="#解析与填充符号表过程" class="headerlink" title="解析与填充符号表过程"></a>解析与填充符号表过程</h3><h4 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h4><ol>
 <li><strong>词法分析：</strong>将源代码的字符流转变为标记（Token）集合  </li>
 <li><strong>语法分析：</strong>根据Token序列构造抽象语法树的过程</li>
@@ -448,6 +449,21 @@
       
         
 
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+    	<div>
+    		<img style="display: block; margin: 0 auto;" src="/images/wetchat.png" alt="" />
+			<h3 style="text-align:center;">公众号：亦袁非猿</h3>
+			<h3 style="text-align:center;">欢迎关注，交流学习</h3>
+		</div>
+        
+    
+</div>
       
     </div>
 

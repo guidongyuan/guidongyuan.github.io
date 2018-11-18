@@ -97,13 +97,13 @@
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="编译Android系统，只能在OS X环境下或者是Linux环境下，这篇文章，也是买Mac不久后写的，当时想顺便测试一下电脑的性能，编译Android系统要多久。整理笔记的时候发现，也就顺便发布到博客上。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/14941434748488.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/14941429795231.jpg-wtmark">
-<meta property="og:updated_time" content="2018-07-17T00:44:28.932Z">
+<meta property="og:image" content="http://guidongyuan.cn/images/14941434748488.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/14941429795231.jpg">
+<meta property="og:updated_time" content="2018-11-17T14:05:05.360Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MacOS下编译Android6.0源代码">
 <meta name="twitter:description" content="编译Android系统，只能在OS X环境下或者是Linux环境下，这篇文章，也是买Mac不久后写的，当时想顺便测试一下电脑的性能，编译Android系统要多久。整理笔记的时候发现，也就顺便发布到博客上。">
-<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/14941434748488.jpg-wtmark">
+<meta name="twitter:image" content="http://guidongyuan.cn/images/14941434748488.jpg">
 
 
 
@@ -414,9 +414,8 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sh ./development/tools/idegen/idegen.sh</span></span><br></pre></td></tr></table></figure>
 <h3 id="导入到Android-Studio进行阅读"><a href="#导入到Android-Studio进行阅读" class="headerlink" title="导入到Android Studio进行阅读"></a>导入到Android Studio进行阅读</h3><ol>
 <li>打开Android Studio，file–&gt;open,找到Android.ipr。</li>
-<li>导入的时候，会提示case-sensitive(大小写敏感)</li>
+<li>导入的时候，会提示case-sensitive(大小写敏感)<br><img src="http://guidongyuan.cn/images/14941434748488.jpg" alt=""></li>
 </ol>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/14941434748488.jpg-wtmark" alt=""></p>
 <p><strong>解决办法：</strong><br>在/Applications/Android\ Studio.app/Contents/bin/idea.properties文件中添加一行：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">idea.case.sensitive.fs=true</span><br></pre></td></tr></table></figure>
 <p>重新启动应用，终于可以在Android Studio看代码了</p>
@@ -434,7 +433,7 @@
 <ol>
 <li>重新下载<a href="https://github.com/phracker/MacOSX-SDKs" target="_blank" rel="noopener">MacOSX10.11.sdk</a>,下载完成后进行解压，放到/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs中</li>
 </ol>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/14941429795231.jpg-wtmark" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/14941429795231.jpg" alt=""></p>
 <ol>
 <li>修改mac_version.mk</li>
 </ol>
@@ -472,6 +471,21 @@
       
         
 
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+    	<div>
+    		<img style="display: block; margin: 0 auto;" src="/images/wetchat.png" alt="" />
+			<h3 style="text-align:center;">公众号：亦袁非猿</h3>
+			<h3 style="text-align:center;">欢迎关注，交流学习</h3>
+		</div>
+        
+    
+</div>
       
     </div>
 

@@ -98,19 +98,19 @@
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="上面的文章，介绍了怎样创建一个React Native项目，不过实际中，很少直接开一个React Native空项目进行开发，都是在原有Android项目中引入React Native开发，那应该怎样进行配置呢？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-18-15266326194808.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-18-15266103412320.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-18-15266343310633.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-18-15266346536104.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-18-15266357641872.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-18-Screenshot_20180518-174007.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-18-Screenshot_20180518-175249.png-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-18-Screenshot_20180518-184105.png-wtmark">
-<meta property="og:updated_time" content="2018-06-24T07:36:26.121Z">
+<meta property="og:image" content="http://guidongyuan.cn/images/2018-05-18-15266326194808.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/2018-05-18-15266103412320.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/2018-05-18-15266343310633.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/2018-05-18-15266346536104.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/2018-05-18-15266357641872.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/174007.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/175249.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/184105.png">
+<meta property="og:updated_time" content="2018-11-17T13:23:39.568Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我们一起学ReactNative(四)：原有Android项目引入ReactNative">
 <meta name="twitter:description" content="上面的文章，介绍了怎样创建一个React Native项目，不过实际中，很少直接开一个React Native空项目进行开发，都是在原有Android项目中引入React Native开发，那应该怎样进行配置呢？">
-<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2018-05-18-15266326194808.jpg-wtmark">
+<meta name="twitter:image" content="http://guidongyuan.cn/images/2018-05-18-15266326194808.jpg">
 
 
 
@@ -385,7 +385,7 @@
 </blockquote>
 <a id="more"></a>
 <h2 id="原有Android项目引入React-Native"><a href="#原有Android项目引入React-Native" class="headerlink" title="原有Android项目引入React Native"></a>原有Android项目引入React Native</h2><p>正常来说，在公司开发中，Android和iOS不同端是在不同的目录下，不同的SVN权限。React Navite作为跨平台，放在任意一个目录下都不行，那么需要创建ReactNavite目录和其他项目同级。目录结构如下：</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-18-15266326194808.jpg-wtmark" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/2018-05-18-15266326194808.jpg" alt=""></p>
 <ul>
 <li>AndroidRNStudy存放原有的Android项目</li>
 <li>IOSRNStudy存放原有的IOS项目</li>
@@ -393,7 +393,7 @@
 </ul>
 <p>参考了网上的不同文章，觉得或多或少都存在问题，毕竟，React Native现在还在不停更新，稍后变化就会导致出错，所以，建议，<strong>参考第一篇文章，先创建一个最新的React Native，然后，再通过对比拷贝不同的文件到该项目中</strong>，就可以减少错误，又保持最新，出错的时候还可以对比一下！</p>
 <h3 id="创建Android项目模拟原有项目"><a href="#创建Android项目模拟原有项目" class="headerlink" title="创建Android项目模拟原有项目"></a>创建Android项目模拟原有项目</h3><p>需要记住创建的项目名称，后续会使用到</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-18-15266103412320.jpg-wtmark" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/2018-05-18-15266103412320.jpg" alt=""></p>
 <h3 id="创建React-Native所需文件"><a href="#创建React-Native所需文件" class="headerlink" title="创建React Native所需文件"></a>创建React Native所需文件</h3><h4 id="新建package-json文件"><a href="#新建package-json文件" class="headerlink" title="新建package.json文件"></a>新建<code>package.json</code>文件</h4><p><code>package.json</code>配置了React Native所需的依赖库以及一些脚本语，由于我们RN项目是放在一个单独文件下的，所以，该文件需要放在RNStudy文件下。</p>
   <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  // name修改和项目的名称一样</span><br><span class="line">  "name": "AndroidRNStudy",</span><br><span class="line">  "version": "0.0.1",</span><br><span class="line">  "private": true,</span><br><span class="line">  "scripts": &#123;</span><br><span class="line">    "start": "node node_modules/react-native/local-cli/cli.js start",</span><br><span class="line">    "test": "jest"</span><br><span class="line">  &#125;,</span><br><span class="line">  "dependencies": &#123;</span><br><span class="line">    "react": "16.3.1",</span><br><span class="line">    "react-native": "0.55.4"</span><br><span class="line">  &#125;,</span><br><span class="line">  "devDependencies": &#123;</span><br><span class="line">    "babel-jest": "22.4.3",</span><br><span class="line">    "babel-preset-react-native": "4.0.0",</span><br><span class="line">    "jest": "22.4.3",</span><br><span class="line">    "react-test-renderer": "16.3 .1"</span><br><span class="line">  &#125;,</span><br><span class="line">  "jest": &#123;</span><br><span class="line">    "preset": "react-native"</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>####　添加react和react-native 模块</p>
@@ -406,22 +406,22 @@
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">"com.facebook.react:react-native:+"</span></span><br></pre></td></tr></table></figure>
 <p>在project的build.gradle文件中添加上面react-native依赖库的本地仓库地址，这样，就会直接在RNStudy目录下的node_modules的android文件夹中进行查找。如果地址写错，就使得去jcenter()仓库下载依赖，但是其存放的是旧版，没有再进行更新了，会导致接下来找不到ReactApplication等错误的出现。</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">maven &#123; </span><br><span class="line">    url <span class="string">"$rootDir/../RNStudy/node_modules/react-native/android"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-18-15266343310633.jpg-wtmark" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/2018-05-18-15266343310633.jpg" alt=""></p>
 <p>编译一下，看看react-native的版本是否为新的，而且还是和上面的package.json版本是否一致。</p>
 <p><strong>use a compatible library with a minSdk of at most 15</strong><br>引用React Native的依赖库，编译的时候，会提示支持最低的sdk版本为16，修改minSdk为16或者在<code>AndroidManifest.xml</code>中强制使用，但可能会在运行在发生异常，下面的修改方法，但是，还是建议采用方法一。</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-18-15266346536104.jpg-wtmark" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/2018-05-18-15266346536104.jpg" alt=""></p>
 <h3 id="创建RN视图承载的Activity"><a href="#创建RN视图承载的Activity" class="headerlink" title="创建RN视图承载的Activity"></a>创建RN视图承载的Activity</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.guidongyuan.androidrnstudy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.facebook.react.ReactActivity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">ReactActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> String <span class="title">getMainComponentName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"AndroidRNStudy"</span>;<span class="comment">// 这个和在AppRegistry中的项目名字要保持一致</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="创建Application实现ReactApplication"><a href="#创建Application实现ReactApplication" class="headerlink" title="创建Application实现ReactApplication"></a>创建Application实现ReactApplication</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">Application</span> <span class="keyword">implements</span> <span class="title">ReactApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ReactNativeHost mReactNativeHost = <span class="keyword">new</span> ReactNativeHost(<span class="keyword">this</span>) &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">getUseDeveloperSupport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 检出一下，是否为true，false的话，接下来不能进入调试模式</span></span><br><span class="line">            <span class="keyword">return</span> BuildConfig.DEBUG;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> List&lt;ReactPackage&gt; <span class="title">getPackages</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> Arrays.&lt;ReactPackage&gt;asList(</span><br><span class="line">                    <span class="keyword">new</span> MainReactPackage()</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> String <span class="title">getJSMainModuleName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"index"</span>;  <span class="comment">// 获取JS的主入口，为index.js，老版本的为index.android.js，区分好，否则运行的时候，会提示找不到该文件。这个也是新版本做的修改，看一些教程，该文件内是不一样的，保持和最新创建的空项目一致就没问题。</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ReactNativeHost <span class="title">getReactNativeHost</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mReactNativeHost;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate();</span><br><span class="line">        SoLoader.init(<span class="keyword">this</span>, <span class="comment">/* native exopackage */</span> <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="修改AndroidManifest-xml"><a href="#修改AndroidManifest-xml" class="headerlink" title="修改AndroidManifest.xml"></a>修改<code>AndroidManifest.xml</code></h4><p>添加响应的权限以及声明Application和Activity</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.INTERNET"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.SYSTEM_ALERT_WINDOW"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">"com.facebook.react.devsupport.DevSettingsActivity"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-18-15266357641872.jpg-wtmark" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/2018-05-18-15266357641872.jpg" alt=""></p>
 <h3 id="运行调试"><a href="#运行调试" class="headerlink" title="运行调试"></a>运行调试</h3><p>在RNStudy目录下，执行该命令</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  RNStudy react-native start</span><br></pre></td></tr></table></figure>
 <p>哈哈哈，是不是终端在<code>Loading dependency graph, done.</code>就一直不动了。这里只是重现一下，因为我就在这里被坑到，还坑了很久，揪心。</p>
 <p>上面的命令，是启动调试服务器，应用都还没有安装，怎样进行调试呢？只好，先按<code>Ctrl + C</code>停止终端。在Android Studio中执行Run App，把应用安装到手机上。</p>
 <p>编译到手机，是不是出现错误呢？出现内容如下</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-18-Screenshot_20180518-174007.png-wtmark" alt="Screenshot_20180518-174007"></p>
+<p><img src="http://guidongyuan.cn/images/174007.png" alt="174007"></p>
 <p>这个错误的出现，频率特别高，后来又因为另外一种原因，导致出现了，这里重新进行编辑错误的解决办法，出现错误的原因，就是找不到bundle包，解决办法就两种：</p>
 <ul>
 <li><p>打bundle数据包到项目中，后期编写了React Native代码后，发包发出去，也是需要打bundle数据包到项目中的。</p>
@@ -436,11 +436,11 @@
 </ul>
 <p>选择第二种方式，启动调试服务器。</p>
 <p>又出现错误，错误内容如下，可以仔细看提示，就是端口问题，应该设置和电脑一样的端口，错误那里要告知怎样修改了。</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-18-Screenshot_20180518-175249.png-wtmark" alt="Screenshot_20180518-175249"></p>
+<p><img src="http://guidongyuan.cn/images/175249.png" alt="175249"></p>
 <p>重新设置一下</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  RNStudy adb reverse tcp:8081 tcp:8081</span><br></pre></td></tr></table></figure>
 <p>重新执行<code>react-native start</code>命令，如果还是卡住，摇晃手机，调出设置悬浮窗，点击<code>Reload</code>就可以成功加载到数据了，如果还是不行，在Android Studio中重新编译运行App，就可以了。</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/2018-05-18-Screenshot_20180518-184105.png-wtmark" alt="Screenshot_20180518-184105"></p>
+<p><img src="http://guidongyuan.cn/images/184105.png" alt="184105"></p>
 <p>看到这个界面，表示一切正常了！感觉要重视网络测试这方面，避免容易出现很多坑，第一篇文章也被网络方面花费很多时间，这次也有！接下来，又继续回到真正的开发而不是配置各种环境。</p>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
 <li><a href="https://segmentfault.com/a/1190000012599452" target="_blank" rel="noopener">在原有Android项目中快速集成React Native</a></li>
@@ -469,6 +469,21 @@
       
         
 
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+    	<div>
+    		<img style="display: block; margin: 0 auto;" src="/images/wetchat.png" alt="" />
+			<h3 style="text-align:center;">公众号：亦袁非猿</h3>
+			<h3 style="text-align:center;">欢迎关注，交流学习</h3>
+		</div>
+        
+    
+</div>
       
     </div>
 

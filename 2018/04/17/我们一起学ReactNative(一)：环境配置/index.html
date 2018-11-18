@@ -98,12 +98,12 @@
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="最近想在项目中实现跨平台，对比一下主流的实现方式，选用了React Native。参考网上的教程，对于一直都是原生移动端开发，对前端的知识不是很了解的，感觉入门不是特别简单。于是打算把学习React Native的过程记录下来。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/2018-04-13-Screenshot_2018-04-13-20-12-14.png-wtmark">
-<meta property="og:updated_time" content="2018-06-24T07:34:28.232Z">
+<meta property="og:image" content="http://guidongyuan.cn/images/2018-04-13-Screenshot_2018-04-13-20-12-14.png">
+<meta property="og:updated_time" content="2018-11-17T13:13:05.905Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我们一起学React Native(一)：环境配置">
 <meta name="twitter:description" content="最近想在项目中实现跨平台，对比一下主流的实现方式，选用了React Native。参考网上的教程，对于一直都是原生移动端开发，对前端的知识不是很了解的，感觉入门不是特别简单。于是打算把学习React Native的过程记录下来。">
-<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/2018-04-13-Screenshot_2018-04-13-20-12-14.png-wtmark">
+<meta name="twitter:image" content="http://guidongyuan.cn/images/2018-04-13-Screenshot_2018-04-13-20-12-14.png">
 
 
 
@@ -398,7 +398,8 @@
 </ol>
 <h3 id="输出版本号判断是否安装成功"><a href="#输出版本号判断是否安装成功" class="headerlink" title="输出版本号判断是否安装成功"></a>输出版本号判断是否安装成功</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ brew -v</span><br><span class="line">Homebrew 1.6.0</span><br><span class="line">Homebrew/homebrew-core (git revision 47aeb6; last commit 2018-04-12)</span><br><span class="line"></span><br><span class="line">➜  ~ node -v</span><br><span class="line">v8.11.1</span><br><span class="line"></span><br><span class="line">➜  ~ xcodebuild -version</span><br><span class="line">Xcode 9.3</span><br><span class="line">Build version 9E145</span><br><span class="line"></span><br><span class="line">➜  ~ watchman -v</span><br><span class="line">4.9.0</span><br><span class="line"></span><br><span class="line">➜  ~ java -v</span><br><span class="line">Unrecognized option: -v</span><br><span class="line">Error: Could not create the Java Virtual Machine.</span><br><span class="line">Error: A fatal exception has occurred. Program will exit.</span><br><span class="line"></span><br><span class="line">➜  ~ java -version</span><br><span class="line">java version "1.8.0_112"</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_112-b16)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.112-b16, mixed mode)</span><br></pre></td></tr></table></figure>
 <h2 id="编译项目测试运行环境"><a href="#编译项目测试运行环境" class="headerlink" title="编译项目测试运行环境"></a>编译项目测试运行环境</h2>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 创建名称为AwesomeProject的项目</span></span></span><br><span class="line">➜  ~ react-native init AwesomeProject</span><br><span class="line">➜  ~ cd AwesomeProject</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 运行Android 项目</span></span></span><br><span class="line">➜  ~ react-native run-android</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 运行IOS 项目</span></span></span><br><span class="line">➜  ~ react-native run-ios</span><br></pre></td></tr></table></figure>
-<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p>   看到<strong>Welcome to React Native</strong>，表示搭建开发环境，创建，运行React Native应用完成。为啥不是显示<strong>hello world</strong>呢！！！<br><img src="http://ol45hsxko.bkt.clouddn.com/2018-04-13-Screenshot_2018-04-13-20-12-14.png-wtmark" alt="Screenshot_2018-04-13-20-12-14"></p>
+<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p>   看到<strong>Welcome to React Native</strong>，表示搭建开发环境，创建，运行React Native应用完成。为啥不是显示<strong>hello world</strong>呢！！！</p>
+<p><img src="http://guidongyuan.cn/images/2018-04-13-Screenshot_2018-04-13-20-12-14.png" alt="Screenshot_2018-04-13-20-12-14"></p>
 <h2 id="错误点"><a href="#错误点" class="headerlink" title="错误点"></a>错误点</h2><ol>
 <li><p><strong>Error: Your Xcode (8.2) is too outdated.</strong></p>
 <p>由于刚刚升级了Mac OS为10.3，Xcode没有更新到，现在提示该错误，直接在App Store升级Xcode就可以了。</p>
@@ -458,6 +459,21 @@
       
         
 
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+    	<div>
+    		<img style="display: block; margin: 0 auto;" src="/images/wetchat.png" alt="" />
+			<h3 style="text-align:center;">公众号：亦袁非猿</h3>
+			<h3 style="text-align:center;">欢迎关注，交流学习</h3>
+		</div>
+        
+    
+</div>
       
     </div>
 

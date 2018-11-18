@@ -98,22 +98,22 @@
 <meta property="og:site_name" content="亦袁非猿">
 <meta property="og:description" content="写文章的时候，为了避免文章被盗取（好像也没啥好盗的），会对里面的图片添加水印。图床使用的是七牛，一开始就打算添加，发现每张图片需要添加图片处理的后缀，如果是手动额外添加会比较麻烦，就放弃了。无意发现markdown的编辑软件MWeb是可以自动添加的，果断用着。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/15298080514834.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/15298081733588.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/15298093118453.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/15298088367401.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/15298089731301.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/15298101770553.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/15298104198291.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/15298106956622.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/15298107257113.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/15298111974130.jpg-wtmark">
-<meta property="og:image" content="http://ol45hsxko.bkt.clouddn.com/15298117357685.jpg-wtmark">
-<meta property="og:updated_time" content="2018-06-24T23:32:50.961Z">
+<meta property="og:image" content="http://guidongyuan.cn/images/15298080514834.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/15298081733588.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/15298093118453.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/15298088367401.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/15298089731301.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/15298101770553.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/15298104198291.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/15298106956622.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/15298107257113.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/15298111974130.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/15298117357685.jpg">
+<meta property="og:updated_time" content="2018-11-17T13:39:23.457Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为七牛图片添加水印处理">
 <meta name="twitter:description" content="写文章的时候，为了避免文章被盗取（好像也没啥好盗的），会对里面的图片添加水印。图床使用的是七牛，一开始就打算添加，发现每张图片需要添加图片处理的后缀，如果是手动额外添加会比较麻烦，就放弃了。无意发现markdown的编辑软件MWeb是可以自动添加的，果断用着。">
-<meta name="twitter:image" content="http://ol45hsxko.bkt.clouddn.com/15298080514834.jpg-wtmark">
+<meta name="twitter:image" content="http://guidongyuan.cn/images/15298080514834.jpg">
 
 
 
@@ -389,37 +389,37 @@
 <a id="more"></a>
 <h2 id="为七牛图片添加水印处理"><a href="#为七牛图片添加水印处理" class="headerlink" title="为七牛图片添加水印处理"></a>为七牛图片添加水印处理</h2><h3 id="图片处理入口"><a href="#图片处理入口" class="headerlink" title="图片处理入口"></a>图片处理入口</h3><p>具体怎样注册七牛云账号，怎样使用其对象存储，在这里就不介绍了，网上一搜索就可以了。接下来只介绍关于图片处理的。</p>
 <p>在资源首页拉到下面，就可以看到图片处理的入口了</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/15298080514834.jpg-wtmark" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/15298080514834.jpg" alt=""></p>
 <p>另外，在对象存储界面，也可以看到图片处理的入口</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/15298081733588.jpg-wtmark" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/15298081733588.jpg" alt=""></p>
 <p>点击入口进去，就可以创建图片处理样式了，分为可视化编辑和手动编辑。</p>
 <p>手动编辑功能更加强大，可以实现可视化编辑没办法实现的，建议先用可视化编辑试试能否实现自己想要的效果。可以参考一下官方的<a href="https://developer.qiniu.com/dora/manual/1316/image-watermarking-processing-watermark" target="_blank" rel="noopener">图片水印处理</a>教程。</p>
 <h4 id="可视化编辑"><a href="#可视化编辑" class="headerlink" title="可视化编辑"></a>可视化编辑</h4><p>可视化编辑基本就是选择，选择你想要的效果，我使用的是图片水印，需要先把图片水印上传到七牛云，然后复制其外链地址到水印图片的输入框中。</p>
 <p>可以在右边看到预览运行结果，同时，右边还有处理代码，留意一下，接下来的手动编辑会使用到。</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/15298093118453.jpg-wtmark" alt=""></p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/15298088367401.jpg-wtmark" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/15298093118453.jpg" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/15298088367401.jpg" alt=""></p>
 <p>图片处理样式名称，就是要采用该图片样式，那就需要在原图地址+图片处理样式名称。</p>
 <p>假设原图的地址为<code>http://oiduu4gde.bkt.clouddn.com/watermark.png</code></p>
 <p>那么如果需要水印，那就是<code>http://oiduu4gde.bkt.clouddn.com/watermark.png-wt</code></p>
 <p>中间的格式分隔符，可以自行设置，默认为<code>-</code></p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/15298089731301.jpg-wtmark" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/15298089731301.jpg" alt=""></p>
 <p>点击<strong>保存样式</strong>就可以了。</p>
 <h4 id="手动编辑"><a href="#手动编辑" class="headerlink" title="手动编辑"></a>手动编辑</h4><p>如果是使用文字水印还好，可以在可视化编辑界面修改文字大小。如果和我一样使用的是图片水印，就发现这水印也够大的，能否根据图片自行缩小呢？那么，就需要手动编辑上场了。</p>
 <p>点击<strong>查看图片处理使用说明</strong>获取接口使用帮助，看图片水印的说明，最下面的两个属性，就可以根据原图动态改变水印大小。</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/15298101770553.jpg-wtmark" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/15298101770553.jpg" alt=""></p>
 <p>复制可视化编辑的处理代码，如果只是添加水印，可以去掉多余的图片处理接口，如果下图红色边框为对原图进行缩略操作，就被我去掉，然后添加<code>ws</code>属性。</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/15298104198291.jpg-wtmark" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/15298104198291.jpg" alt=""></p>
 <p>缩放大小设置为短边的<code>0.1</code>，最终处理接口代码如下</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/15298106956622.jpg-wtmark" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/15298106956622.jpg" alt=""></p>
 <p>点击右边的刷新接口，就可以看到水印变小了</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/15298107257113.jpg-wtmark" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/15298107257113.jpg" alt=""></p>
 <h3 id="开启原图保护"><a href="#开启原图保护" class="headerlink" title="开启原图保护"></a>开启原图保护</h3><p>上面说到的，预览原图就直接用外链地址，如果要添加水印，就添加上图片的处理后缀。那么，如果要盗取你文章图片，全局替换把后缀处理掉不就可以了吗？</p>
 <p>为了避免这个，就需要开启原图保护了</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/15298111974130.jpg-wtmark" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/15298111974130.jpg" alt=""></p>
 <p>具体可以看官方<a href="https://developer.qiniu.com/kodo/kb/1359/what-is-the-original-protection" target="_blank" rel="noopener">什么是原图保护</a>的介绍，现在没办法直接访问原图地址了，必须原图地址加图片处理样式才可以访问到。</p>
 <h3 id="MWeb自动上传图片到七牛云"><a href="#MWeb自动上传图片到七牛云" class="headerlink" title="MWeb自动上传图片到七牛云"></a>MWeb自动上传图片到七牛云</h3><p>如果每张图片的上传，都是通过七牛云的官网，点击上传，然后复制粘贴，添加图片处理格式，那估计就要放弃了，还好有MWeb这款软件，还是国人开发的，值得称赞。</p>
 <p>具体MWeb和七牛怎样设置使用，可以参考MWeb博客<a href="http://zh.mweb.im/mweb-1.9.3-release.html" target="_blank" rel="noopener">图片支持七牛</a>的介绍，前期版本是没有添加图片后缀的，现在有了，自动就可以添加后缀，方便到没朋友。</p>
-<p><img src="http://ol45hsxko.bkt.clouddn.com/15298117357685.jpg-wtmark" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/15298117357685.jpg" alt=""></p>
 
       
     </div>
@@ -442,6 +442,21 @@
       
         
 
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+    	<div>
+    		<img style="display: block; margin: 0 auto;" src="/images/wetchat.png" alt="" />
+			<h3 style="text-align:center;">公众号：亦袁非猿</h3>
+			<h3 style="text-align:center;">欢迎关注，交流学习</h3>
+		</div>
+        
+    
+</div>
       
     </div>
 
