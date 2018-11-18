@@ -99,14 +99,14 @@
 <meta property="og:description" content="上面的文章，介绍了怎样创建一个React Native项目，不过实际中，很少直接开一个React Native空项目进行开发，都是在原有Android项目中引入React Native开发，那应该怎样进行配置呢？">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://guidongyuan.cn/images/2018-05-18-15266326194808.jpg">
-<meta property="og:image" content="http://guidongyuan.cn/images/2018-05-18-15266103412320.jpg">
+<meta property="og:image" content="http://guidongyuan.cn/images/15266103412320.jpg">
 <meta property="og:image" content="http://guidongyuan.cn/images/2018-05-18-15266343310633.jpg">
 <meta property="og:image" content="http://guidongyuan.cn/images/2018-05-18-15266346536104.jpg">
 <meta property="og:image" content="http://guidongyuan.cn/images/2018-05-18-15266357641872.jpg">
 <meta property="og:image" content="http://guidongyuan.cn/images/174007.png">
 <meta property="og:image" content="http://guidongyuan.cn/images/175249.png">
 <meta property="og:image" content="http://guidongyuan.cn/images/184105.png">
-<meta property="og:updated_time" content="2018-11-17T13:23:39.568Z">
+<meta property="og:updated_time" content="2018-11-18T03:14:53.443Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我们一起学ReactNative(四)：原有Android项目引入ReactNative">
 <meta name="twitter:description" content="上面的文章，介绍了怎样创建一个React Native项目，不过实际中，很少直接开一个React Native空项目进行开发，都是在原有Android项目中引入React Native开发，那应该怎样进行配置呢？">
@@ -393,7 +393,7 @@
 </ul>
 <p>参考了网上的不同文章，觉得或多或少都存在问题，毕竟，React Native现在还在不停更新，稍后变化就会导致出错，所以，建议，<strong>参考第一篇文章，先创建一个最新的React Native，然后，再通过对比拷贝不同的文件到该项目中</strong>，就可以减少错误，又保持最新，出错的时候还可以对比一下！</p>
 <h3 id="创建Android项目模拟原有项目"><a href="#创建Android项目模拟原有项目" class="headerlink" title="创建Android项目模拟原有项目"></a>创建Android项目模拟原有项目</h3><p>需要记住创建的项目名称，后续会使用到</p>
-<p><img src="http://guidongyuan.cn/images/2018-05-18-15266103412320.jpg" alt=""></p>
+<p><img src="http://guidongyuan.cn/images/15266103412320.jpg" alt=""></p>
 <h3 id="创建React-Native所需文件"><a href="#创建React-Native所需文件" class="headerlink" title="创建React Native所需文件"></a>创建React Native所需文件</h3><h4 id="新建package-json文件"><a href="#新建package-json文件" class="headerlink" title="新建package.json文件"></a>新建<code>package.json</code>文件</h4><p><code>package.json</code>配置了React Native所需的依赖库以及一些脚本语，由于我们RN项目是放在一个单独文件下的，所以，该文件需要放在RNStudy文件下。</p>
   <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  // name修改和项目的名称一样</span><br><span class="line">  "name": "AndroidRNStudy",</span><br><span class="line">  "version": "0.0.1",</span><br><span class="line">  "private": true,</span><br><span class="line">  "scripts": &#123;</span><br><span class="line">    "start": "node node_modules/react-native/local-cli/cli.js start",</span><br><span class="line">    "test": "jest"</span><br><span class="line">  &#125;,</span><br><span class="line">  "dependencies": &#123;</span><br><span class="line">    "react": "16.3.1",</span><br><span class="line">    "react-native": "0.55.4"</span><br><span class="line">  &#125;,</span><br><span class="line">  "devDependencies": &#123;</span><br><span class="line">    "babel-jest": "22.4.3",</span><br><span class="line">    "babel-preset-react-native": "4.0.0",</span><br><span class="line">    "jest": "22.4.3",</span><br><span class="line">    "react-test-renderer": "16.3 .1"</span><br><span class="line">  &#125;,</span><br><span class="line">  "jest": &#123;</span><br><span class="line">    "preset": "react-native"</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>####　添加react和react-native 模块</p>
