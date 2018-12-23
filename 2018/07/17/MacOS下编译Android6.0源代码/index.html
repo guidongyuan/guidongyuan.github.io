@@ -396,7 +396,7 @@
 <h4 id="解除最大文件数"><a href="#解除最大文件数" class="headerlink" title="解除最大文件数"></a>解除最大文件数</h4><p>Mac系统下默认只能同时打开1024个文件，编译的时候有可能突破这个数目，因此需要解除限制。如果是使用on_my_zsh,在这里，需要进行切换为默认的bash，不然执行到后面的时候，也会出现错误。打开bash的配置文件.bash_profile，如果没有的话，会默认新建该文件。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~ vim ~/.bash_profile</span><br><span class="line">~ source .bash_profile</span><br></pre></td></tr></table></figure>
 <p>在文件中添加下面的内容</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">ulimit</span> the number of open files to be 1024</span></span><br><span class="line">ulimit -S -n 1024</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> ulimit the number of open files to be 1024</span><br><span class="line">ulimit -S -n 1024</span><br></pre></td></tr></table></figure>
 <h3 id="下载源代码"><a href="#下载源代码" class="headerlink" title="下载源代码"></a>下载源代码</h3><p>下载方式有很多种，由于网络比较慢，就选择了最后一种，最简单的方式：  </p>
 <ol>
 <li>直接通过官方下载  </li>
@@ -409,9 +409,9 @@
 <h4 id="开始编译"><a href="#开始编译" class="headerlink" title="开始编译"></a>开始编译</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  android-6.0.1_r1 make -j4</span><br></pre></td></tr></table></figure>
 <p>整个过程需要一个多小时，编译过程会出现一些错误导致停止，都逐一记录在下面</p>
 <h3 id="编译idegen"><a href="#编译idegen" class="headerlink" title="编译idegen"></a>编译idegen</h3><p>上面编译源码后，想导入到Android Studio进行阅读，需要编译idegen生成<code>idegen.jar</code>和生成Android Studio导入所需的<code>.ipr/.iml</code>文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">source</span> build/envsetup.sh</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> mmm development/tools/idegen/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> source build/envsetup.sh</span><br><span class="line"><span class="meta">$</span> mmm development/tools/idegen/</span><br></pre></td></tr></table></figure>
 <p>一开始只是运行上面命令中的第二条mmm语句，提示找不到mmm，网上查了一下，说是需要安装Xcode Command Line Tools，已经安装了，而且还可以执行make命令，为啥在这里就提示找不到呢？后来才知道需要重新执行上面命令的第一条语句再执行。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sh ./development/tools/idegen/idegen.sh</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sh ./development/tools/idegen/idegen.sh</span><br></pre></td></tr></table></figure>
 <h3 id="导入到Android-Studio进行阅读"><a href="#导入到Android-Studio进行阅读" class="headerlink" title="导入到Android Studio进行阅读"></a>导入到Android Studio进行阅读</h3><ol>
 <li>打开Android Studio，file–&gt;open,找到Android.ipr。</li>
 <li><p>导入的时候，会提示case-sensitive(大小写敏感)</p>
@@ -449,7 +449,7 @@
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Goddards-MBP:~ guidongyuan$ vim ./.bash_profile</span><br></pre></td></tr></table></figure>
 <p>修改为使用1.7版本</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 默认为</span></span><br><span class="line">export JAVA_HOME=$(/usr/libexec/java_home)</span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用1.7 版本</span></span><br><span class="line">export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)</span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用1.8版本</span></span><br><span class="line">export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 默认为</span><br><span class="line">export JAVA_HOME=$(/usr/libexec/java_home)</span><br><span class="line"><span class="meta">#</span> 使用1.7 版本</span><br><span class="line">export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)</span><br><span class="line"><span class="meta">#</span> 使用1.8版本</span><br><span class="line">export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)</span><br></pre></td></tr></table></figure>
       
     </div>
 
