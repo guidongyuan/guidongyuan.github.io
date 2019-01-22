@@ -1,0 +1,908 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="NDK,音视频," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Mac下编译ijkplayer 编译前安装必要软件 123456# 安装 homebrewruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;# 安装gitbrew install git# 安装yasmbrew install yasm  配置SDK和NDK路径 1234">
+<meta name="keywords" content="NDK,音视频">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac下编译ijkplayer及脚本分析">
+<meta property="og:url" content="http://yoursite.com/2019/01/08/Mac下编译ijkplayer及脚本分析/index.html">
+<meta property="og:site_name" content="亦袁非猿">
+<meta property="og:description" content="Mac下编译ijkplayer 编译前安装必要软件 123456# 安装 homebrewruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;# 安装gitbrew install git# 安装yasmbrew install yasm  配置SDK和NDK路径 1234">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20181229193104465-6083064.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20181229193520736-6083320.png">
+<meta property="og:updated_time" content="2019-01-07T23:33:27.078Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mac下编译ijkplayer及脚本分析">
+<meta name="twitter:description" content="Mac下编译ijkplayer 编译前安装必要软件 123456# 安装 homebrewruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;# 安装gitbrew install git# 安装yasmbrew install yasm  配置SDK和NDK路径 1234">
+<meta name="twitter:image" content="http://guidongyuan.cn/images/image-20181229193104465-6083064.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'OF78IO15IZ',
+      apiKey: '75e8a500a6a0237315a8a25669328dbf',
+      indexName: 'First Index',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/08/Mac下编译ijkplayer及脚本分析/"/>
+
+
+
+
+
+  <title>Mac下编译ijkplayer及脚本分析 | 亦袁非猿</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亦袁非猿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/08/Mac下编译ijkplayer及脚本分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亦袁非猿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亦袁非猿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Mac下编译ijkplayer及脚本分析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-08T07:27:58+08:00">
+                2019-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/01/08/Mac下编译ijkplayer及脚本分析/" class="leancloud_visitors" data-flag-title="Mac下编译ijkplayer及脚本分析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Mac下编译ijkplayer"><a href="#Mac下编译ijkplayer" class="headerlink" title="Mac下编译ijkplayer"></a>Mac下编译ijkplayer</h2><ol>
+<li><p><strong>编译前安装必要软件</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装 homebrew</span></span><br><span class="line">ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装git</span></span><br><span class="line">brew install git</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装yasm</span></span><br><span class="line">brew install yasm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置SDK和NDK路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 把路径的声明放到~/.bash_profile 或者 ~/.profile，我的使用zshrc，所以是放在~/.zshrc</span></span><br><span class="line">export ANDROID_SDK=&lt;your sdk path&gt;</span><br><span class="line">export ANDROID_NDK=&lt;your ndk path&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置完成后需要运行</span></span><br><span class="line">source ./.zshrc</span><br></pre></td></tr></table></figure>
+<p>如果只是编译ijkplayer的时候使用，那么可以在终端设置临时环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 这里要使用10到14的版本，原因看下面错误分析</span></span><br><span class="line">export ANDROID_SDK=/Users/guidongyuan/Library/Android/sdk</span><br><span class="line">export ANDROID_NDK=/Users/guidongyuan/Library/Android/android-ndk-r10e</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看是否设置成功</span></span><br><span class="line">echo $ANDROID_SDK</span><br><span class="line">/Users/guidongyuan/Library/Android/sdk</span><br><span class="line">echo $ANDROID_NDK</span><br><span class="line">/Users/guidongyuan/Library/Android/android-ndk-r10e</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下载ffmpeg</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 检出项目</span></span><br><span class="line">git clone https://github.com/Bilibili/ijkplayer.git ijkplayer-android</span><br><span class="line"><span class="meta">#</span><span class="bash"> 进入ijkplayer-android目录</span></span><br><span class="line">cd ijkplayer-android</span><br><span class="line"><span class="meta">#</span><span class="bash"> 检出最新版本</span></span><br><span class="line">git checkout -B latest k0.8.8</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装ffmpeg，上面的检出是没有包含ffmpeg源码的，这里运行shell脚本去检出，具体看下面分析</span></span><br><span class="line">./init-android.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>选择配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> If you prefer more codec/format</span></span><br><span class="line">cd config</span><br><span class="line"><span class="meta">#</span><span class="bash"> 移除上面init-android.sh生成的module.sh(默认为module-lite.sh)</span></span><br><span class="line">rm module.sh</span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建module.sh引用，引用到module-default.sh中，有点类似pc上的创建桌面快捷方式</span></span><br><span class="line">ln -s module-default.sh module.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译ffmpeg</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd android/contrib</span><br><span class="line"><span class="meta">#</span><span class="bash"> 清除ffmpeg的编译文件</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果出错，看下面错误分析</span></span><br><span class="line">./compile-ffmpeg.sh clean</span><br><span class="line"><span class="meta">#</span><span class="bash"> 编译ffmpeg的所有架构，如果只需要编译armv7a，那么就把all改为armv7a</span></span><br><span class="line">./compile-ffmpeg.sh all</span><br></pre></td></tr></table></figure>
+<p>编译完成后，在<strong>contrib/build/</strong>文件夹下会生成不同架构的文件夹，架构文件夹中的<strong>output</strong>目录下可以看到生成的<strong>libijkffmpeg.so</strong>文件，如下图</p>
+<p><img src="http://guidongyuan.cn/images/image-20181229193104465-6083064.png" alt="image-20181229193104465"></p>
+</li>
+<li><p>编译ijkplayer</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ..</span><br><span class="line">./compile-ijk.sh all</span><br></pre></td></tr></table></figure>
+<p>编译完成后，在android/ijkplayer文件夹的架构项目库中，可以看到生成的libijkplayer.so、libijkffmpeg.so、libijksdl.so这三个文件被放在项目的<code>/src/main/libs/架构名/</code>下了。</p>
+<p><img src="http://guidongyuan.cn/images/image-20181229193520736-6083320.png" alt="image-20181229193520736"></p>
+</li>
+</ol>
+<h2 id="sh脚本分析"><a href="#sh脚本分析" class="headerlink" title="sh脚本分析"></a>sh脚本分析</h2><ul>
+<li><p><code>./init-android.sh</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 截取部分代码</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行tools目录下的pull-repo-base.sh脚本，去拉取ffmpeg的代码到extra/ffmpeg下</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> pull-repo-base.sh脚本不难分析，传入git地址和检出的路径</span></span><br><span class="line">sh $TOOLS/pull-repo-base.sh $IJK_FFMPEG_UPSTREAM $IJK_FFMPEG_LOCAL_REPO</span><br><span class="line"></span><br><span class="line">function pull_fork()</span><br><span class="line">&#123;</span><br><span class="line">    echo "== pull ffmpeg fork $1 =="</span><br><span class="line">    # $1为传入的平台</span><br><span class="line">    # 同样执行tools目录下的pull-repo-ref.sh脚本去检出不同平台的代码到android/contrib目录下</span><br><span class="line">    sh $TOOLS/pull-repo-ref.sh $IJK_FFMPEG_FORK android/contrib/ffmpeg-$1 $&#123;IJK_FFMPEG_LOCAL_REPO&#125;</span><br><span class="line">    cd android/contrib/ffmpeg-$1</span><br><span class="line">    git checkout $&#123;IJK_FFMPEG_COMMIT&#125; -B ijkplayer</span><br><span class="line">    cd -</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 传入不同的平台，调用上面的方法</span></span><br><span class="line">pull_fork "armv5"</span><br><span class="line">pull_fork "armv7a"</span><br><span class="line">pull_fork "arm64"</span><br><span class="line">pull_fork "x86"</span><br><span class="line">pull_fork "x86_64"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 初始化设置，会判断config中是否存在module.sh，没有就复制config/module-lite.sh为module.sh</span></span><br><span class="line">./init-config.sh</span><br><span class="line"><span class="meta">#</span><span class="bash"> 检出libyuv的代码到ijkmedia/ijkyuv</span></span><br><span class="line">./init-android-libyuv.sh</span><br><span class="line"><span class="meta">#</span><span class="bash"> 检出soundtouch代码到ijkmedia/ijksoundtouch</span></span><br><span class="line">./init-android-soundtouch.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>compile-ffmpeg.sh</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 判断传递进来的参数</span></span><br><span class="line">case "$FF_TARGET" in</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 如果不传递，默认为armv7a</span></span><br><span class="line"><span class="meta">	#</span><span class="bash"> 然后调用tools/<span class="keyword">do</span>-compile-ffmpeg.sh真正去执行</span></span><br><span class="line">    "")</span><br><span class="line">        echo_archs armv7a</span><br><span class="line">        sh tools/do-compile-ffmpeg.sh armv7a</span><br><span class="line">    ;;</span><br><span class="line">    # 根据传入的不同平台类型</span><br><span class="line">    armv5|armv7a|arm64|x86|x86_64)</span><br><span class="line">        echo_archs $FF_TARGET $FF_TARGET_EXTRA</span><br><span class="line">        sh tools/do-compile-ffmpeg.sh $FF_TARGET $FF_TARGET_EXTRA</span><br><span class="line">        echo_nextstep_help</span><br><span class="line">    ;;</span><br><span class="line">    all32)</span><br><span class="line">        echo_archs $FF_ACT_ARCHS_32</span><br><span class="line">        for ARCH in $FF_ACT_ARCHS_32</span><br><span class="line">        do</span><br><span class="line">            sh tools/do-compile-ffmpeg.sh $ARCH $FF_TARGET_EXTRA</span><br><span class="line">        done</span><br><span class="line">        echo_nextstep_help</span><br><span class="line">    ;;</span><br><span class="line">    # 如果是all的话，会循环编译各个平台</span><br><span class="line">    all|all64)</span><br><span class="line">        echo_archs $FF_ACT_ARCHS_64</span><br><span class="line">        for ARCH in $FF_ACT_ARCHS_64</span><br><span class="line">        do</span><br><span class="line">            sh tools/do-compile-ffmpeg.sh $ARCH $FF_TARGET_EXTRA</span><br><span class="line">        done</span><br><span class="line">        echo_nextstep_help</span><br><span class="line">    ;;</span><br><span class="line">    # 如果是clean，会循环执行删除各个平台编译生成的文件</span><br><span class="line">    clean)</span><br><span class="line">        echo_archs FF_ACT_ARCHS_64</span><br><span class="line">        for ARCH in $FF_ACT_ARCHS_ALL</span><br><span class="line">        do</span><br><span class="line">            if [ -d ffmpeg-$ARCH ]; then</span><br><span class="line">                cd ffmpeg-$ARCH &amp;&amp; git clean -xdf &amp;&amp; cd -</span><br><span class="line">            fi</span><br><span class="line">        done</span><br><span class="line">        rm -rf ./build/ffmpeg-*</span><br><span class="line">    ;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>compile-ijk.sh</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 代码顺序进行调整省略</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 判断不同的平台架构，然后进入<span class="string">"ijkplayer/ijkplayer-平台架构名称/src/main/jni"</span>文件，执行下面的do_sub_cmd方法</span></span><br><span class="line">do_ndk_build () &#123;</span><br><span class="line">    case "$PARAM_TARGET" in</span><br><span class="line">        armv5|armv7a)</span><br><span class="line">            cd "ijkplayer/ijkplayer-$PARAM_TARGET/src/main/jni"</span><br><span class="line">            do_sub_cmd $PARAM_SUB_CMD</span><br><span class="line">            cd -</span><br><span class="line">        ;;</span><br><span class="line">    esac</span><br><span class="line">&#125;</span><br><span class="line">do_sub_cmd () &#123;</span><br><span class="line">        echo 'profiler build: NO';</span><br><span class="line">        # 在上面进去的jni目录下，创建ijkplayer-android/ijkprof/android-ndk-profiler-dummy/jni目录的引用</span><br><span class="line">        ln -s ../../../../../../ijkprof/android-ndk-profiler-dummy/jni android-ndk-prof</span><br><span class="line">    fi</span><br><span class="line"></span><br><span class="line">    case $SUB_CMD in</span><br><span class="line">        prof)</span><br><span class="line">        	# 利用ndk进行编译</span><br><span class="line">            $ANDROID_NDK/ndk-build $FF_MAKEFLAGS</span><br><span class="line">        ;;</span><br><span class="line">    esac</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>compile-ijk.sh</code>脚本的执行，其实就是进去到不同的平台架构库（如<strong>ijkplayer-armv7a</strong>），利用makefile进行构建，编译生成<strong>libs</strong>目录下的libijkplayer.so、libijkffmpeg.so、libijksdl.so三个文件。<br>其中平台架构下的源码，都是引用其他路径的，比如<code>ijkplayer-armv7a/src/main/jni</code>下的ijkmedia，是引用到<code>ijkplayer-android/ijkmedia</code>目录下的。<br>而<strong>ffmpeg.so</strong>库，是引用上一步编译ffmpeg输出到<code>ijkplayer-android/android/contrib/build/ffmpeg-armv7a/output/</code>的so库。<br>在没编译之前，一直不太理解为啥要有那么多依赖库，还以为上面的三个动态库是类似编译ffmpeg直接用sh编译的，原来是使用到Android中的make进行构建编译。</p>
+</li>
+</ul>
+<h3 id="导入项目"><a href="#导入项目" class="headerlink" title="导入项目"></a>导入项目</h3><p>so库编译完成后，打开Android studio导入android/ijkplayer/的内容，就可以编译运行demo看看效果了。</p>
+<h3 id="出错问题"><a href="#出错问题" class="headerlink" title="出错问题"></a>出错问题</h3><ul>
+<li><p>NDK版本不符合导致错误，提示内容为<code>You need the NDKr10e or later</code></p>
+<p>我本地的NDK版本为17，重新下载NDK为10的版本，就没有问题了。出错的原因，可以在do-detect-env.sh看到，这是一个环境检查的脚本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 可以看到，ndk版本为10是去读取RELEASE.TXT文件内容的版本号进行正则匹配</span></span><br><span class="line">export IJK_NDK_REL=$(grep -o '^r[0-9]*.*' $ANDROID_NDK/RELEASE.TXT 2&gt;/dev/null | sed 's/[[:space:]]*//g' | cut -b2-)</span><br><span class="line">case "$IJK_NDK_REL" in</span><br><span class="line">    10e*)</span><br><span class="line"><span class="meta">#</span><span class="bash"> 而11到14的版本，是读取source.properties的内容，我本地是17版本，估计那个时候还没有吧，才导致编译出错</span></span><br><span class="line">IJK_NDK_REL=$(grep -o '^Pkg\.Revision.*=[0-9]*.*' $ANDROID_NDK/source.properties 2&gt;/dev/null | sed 's/[[:space:]]*//g' | cut -d "=" -f 2)</span><br><span class="line">        echo "IJK_NDK_REL=$IJK_NDK_REL"</span><br><span class="line">        case "$IJK_NDK_REL" in</span><br><span class="line">            11*|12*|13*|14*)</span><br></pre></td></tr></table></figure>
+<p><strong>解决办法</strong></p>
+<p>在<a href="https://developer.android.com/ndk/downloads/older_releases?hl=zh-cn" target="_blank" rel="noopener">NDK官网</a>下载版本为10到14，重新设置路径的环境变量就没有问题</p>
+</li>
+<li><p>在执行<code>compile-ffmpeg.sh</code>时候提示找不到<strong>perf_event.h</strong>文件，提示内容为<code>./libavutil/timer.h:38:31: fatal error: linux/perf_event.h: No such file or directory</code></p>
+<p>查看timer.h可以看到如下声明</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 如果定义了CONFIG_LINUX_PERF，那么就需要使用到perf_event.h</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="keyword">if</span> CONFIG_LINUX_PERF</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ifndef _GNU_SOURCE</span></span><br><span class="line"><span class="meta">#</span><span class="bash">  define _GNU_SOURCE</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> endif</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> include &lt;unistd.h&gt; // <span class="built_in">read</span>(3)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> include &lt;sys/ioctl.h&gt;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> include &lt;asm/unistd.h&gt;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> include &lt;linux/perf_event.h&gt;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">endif</span></span><br></pre></td></tr></table></figure>
+<p><strong>解决办法</strong></p>
+<p>修改module.sh文件，添加<code>export COMMON_FF_CFG_FLAGS=&quot;$COMMON_FF_CFG_FLAGS --disable-linux-perf&quot;</code></p>
+<p>看ijkplayer的issue中，有网友说还需要添加<code>export COMMON_FF_CFG_FLAGS=&quot;$COMMON_FF_CFG_FLAGS --disable-bzlib&quot;</code>文件，测试一下值需要添加上面一句就可以了，也有可能是我之前弄过<code>zlib</code>，也有可能是不需要的。</p>
+<p><strong>注意：</strong></p>
+<p>在修改后，需要先执行清除ffmpeg的编译文件<code>./compile-ffmpeg.sh clean</code>再执行<code>./compile-ffmpeg.sh all</code></p>
+</li>
+<li><p>导入到AS中，如果编译运行出现错误，错误内容为</p>
+<p><code>No toolchains found in the NDK toolchains folder for ABI with prefix: mips64el-linux-android</code></p>
+<p>出现该错误，是因为需要使用<code>mips64el-linux-android</code>目录的内容，而AS中使用的NDK是在SDK内的，缺少了该目录</p>
+<p><strong>解决办法</strong></p>
+<p>直接去NDK官网下载完整的文件，然后把<code>toolchains</code>目录下的<code>mips64el-linux-android</code>拷贝过去就可以了。详细步骤可以参考<a href="https://blog.csdn.net/qq_24118527/article/details/82867864" target="_blank" rel="noopener">完美解决 No toolchains found in the NDK toolchains folder for ABI with prefix: mips64el-linux-android</a>。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+    	<div>
+    		<img style="display: block; margin: 0 auto;" src="/images/wetchat.png" alt="" />
+			<h3 style="text-align:center;">公众号：亦袁非猿</h3>
+			<h3 style="text-align:center;">欢迎关注，交流学习</h3>
+		</div>
+        
+    
+</div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NDK/" rel="tag"># NDK</a>
+          
+            <a href="/tags/音视频/" rel="tag"># 音视频</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/02/NDK(四)：交叉编译/" rel="next" title="NDK(四)：交叉编译">
+                <i class="fa fa-chevron-left"></i> NDK(四)：交叉编译
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQzOC82MDA2"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg"
+               alt="亦袁非猿" />
+          <p class="site-author-name" itemprop="name">亦袁非猿</p>
+           
+              <p class="site-description motion-element" itemprop="description">while(写出来){  <br>
+  理解力++; <br>
+  表达力++; }
+</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">48</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mac下编译ijkplayer"><span class="nav-number">1.</span> <span class="nav-text">Mac下编译ijkplayer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sh脚本分析"><span class="nav-number">2.</span> <span class="nav-text">sh脚本分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#导入项目"><span class="nav-number">2.1.</span> <span class="nav-text">导入项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#出错问题"><span class="nav-number">2.2.</span> <span class="nav-text">出错问题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亦袁非猿</span>
+</div>
+
+
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("Ivcwx7f8x7ghc8SWU0YMuIFI-gzGzoHsz", "mQEm0lIov3tBcrPByox6zHc0");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
