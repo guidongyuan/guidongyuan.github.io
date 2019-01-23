@@ -90,19 +90,19 @@
 
 
 
-<meta name="description" content="这篇主要介绍CMake语法学习以及怎样把上一篇文章中编译生成的交叉编译库导入到Android项目中由于其他原因耽误导致这篇文章间隔这么久才写好，导入的时候才发现上一篇文章的交叉编译后的库写的有点问题又进行重新修改，这篇文章算是NDK系列的最后一篇了。">
+<meta name="description" content="这篇主要介绍CMake语法学习以及怎样把上一篇文章中编译生成的交叉编译库导入到Android项目中由于其他原因耽误导致这篇文章间隔这么久才写好，导入的时候才发现上一篇文章中交叉编译后的库有点问题又进行重新修改。这篇文章算是NDK系列的最后一篇了，算是大概知道了NDK系列的入门知识。">
 <meta name="keywords" content="NDK">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NDK(五)：CMake基础语法及As导入静动态库">
 <meta property="og:url" content="http://yoursite.com/2019/01/23/NDK(五)：CMake基础语法及As导入静动态库/index.html">
 <meta property="og:site_name" content="亦袁非猿">
-<meta property="og:description" content="这篇主要介绍CMake语法学习以及怎样把上一篇文章中编译生成的交叉编译库导入到Android项目中由于其他原因耽误导致这篇文章间隔这么久才写好，导入的时候才发现上一篇文章的交叉编译后的库写的有点问题又进行重新修改，这篇文章算是NDK系列的最后一篇了。">
+<meta property="og:description" content="这篇主要介绍CMake语法学习以及怎样把上一篇文章中编译生成的交叉编译库导入到Android项目中由于其他原因耽误导致这篇文章间隔这么久才写好，导入的时候才发现上一篇文章中交叉编译后的库有点问题又进行重新修改。这篇文章算是NDK系列的最后一篇了，算是大概知道了NDK系列的入门知识。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://guidongyuan.cn/images/image-20190120213206616-7991126.png">
-<meta property="og:updated_time" content="2019-01-22T23:55:03.882Z">
+<meta property="og:updated_time" content="2019-01-23T00:00:35.848Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NDK(五)：CMake基础语法及As导入静动态库">
-<meta name="twitter:description" content="这篇主要介绍CMake语法学习以及怎样把上一篇文章中编译生成的交叉编译库导入到Android项目中由于其他原因耽误导致这篇文章间隔这么久才写好，导入的时候才发现上一篇文章的交叉编译后的库写的有点问题又进行重新修改，这篇文章算是NDK系列的最后一篇了。">
+<meta name="twitter:description" content="这篇主要介绍CMake语法学习以及怎样把上一篇文章中编译生成的交叉编译库导入到Android项目中由于其他原因耽误导致这篇文章间隔这么久才写好，导入的时候才发现上一篇文章中交叉编译后的库有点问题又进行重新修改。这篇文章算是NDK系列的最后一篇了，算是大概知道了NDK系列的入门知识。">
 <meta name="twitter:image" content="http://guidongyuan.cn/images/image-20190120213206616-7991126.png">
 
 
@@ -374,7 +374,7 @@
 
       
         <blockquote>
-<p>这篇主要介绍CMake语法学习以及怎样把上一篇文章中编译生成的交叉编译库导入到Android项目中<br>由于其他原因耽误导致这篇文章间隔这么久才写好，导入的时候才发现上一篇文章的交叉编译后的库写的有点问题又进行重新修改，这篇文章算是NDK系列的最后一篇了。</p>
+<p>这篇主要介绍CMake语法学习以及怎样把上一篇文章中编译生成的交叉编译库导入到Android项目中<br>由于其他原因耽误导致这篇文章间隔这么久才写好，导入的时候才发现上一篇文章中交叉编译后的库有点问题又进行重新修改。这篇文章算是NDK系列的最后一篇了，算是大概知道了NDK系列的入门知识。</p>
 </blockquote>
 <a id="more"></a>
 <p><strong>NDK系列文章</strong></p>
@@ -386,7 +386,7 @@
 </ul>
 <h2 id="mk"><a href="#mk" class="headerlink" title="mk"></a>mk</h2><p>之前是使用，现在Google基本放弃了，都采用CMake</p>
 <h2 id="CMake"><a href="#CMake" class="headerlink" title="CMake"></a>CMake</h2><p>在学习CMake之前，我们或多或少了解过其他Make工具。其他的Make工具遵循不同的标准到时执行的Makefile格式不同，比如要保证在不同平台下编译，就需要一个跨平台的Make工具，CMake就是一个跨平台的构建工具。<br>Cmake并不直接构建出最终的软件，通过编写CmakeList.txt文件，根据目标用户的平台进一步生成对应的Makefile文件，从而达到跨平台的目的，如Android Studio就是通过ninja。所以可以这么理解为，编写Cmake语法，通过ninja，生成Makefile。</p>
-<h3 id="安装CMake"><a href="#安装CMake" class="headerlink" title="安装CMake"></a>安装CMake</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">brew install cmake</span><br><span class="line"><span class="meta">#</span> 查看版本</span><br><span class="line">cmake -version</span><br><span class="line">cmake version 3.13.2</span><br></pre></td></tr></table></figure>
+<h3 id="安装CMake"><a href="#安装CMake" class="headerlink" title="安装CMake"></a>安装CMake</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">brew install cmake</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看版本</span></span><br><span class="line">cmake -version</span><br><span class="line">cmake version 3.13.2</span><br></pre></td></tr></table></figure>
 <h3 id="CMake语法入门"><a href="#CMake语法入门" class="headerlink" title="CMake语法入门"></a>CMake语法入门</h3><ul>
 <li><p>官网语法手册（最好的资料）</p>
 <p>学下CMake语法，可以参考官网的文档，进入<a href="https://cmake.org/" target="_blank" rel="noopener">官网</a>，然后Resource –&gt; Documentation –&gt; 选择最新的Documentation –&gt; Reference Manuals中的cmake-commands(7)。就可以看到所有的命令了。</p>
@@ -398,7 +398,7 @@
 <p><strong>CMakeLists.txt文件</strong></p>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CMake 最低版本号要求</span></span><br><span class="line"><span class="keyword">cmake_minimum_required</span> (VERSION <span class="number">3.4</span>.<span class="number">1</span>)</span><br><span class="line"><span class="comment"># 项目信息(如果不设置该参数也可以正常运行)</span></span><br><span class="line"><span class="keyword">project</span> (MyProject1)</span><br><span class="line"><span class="comment"># 指定生成目标</span></span><br><span class="line"><span class="keyword">add_executable</span>(Demo1 main.c)</span><br></pre></td></tr></table></figure>
 <p>利用CMake命令编译生成执行文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 编译生成Makefile文件</span><br><span class="line">cmake .</span><br><span class="line"><span class="meta">#</span> 执行Makefile文件生成可执行文件</span><br><span class="line">make</span><br><span class="line"><span class="meta">#</span> 执行可执行文件，输出hello world</span><br><span class="line">./Demo1</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 编译生成Makefile文件</span></span><br><span class="line">cmake .</span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行Makefile文件生成可执行文件</span></span><br><span class="line">make</span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行可执行文件，输出hello world</span></span><br><span class="line">./Demo1</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
 <h5 id="Demo2-多文件"><a href="#Demo2-多文件" class="headerlink" title="Demo2 多文件"></a>Demo2 多文件</h5><p>如果源文件有很多个，比如有main.c、hello.c、hello.h等，那么一个个写进去比较麻烦，如</p>
 <p><strong>main.c文件</strong></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"hello.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    hello(<span class="string">"world"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
