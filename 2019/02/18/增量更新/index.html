@@ -1,0 +1,940 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="更新," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="现在的应用市场，很多都有省流量更新，导致是使用什么技术实现的呢？了解一番后，原来，是使用到了增量更新，而且实现的手段，其实也挺简单的。  基本流程就是这样的：用户手机上已经安装的应用，比如版本为1.0，下载新版本2.0与1.0的增量包（也可以称为差分包），然后1.0与增量包合并为新的2.0包，重新安装。 结合上面的流程，基本技术点就是生成和合并增量包：  生成增量包 合并增量包  生成bsdif">
+<meta name="keywords" content="更新">
+<meta property="og:type" content="article">
+<meta property="og:title" content="增量更新">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/增量更新/index.html">
+<meta property="og:site_name" content="亦袁非猿">
+<meta property="og:description" content="现在的应用市场，很多都有省流量更新，导致是使用什么技术实现的呢？了解一番后，原来，是使用到了增量更新，而且实现的手段，其实也挺简单的。  基本流程就是这样的：用户手机上已经安装的应用，比如版本为1.0，下载新版本2.0与1.0的增量包（也可以称为差分包），然后1.0与增量包合并为新的2.0包，重新安装。 结合上面的流程，基本技术点就是生成和合并增量包：  生成增量包 合并增量包  生成bsdif">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://guidongyuan.cn/images/Screenrecorder-20181224.gif">
+<meta property="og:updated_time" content="2019-02-17T23:54:22.578Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="增量更新">
+<meta name="twitter:description" content="现在的应用市场，很多都有省流量更新，导致是使用什么技术实现的呢？了解一番后，原来，是使用到了增量更新，而且实现的手段，其实也挺简单的。  基本流程就是这样的：用户手机上已经安装的应用，比如版本为1.0，下载新版本2.0与1.0的增量包（也可以称为差分包），然后1.0与增量包合并为新的2.0包，重新安装。 结合上面的流程，基本技术点就是生成和合并增量包：  生成增量包 合并增量包  生成bsdif">
+<meta name="twitter:image" content="http://guidongyuan.cn/images/Screenrecorder-20181224.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'OF78IO15IZ',
+      apiKey: '75e8a500a6a0237315a8a25669328dbf',
+      indexName: 'First Index',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/增量更新/"/>
+
+
+
+
+
+  <title>增量更新 | 亦袁非猿</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亦袁非猿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/增量更新/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亦袁非猿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亦袁非猿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                增量更新
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T07:36:00+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/18/增量更新/" class="leancloud_visitors" data-flag-title="增量更新">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>现在的应用市场，很多都有省流量更新，导致是使用什么技术实现的呢？了解一番后，原来，是使用到了增量更新，而且实现的手段，其实也挺简单的。</p>
+</blockquote>
+<p>基本流程就是这样的：用户手机上已经安装的应用，比如版本为1.0，下载新版本2.0与1.0的增量包（也可以称为差分包），然后1.0与增量包合并为新的2.0包，重新安装。</p>
+<p>结合上面的流程，基本技术点就是生成和合并增量包：</p>
+<ol>
+<li><strong>生成增量包</strong></li>
+<li><strong>合并增量包</strong></li>
+</ol>
+<h2 id="生成bsdiff和bspatch可执行文件"><a href="#生成bsdiff和bspatch可执行文件" class="headerlink" title="生成bsdiff和bspatch可执行文件"></a>生成bsdiff和bspatch可执行文件</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>增量包的生成，目前已经有很多开源库了，可以直接使用bsdiff，进去<a href="http://www.daemonology.net/bsdiff/" target="_blank" rel="noopener">bsdiff下载页面</a>，点击<code>here</code>就可以下载并解压。可以看到有以下文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  bsdiff-4.3 ls</span><br><span class="line">Makefile  bsdiff.1  bsdiff.c  bspatch.1 bspatch.c</span><br></pre></td></tr></table></figure>
+<p><strong>bsdiff：</strong>比较两个文件的二进制数据，生成差分包。一般会在你的存储服务器当中执行，接下来以Mac系统环境下演示</p>
+<p><strong>bspatch：</strong>合并旧的文件与差分包，生成新文件。一般在Android环境中执行，也就是会集成到Android项目中。</p>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 执行make命令</span><br><span class="line">➜  bsdiff-4.3 make</span><br><span class="line">Makefile:13: *** missing separator.  Stop.</span><br></pre></td></tr></table></figure>
+<p>出现错误提示的原因是：在makefile中，命令行要以<strong>tab键开头</strong>，所以我们要对MakeFile进行编辑</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 原来的代码</span></span><br><span class="line"><span class="section">install:</span></span><br><span class="line">	$&#123;INSTALL_PROGRAM&#125; bsdiff bspatch $&#123;PREFIX&#125;/bin</span><br><span class="line">.<span class="keyword">ifndef</span> WITHOUT_MAN</span><br><span class="line">	$&#123;INSTALL_MAN&#125; bsdiff.1 bspatch.1 $&#123;PREFIX&#125;/man/man1</span><br><span class="line">.<span class="keyword">endif</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加tab开头后的代码</span></span><br><span class="line"><span class="section">install:</span></span><br><span class="line">	$&#123;INSTALL_PROGRAM&#125; bsdiff bspatch $&#123;PREFIX&#125;/bin</span><br><span class="line">	.<span class="keyword">ifndef</span> WITHOUT_MAN</span><br><span class="line">	$&#123;INSTALL_MAN&#125; bsdiff.1 bspatch.1 $&#123;PREFIX&#125;/man/man1</span><br><span class="line">	.<span class="keyword">endif</span></span><br></pre></td></tr></table></figure>
+<p>修改完成后，重新执行make命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  bsdiff-4.3 make</span><br><span class="line">cc -O3 -lbz2    bsdiff.c   -o bsdiff</span><br><span class="line">cc -O3 -lbz2    bspatch.c   -o bspatch</span><br><span class="line">bspatch.c:39:21: error: unknown type name 'u_char'; did you mean 'char'?</span><br><span class="line">static off_t offtin(u_char *buf)</span><br><span class="line">                    ^~~~~~</span><br><span class="line">                    char</span><br></pre></td></tr></table></figure>
+<p>成功生成了bsdiff可执行文件，但是在生成bspathc的时候，却出现错误提示，原因是：找不到u_char的声明，所以需要引入<code>#include &lt;sys/types.h&gt;</code>到<code>bspatch.c</code>文件中，再次执行make。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  bsdiff-4.3 make</span><br><span class="line">cc -O3 -lbz2    bspatch.c   -o bspatch</span><br><span class="line">➜  bsdiff-4.3 ls</span><br><span class="line">Makefile  bsdiff    bsdiff.1  bsdiff.c  bspatch   bspatch.1 bspatch.c</span><br></pre></td></tr></table></figure>
+<p>可以发现多出了<code>bsdiff</code>和<code>bspatch</code>文件</p>
+<h2 id="合并增量文件"><a href="#合并增量文件" class="headerlink" title="合并增量文件"></a>合并增量文件</h2><p>生成差分包的步骤，就先放在后面，先介绍怎样在项目中实现合并增量包，然后再编译不同的包进行增量更新。</p>
+<h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><p>创建NDK项目，最简单的就是在创建时，勾选Include C++ Support，拷贝<code>bspatch.c</code>到<code>src/main/cpp</code>文件中，修改CMakeList.txt文件。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_library</span>( native-lib</span><br><span class="line">             SHARED</span><br><span class="line">             src/main/cpp/native-lib.cpp</span><br><span class="line">             <span class="comment"># 新增</span></span><br><span class="line">             src/main/cpp/bspatch.c)</span><br></pre></td></tr></table></figure>
+<p>尝试编译运行，提示出错如下，找不到<code>bzlib.h</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fatal error: 'bzlib.h' file not found</span><br><span class="line"><span class="meta">#</span>include &lt;bzlib.h&gt;</span><br><span class="line">         ^~~~~~~~~</span><br></pre></td></tr></table></figure>
+<p>因为bspathc依赖于bzip2（zip压缩库），所以需要导入bzip2库文件，<a href="https://nchc.dl.sourceforge.net/project/gnuwin32/bzip2/1.0.5/bzip2-1.0.5-src.zip" target="_blank" rel="noopener">bizp2下载地址</a>，直接解压，然后在cpp文件下创建bzip文件（文件名可以随便取），把其中的<code>.c</code>和<code>.h</code>文件拷贝进去。</p>
+<p>如果不想全部拷贝进去，可以分析MakeFile文件，生成bzip2的库，需要下列这些文件，只需要对应找其中的<code>.c</code>文件，执行编译就通过错误提示不断导入需要的文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">OBJS= blocksort.o  \</span><br><span class="line">      huffman.o    \</span><br><span class="line">      crctable.o   \</span><br><span class="line">      randtable.o  \</span><br><span class="line">      compress.o   \</span><br><span class="line">      decompress.o \</span><br><span class="line">      bzlib.o</span><br></pre></td></tr></table></figure>
+<p>并且需要修改CMakeList.txt文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 新增</span><br><span class="line">file(GLOB bzip_source src/main/cpp/bzip/*.c)</span><br><span class="line"></span><br><span class="line">add_library( native-lib</span><br><span class="line">             SHARED</span><br><span class="line">             src/main/cpp/native-lib.cpp</span><br><span class="line">             src/main/cpp/bspatch.c</span><br><span class="line">             # 新增</span><br><span class="line">             $&#123;bzip_source&#125;)</span><br></pre></td></tr></table></figure>
+<p>导入<code>bzlib.h</code>文件后，编译运行仍然出现如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fatal error: 'bzlib.h' file not found</span><br><span class="line"><span class="meta">#</span>include &lt;bzlib.h&gt;</span><br><span class="line">         ^~~~~~~~~</span><br></pre></td></tr></table></figure>
+<p>再修改CMakeList.txt文件，不断添加文件直到编译成功不报错</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">include_directories</span>(src/main/cpp/bzip)</span><br></pre></td></tr></table></figure>
+<h4 id="编写native方法"><a href="#编写native方法" class="headerlink" title="编写native方法"></a>编写native方法</h4><p>导入bzlib库成功后，新建一个native方法，用于执行合并拆分包</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 合并差分包</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> oldApk 当前项目路径</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> newApk 差分包路径</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> patchFile 合并后新包路径</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">native_bspatch</span><span class="params">(String oldApk,String newApk,String patchFile)</span></span>;</span><br></pre></td></tr></table></figure>
+<p><strong>修改native-lib.cpp文件</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;jni.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行合并差分包，实际上就是bspatch.c中的main()方法</span></span><br><span class="line"><span class="comment">// 由于native-lib.cpp为c++，bspatch.c为c，所以需要使用extern</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> * argv[])</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span></span><br><span class="line">JNIEXPORT <span class="keyword">void</span> JNICALL</span><br><span class="line">Java_cn_guidongyuan_studypatch_MainActivity_native_1bspatch(JNIEnv *env, jobject instance,</span><br><span class="line">                                                            jstring oldApk_, jstring newApk_,</span><br><span class="line">                                                            jstring patchFile_) &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *oldApk = env-&gt;GetStringUTFChars(oldApk_, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *newApk = env-&gt;GetStringUTFChars(newApk_, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *pathFile = env-&gt;GetStringUTFChars(patchFile_, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> * argv[<span class="number">4</span>] = &#123;<span class="string">""</span>, <span class="keyword">const_cast</span>&lt;<span class="keyword">char</span> *&gt;(oldApk), <span class="keyword">const_cast</span>&lt;<span class="keyword">char</span> *&gt;(newApk),</span><br><span class="line">                      <span class="keyword">const_cast</span>&lt;<span class="keyword">char</span> *&gt;(pathFile)&#125;;</span><br><span class="line"></span><br><span class="line">    main(<span class="number">4</span>, argv);</span><br><span class="line"></span><br><span class="line">    env-&gt;ReleaseStringUTFChars(oldApk_, oldApk);</span><br><span class="line">    env-&gt;ReleaseStringUTFChars(newApk_, newApk);</span><br><span class="line">    env-&gt;ReleaseStringUTFChars(patchFile_, pathFile);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在MainActivity中，点击按钮，执行更新</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 模拟下载，合并应用包，跳转安装</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">downLoadApkPatch</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">new</span> AsyncTask&lt;Void,Void,File&gt;() &#123;</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> File <span class="title">doInBackground</span><span class="params">(Void... voids)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 此处模拟用户去服务器下载增量包，实际项目中，一般会通过发送当前用户的版本号向服务器请求差分包，并且服务器会返回合成新包后的md5值作为验证，此处就省略</span></span><br><span class="line">			<span class="comment">// 获取当前应用的路径</span></span><br><span class="line">			String oldPath = getApplication().getApplicationInfo().sourceDir;</span><br><span class="line">			String newPath = Environment.getExternalStorageDirectory().getPath() + File.separator + <span class="string">"new.apk"</span>;</span><br><span class="line">			String patchPath = Environment.getExternalStorageDirectory().getPath() + File.separator + <span class="string">"patch.diff"</span>;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> (<span class="keyword">new</span> File(patchPath).exists()) &#123;</span><br><span class="line">				native_bspatch(oldPath,newPath,patchPath);</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">new</span> File(newPath);</span><br><span class="line">			&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">				Log.w(TAG, <span class="string">"patch file is not exists"</span>);</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onPostExecute</span><span class="params">(File file)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (file != <span class="keyword">null</span>) &#123;</span><br><span class="line">				installNewApk(file);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;.execute();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>差分包下载后就需要执行安装，不同版本的执行流程不一样需要额外处理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 跳转到安装页面</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> file 新包路径</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">installNewApk</span><span class="params">(File file)</span> </span>&#123;</span><br><span class="line">	Intent intent = <span class="keyword">new</span> Intent(Intent.ACTION_VIEW);</span><br><span class="line">	<span class="keyword">if</span> (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.N) &#123;</span><br><span class="line">		intent.setDataAndType(Uri.fromFile(file), <span class="string">"application/vnd.android.package-archive"</span>);</span><br><span class="line">		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);</span><br><span class="line">	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">// 声明需要的临时权限</span></span><br><span class="line">		intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);</span><br><span class="line">		String packageName = getApplication().getPackageName();</span><br><span class="line">		Uri contentUri = FileProvider.getUriForFile(MainActivity.<span class="keyword">this</span>, packageName + <span class="string">".fileProvider"</span>, file);</span><br><span class="line">		intent.setDataAndType(contentUri, <span class="string">"application/vnd.android.package-archive"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	startActivity(intent);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另外，还要需要修改AndroidManifest.xml，开启必要的权限</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 读写SDCard权限</span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.WRITE_EXTERNAL_STORAGE"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">// 7.0 执行安装声明</span><br><span class="line"><span class="tag">&lt;<span class="name">provider</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:name</span>=<span class="string">"android.support.v4.content.FileProvider"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:authorities</span>=<span class="string">"cn.guidongyuan.studypatch.fileprovider"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:exported</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:grantUriPermissions</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">		<span class="attr">android:name</span>=<span class="string">"android.support.FILE_PROVIDER_PATHS"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:resource</span>=<span class="string">"@xml/file_paths"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">provider</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>创建xml目录下的文件<code>file_paths.xml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">paths</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">external-path</span> <span class="attr">name</span>=<span class="string">"bspatch"</span> <span class="attr">path</span>=<span class="string">""</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">paths</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="生成增量包"><a href="#生成增量包" class="headerlink" title="生成增量包"></a>生成增量包</h2><p>编译以上项目，生成old.apk，修改版本号为2.0，再次编译生成new.apk。都拷贝到与bsdiff同一个目录下，执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> ./bsdiff 旧版本apk 新版本apk 差分包(文件名和格式可以随便取)</span><br><span class="line">➜  bsdiff-4.3 ./bsdiff old.apk new.apk patch.diff</span><br></pre></td></tr></table></figure>
+<p>拷贝patch.diff到手机根目录中，执行旧项目代码，就可以看到跳转到应用安装界面</p>
+<p><img src="http://guidongyuan.cn/images/Screenrecorder-20181224.gif" alt=""></p>
+<h3 id="完整项目"><a href="#完整项目" class="headerlink" title="完整项目"></a>完整项目</h3><p>完整项目demo代码，可以自行到<a href="https://github.com/guidongyuan/StudyPatch" target="_blank" rel="noopener">github</a>看</p>
+<h3 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h3><ul>
+<li><p>编译的时候，出现错误提示如下，应该是提示链接库失败</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Build command failed.</span><br><span class="line">Error while executing process ‘...省略忘记先复制完整错误信息了....bzip2.c.o', missing and no known rule to make it</span><br></pre></td></tr></table></figure>
+<p><strong>修改方法：</strong>Build -&gt; Refresh Linked C++ Projects</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/45219049/android-studio-cmake-error-build-command-failed" target="_blank" rel="noopener">参考stack overflow</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><p><a href="https://blog.csdn.net/lmj623565791/article/details/52761658" target="_blank" rel="noopener">Android 增量更新完全解析 是增量不是热修复</a></p>
+<blockquote>
+<p>鸿洋的文章</p>
+</blockquote>
+</li>
+<li><p><a href="https://www.jianshu.com/p/470359cbfb78" target="_blank" rel="noopener">解决Android7.0 更新安装包时不能自动安装问题</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/cfy137000/article/details/70257912" target="_blank" rel="noopener">Android7.0下载Apk自动安装</a></p>
+<blockquote>
+<p>介绍通过DownloadManager下载文件，还介绍了root模式下自动安装</p>
+</blockquote>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+    	<div>
+    		<img style="display: block; margin: 0 auto;" src="/images/wetchat.png" alt="" />
+			<h3 style="text-align:center;">公众号：亦袁非猿</h3>
+			<h3 style="text-align:center;">欢迎关注，交流学习</h3>
+		</div>
+        
+    
+</div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/更新/" rel="tag"># 更新</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/17/2018年总结/" rel="next" title="2018年总结">
+                <i class="fa fa-chevron-left"></i> 2018年总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQzOC82MDA2"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg"
+               alt="亦袁非猿" />
+          <p class="site-author-name" itemprop="name">亦袁非猿</p>
+           
+              <p class="site-description motion-element" itemprop="description">while(写出来){  <br>
+  理解力++; <br>
+  表达力++; }
+</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#生成bsdiff和bspatch可执行文件"><span class="nav-number">1.</span> <span class="nav-text">生成bsdiff和bspatch可执行文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载"><span class="nav-number">1.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译"><span class="nav-number">1.2.</span> <span class="nav-text">编译</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合并增量文件"><span class="nav-number">2.</span> <span class="nav-text">合并增量文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目"><span class="nav-number">2.1.</span> <span class="nav-text">创建项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编写native方法"><span class="nav-number">2.1.1.</span> <span class="nav-text">编写native方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成增量包"><span class="nav-number">3.</span> <span class="nav-text">生成增量包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#完整项目"><span class="nav-number">3.1.</span> <span class="nav-text">完整项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误"><span class="nav-number">3.2.</span> <span class="nav-text">错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">3.3.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亦袁非猿</span>
+</div>
+
+
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("Ivcwx7f8x7ghc8SWU0YMuIFI-gzGzoHsz", "mQEm0lIov3tBcrPByox6zHc0");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
