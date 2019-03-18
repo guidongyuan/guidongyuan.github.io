@@ -1,1 +1,937 @@
-<!doctype html><html class="theme-next mist use-motion" lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css"><meta name="keywords" content="NDK,ffmpeg,"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1"><meta name="description" content="介绍通过mac os系统编译给Android平台上可以使用的ffmpeg静态库。"><meta name="keywords" content="NDK,ffmpeg"><meta property="og:type" content="article"><meta property="og:title" content="Mac上交叉编译ffmpeg For Android"><meta property="og:url" content="http://yoursite.com/2018/09/08/Mac上交叉编译ffmpeg For Android/index.html"><meta property="og:site_name" content="亦袁非猿"><meta property="og:description" content="介绍通过mac os系统编译给Android平台上可以使用的ffmpeg静态库。"><meta property="og:locale" content="zh-Hans"><meta property="og:image" content="http://guidongyuan.cn/images/image-20180908141513801.png"><meta property="og:image" content="http://guidongyuan.cn/images/image-20180908172034663.png"><meta property="og:image" content="http://guidongyuan.cn/images/image-20180908172105796.png"><meta property="og:updated_time" content="2018-11-18T11:01:16.879Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Mac上交叉编译ffmpeg For Android"><meta name="twitter:description" content="介绍通过mac os系统编译给Android平台上可以使用的ffmpeg静态库。"><meta name="twitter:image" content="http://guidongyuan.cn/images/image-20180908141513801.png"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Mist",sidebar:{position:"left",display:"post",offset:12,offset_float:0,b2t:!1,scrollpercent:!1},fancybox:!0,motion:!0,duoshuo:{userId:"0",author:"博主"},algolia:{applicationID:"OF78IO15IZ",apiKey:"75e8a500a6a0237315a8a25669328dbf",indexName:"First Index",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="http://yoursite.com/2018/09/08/Mac上交叉编译ffmpeg For Android/"><title>Mac上交叉编译ffmpeg For Android | 亦袁非猿</title></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">亦袁非猿</span><span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle"></p></div><div class="site-nav-toggle"> <button><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br> 首页</a></li><li class="menu-item menu-item-categories"><a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br> 分类</a></li><li class="menu-item menu-item-tags"><a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br> 标签</a></li><li class="menu-item menu-item-archives"><a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br> 时间轴</a></li></ul></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/08/Mac上交叉编译ffmpeg For Android/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="亦袁非猿"><meta itemprop="description" content=""><meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="亦袁非猿"></span><header class="post-header"><h1 class="post-title" itemprop="name headline"> Mac上交叉编译ffmpeg For Android</h1><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-08T13:55:23+08:00">2018-09-08</time></span> <span id="/2018/09/08/Mac上交叉编译ffmpeg For Android/" class="leancloud_visitors" data-flag-title="Mac上交叉编译ffmpeg For Android"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span> <span class="post-meta-item-text">阅读次数</span><span class="leancloud-visitors-count"></span></span></div></header><div class="post-body" itemprop="articleBody"><blockquote><p>介绍通过mac os系统编译给Android平台上可以使用的ffmpeg静态库。</p></blockquote><a id="more"></a><p>[TOC]</p><h2 id="shell脚本"><a href="#shell脚本" class="headerlink" title="shell脚本"></a>shell脚本</h2><p>编译ffmpeg的时候，需要在命令行上，配置编译的路径以及设置不同的属性值，如果一个个命令行输入的话，很容易出错，出错的时候修改后所有命令重新输出也麻烦，所以，一般都是写在shell脚本中进行批处理的。</p><p>mac os系统默认的shell为<code>bash</code>，我个人使用为shell的终极神器–<code>zsh</code>，具体优点不详细介绍。可以通过命令查看当前平台上的shell解析器</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  cat /etc/shells</span><br><span class="line">/bin/bash</span><br><span class="line">/bin/csh</span><br><span class="line">/bin/ksh</span><br><span class="line">/bin/sh</span><br><span class="line">/bin/tcsh</span><br><span class="line">/bin/zsh</span><br></pre></td></tr></table></figure><ul><li><p><a href="https://www.baidu.com/link?url=_FCvU1aYgdp0IbfXQruOXOcDAcIaOf98mRVe9WsaKGyKlb6RbI-Y1j7gZSLGGbHfqiVAw7O4eYi0VWeLsc49ma&amp;wd=&amp;eqid=fa8a77810003bab1000000065b936690" target="_blank" rel="noopener"><em>Shell</em> 教程 | 菜鸟教程</a></p><blockquote><p>shell脚本的编写，可以参考上面的教程，快速看一下大概，接下来用到再详细去查就好了</p></blockquote></li></ul><h2 id="下载ffmpeg源码"><a href="#下载ffmpeg源码" class="headerlink" title="下载ffmpeg源码"></a>下载ffmpeg源码</h2><ul><li><p>直接在<a href="http://ffmpeg.org/" target="_blank" rel="noopener">ffmpage官网</a>，点击download，直接下载最新的release包。</p><p><img src="http://guidongyuan.cn/images/image-20180908141513801.png" alt=""></p></li><li><p>解压<code>.tar.bz2</code>文件</p><p>以前用mac的解压工具出现文件损坏，这里直接采用命令行解压</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  tar xvf ffmpeg-4.0.2.tar.bz2</span><br></pre></td></tr></table></figure></li></ul><h2 id="编写shell脚本"><a href="#编写shell脚本" class="headerlink" title="编写shell脚本"></a>编写shell脚本</h2><ul><li><p>进入解压后的文件路径</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  cd ffmpeg-4.0.2</span><br></pre></td></tr></table></figure></li><li><p>查看帮助信息</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ffmpeg-4.0.2 ./configure --help</span><br></pre></td></tr></table></figure><p><a href="http://blog.chinaunix.net/uid-24868917-id-120539.html" target="_blank" rel="noopener">ffmpeg 的编译选项翻译</a></p><blockquote><p>输出的编译配置属性，可以参考该链接的大概介绍，或者直接看英文也能知道个大概。</p></blockquote></li><li><p>编写shell脚本内容</p><p>接下来会再详细介绍shell脚本内容，也可以参考上面的<a href="http://blog.chinaunix.net/uid-24868917-id-120539.html" target="_blank" rel="noopener">ffmpeg 的编译选项翻译</a>设置不同的参数</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">./configure \</span><br><span class="line">--prefix=./androidLibs/armeabi-v7 \</span><br><span class="line">--enable-small \</span><br><span class="line">--disable-programs \</span><br><span class="line">--disable-avdevice \</span><br><span class="line">--disable-encoders \</span><br><span class="line">--disable-muxers \</span><br><span class="line">--disable-filters \</span><br><span class="line">--enable-cross-compile \</span><br><span class="line">--cross-prefix=/Users/guidongyuan/Library/Android/sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi- \</span><br><span class="line">--disable-shared \</span><br><span class="line">--enable-static \</span><br><span class="line">--sysroot=/Users/guidongyuan/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm \</span><br><span class="line">--extra-cflags="-isystem /Users/guidongyuan/Library/Android/sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -mthumb -Wa,--noexecstack -Wformat -Werror=format-security -std=c++11  -O0 -fPIC" \</span><br><span class="line">--extra-cflags="-isysroot /Users/guidongyuan/Library/Android/sdk/ndk-bundle/sysroot" \</span><br><span class="line">--arch=arm \</span><br><span class="line">--target-os=android</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 不建议直接把make写在sh文件中</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> make clean</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> make install</span></span><br></pre></td></tr></table></figure></li><li><p>执行shell脚本</p><p>检查环境是否正常没有错误</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ffmpeg-4.0.2 ./buildffmpeg.sh</span><br></pre></td></tr></table></figure><p>如果提示权限错误，修改权限重新执行</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 出现权限错误</span></span><br><span class="line">➜  ffmpeg-4.0.2 ./buildffmpeg.sh</span><br><span class="line">zsh: permission denied: ./test.sh</span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改属性为可执行</span></span><br><span class="line">➜  studyshell chmod +x test.sh</span><br></pre></td></tr></table></figure><p>输出结果，如果输出各种环境信息，且提示一个WARNING，不用管它，可以继续执行</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">➜  ffmpeg-4.0.2 ./buildffmpeg.sh</span><br><span class="line">install prefix            ./androidLibs/armeabi-v7</span><br><span class="line">source path               .</span><br><span class="line">C compiler                /Users/guidongyuan/Library/Android/sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-gcc</span><br><span class="line">C library                 bionic</span><br><span class="line">host C compiler           gcc</span><br><span class="line">host C library</span><br><span class="line">ARCH                      arm (armv7-a)</span><br><span class="line">......省略</span><br></pre></td></tr></table></figure></li><li><p>执行make命令</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  ffmpeg-4.0.2 make clean</span><br><span class="line">➜  ffmpeg-4.0.2 make install</span><br><span class="line">......省略</span><br><span class="line">INSTALL	libavutil/avconfig.h</span><br><span class="line">INSTALL	libavutil/ffversion.h</span><br><span class="line">GEN	libavutil/libavutil.pc</span><br><span class="line">INSTALL	libavutil/libavutil.pc</span><br><span class="line"><span class="meta">#</span><span class="bash"> 最后如果没有提示错误，则表示编译成功</span></span><br></pre></td></tr></table></figure></li><li><p>查看输出结果</p><p>可以看到，根据配置输出对应的<code>.a</code>静态库文件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">➜  androidLibs tree armeabi-v7 -L 2</span><br><span class="line">armeabi-v7</span><br><span class="line">├── include</span><br><span class="line">│   ├── libavcodec</span><br><span class="line">│   ├── libavfilter</span><br><span class="line">│   ├── libavformat</span><br><span class="line">│   ├── libavutil</span><br><span class="line">│   ├── libswresample</span><br><span class="line">│   └── libswscale</span><br><span class="line">├── lib</span><br><span class="line">│   ├── libavcodec.a</span><br><span class="line">│   ├── libavfilter.a</span><br><span class="line">│   ├── libavformat.a</span><br><span class="line">│   ├── libavutil.a</span><br><span class="line">│   ├── libswresample.a</span><br><span class="line">│   ├── libswscale.a</span><br><span class="line">│   └── pkgconfig</span><br><span class="line">└── share</span><br><span class="line">    └── ffmpeg</span><br><span class="line"></span><br><span class="line">11 directories, 6 files</span><br></pre></td></tr></table></figure></li></ul><ul><li><p>如果需要动态库，可以通过把静态库编译为动态库</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc -shared -o 动态库名称.so -Wl,--whole-archive 静态库名称.a -Wl,--no-whole-archive</span><br><span class="line"><span class="meta">#</span><span class="bash"> --whole-archive: 将未使用的静态库符号(函数实现)也链接进动态库</span></span><br><span class="line"><span class="meta">#</span><span class="bash">--no-whole-archive : 默认，未使用不链接进入动态库</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 实例</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 因为是编译给Android使用的，所以，必须使用交叉编译，不能直接用gcc编译</span></span><br><span class="line">➜  /Users/guidongyuan/Library/Android/sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-gcc --sysroot=/Users/guidongyuan/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm --shared -o libFFmpeg.so -Wl,--whole-archive libavcodec.a libavfilter.a    libavformat.a    libavutil.a      libswresample.a  libswscale.a -Wl,--no-whole-archive</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看生成的文件，编译成功</span></span><br><span class="line">➜  ls</span><br><span class="line">libFFmpeg.so    libavfilter.a   libavutil.a     libswscale.a</span><br><span class="line">libavcodec.a    libavformat.a   libswresample.a pkgconfig</span><br><span class="line">➜  file libFFmpeg.so</span><br><span class="line">libFFmpeg.so: ELF 32-bit LSB shared object, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /system/bin/linker, with debug_info, not stripped</span><br></pre></td></tr></table></figure></li><li><p>把编译好的库移动到Android项目中就可以使用了</p><p>如果把动态库导入到项目中直接使用不再修改的话，那么移动后在项目添加<code>System.loadLibrary();</code>就可以了；如果还需要进行NDK开发的话，就要了解一下CMake的相对知识了，接下来的文章再进行介绍。</p></li></ul><h3 id="shell脚本内容"><a href="#shell脚本内容" class="headerlink" title="shell脚本内容"></a>shell脚本内容</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="comment">#! 告诉系统其后路径所指定的程序即是解释此脚本文件的 Shell 程序</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行configure，后面的为其参数</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> \为换行符</span></span><br><span class="line">./configure \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置生成出来的路径目录，不写则用默认值[/usr/<span class="built_in">local</span>]</span></span><br><span class="line">--prefix=./androidLibs/armeabi-v7 \</span><br><span class="line">--enable-small \</span><br><span class="line">--disable-programs \</span><br><span class="line">--disable-avdevice \</span><br><span class="line">--disable-encoders \</span><br><span class="line">--disable-muxers \</span><br><span class="line">--disable-filters \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用了交叉编译</span></span><br><span class="line">--enable-cross-compile \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 为编译工具指定路径，交叉编译，使用arm架构</span></span><br><span class="line">--cross-prefix=/Users/guidongyuan/Library/Android/sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi- \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 关闭输出动态库</span></span><br><span class="line">--disable-shared \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置为输出静态库</span></span><br><span class="line">--enable-static \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定编译的头文件与库文件的查找目录</span></span><br><span class="line">--sysroot=/Users/guidongyuan/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 传递gcc编译的参数(包括查找头文件路径)，该属性可以在Android Stuido中获取</span></span><br><span class="line">--extra-cflags="-U_FILE_OFFSET_BITS -isystem /Users/guidongyuan/Library/Android/sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -mthumb -Wa,--noexecstack -Wformat -Werror=format-security -std=c++11  -O0 -fPIC" \</span><br><span class="line">--extra-cflags="-isysroot /Users/guidongyuan/Library/Android/sdk/ndk-bundle/sysroot" \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 选择机器架构</span></span><br><span class="line">--arch=arm \</span><br><span class="line">--target-os=android</span><br></pre></td></tr></table></figure><p><strong>–extra-cflags</strong></p><p>该值可以在Android Studio的支持NDK项目中复制，创建NDK项目可以参考<a href="http://guidongyuan.cn/2018/08/28/NDK(%E4%B8%80" target="_blank" rel="noopener">NDK(一)：编写第一个JNI项目</a>%EF%BC%9A%E7%BC%96%E5%86%99%E7%AC%AC%E4%B8%80%E4%B8%AAJNI%E9%A1%B9%E7%9B%AE/)，具体路径为</p><p><img src="http://guidongyuan.cn/images/image-20180908172034663.png" alt="image-20180908172034663"></p><p> <img src="http://guidongyuan.cn/images/image-20180908172105796.png" alt="image-20180908172105796"></p><p><strong>注意：</strong><code>FLAGS</code>属性值的其中的<code>-std=c++11</code>和<code>-fno-limit-debug-info</code>在编译的运行上面的<code>.sh</code>文件时提示异常和错误，于是选择把其去掉了。</p><h2 id="错误解决"><a href="#错误解决" class="headerlink" title="错误解决"></a>错误解决</h2><ul><li><p>查找错误</p><p>编译的时候，不太可能一次性就成功编译，或多或少会出现异常，就需要查log了，比如：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 错误输出</span></span><br><span class="line">/Users/guidongyuan/Library/Android/sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-gcc is unable to create an executable file.</span><br><span class="line">C compiler test failed.</span><br><span class="line"></span><br><span class="line">Include the log file "ffbuild/config.log" produced by configure as this will help</span><br><span class="line">solve the problem.</span><br></pre></td></tr></table></figure><p>出现错误，可以查看config.log的具体内容</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arm-linux-androideabi-gcc: error: unrecognized command line option '-fno-limit-debug-info'</span><br><span class="line">C compiler test failed.</span><br></pre></td></tr></table></figure><p>可以看到找不到<code>-fno-limit-debug-info</code>命令，原来是我上面设置<code>--extra-cflags</code>属性值在Android Studio复制多了，去掉重新编译就成功了。</p></li><li><p>修改minSdkVersion版本</p><p>把上面编译好的库放到Android Studio中，运行的时候无法通过，错误为</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  libavformat/hls.c:834: error: undefined reference to &apos;atof&apos;</span><br><span class="line">libavformat/hlsproto.c:141: error: undefined reference to &apos;atof&apos;</span><br><span class="line">libavcodec/v4l2_buffers.c:439: error: undefined reference to &apos;mmap64&apos;</span><br><span class="line">clang++: error: linker command failed with exit code 1 (use -v to see invocation)</span><br></pre></td></tr></table></figure><p>出现该错误的原因，是因为上面shell脚本中，指定编译的头文件与库文件的查找目录都是<strong>21</strong>，这样编译出来的依赖库只能用在<code>minSdkVersion 21</code>的项目中，而我的项目最低是兼容到16，那就要重新修改了<strong>16</strong>。</p><p>修改好再次编译，提示该错误</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  libavcodec/v4l2_buffers.c:434:44: error: call to &apos;mmap&apos; declared with attribute error: mmap is not available with _FILE_OFFSET_BITS=64 when using GCC until android-21. Either raise your minSdkVersion, disable _FILE_OFFSET_BITS=64, or switch to Clang.</span><br><span class="line">             avbuf-&gt;plane_info[i].mm_addr = mmap(NULL, avbuf-&gt;buf.m.planes[i].length,</span><br><span class="line">                                            ^</span><br><span class="line">make: *** [libavcodec/v4l2_buffers.o] Error 1</span><br></pre></td></tr></table></figure></li></ul><p> 要不就切换为Clang，要不就disable _FILE_OFFSET_BITS，只能选择后者，在<code>--extra-cflags</code>添加取消宏定义即可。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--extra-cflags="-U_FILE_OFFSET_BITS ......省略“</span><br></pre></td></tr></table></figure></div><div></div><div></div><div></div><div><div><div> <img style="display:block;margin:0 auto" src="/images/wetchat.png" alt=""><h3 style="text-align:center">公众号：亦袁非猿</h3><h3 style="text-align:center">欢迎关注，交流学习</h3></div></div></div><footer class="post-footer"><div class="post-tags"> <a href="/tags/NDK/" rel="tag"># NDK</a> <a href="/tags/ffmpeg/" rel="tag"># ffmpeg</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2018/08/28/NDK(一)：编写第一个JNI项目/" rel="next" title="NDK(一)：编写第一个JNI项目"><i class="fa fa-chevron-left"></i> NDK(一)：编写第一个JNI项目</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"> <a href="/2018/09/15/NDK(二)：JNI与Java回调以及静动态注册/" rel="prev" title="NDK(二)：JNI与Java回调以及静动态注册">NDK(二)：JNI与Java回调以及静动态注册<i class="fa fa-chevron-right"></i></a></div></div></footer></article><div class="post-spread"></div></div></div><div class="comments" id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQzOC82MDA2"></div></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview"> 站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg" alt="亦袁非猿"><p class="site-author-name" itemprop="name">亦袁非猿</p><p class="site-description motion-element" itemprop="description">while(写出来){<br> 理解力++;<br> 表达力++; }</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/archives"><span class="site-state-item-count">51</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"> <a href="/categories/index.html"><span class="site-state-item-count">7</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"> <a href="/tags/index.html"><span class="site-state-item-count">29</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="links-of-author motion-element"></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#shell脚本"><span class="nav-number">1.</span> <span class="nav-text">shell脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载ffmpeg源码"><span class="nav-number">2.</span> <span class="nav-text">下载ffmpeg源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写shell脚本"><span class="nav-number">3.</span> <span class="nav-text">编写shell脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#shell脚本内容"><span class="nav-number">3.1.</span> <span class="nav-text">shell脚本内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误解决"><span class="nav-number">4.</span> <span class="nav-text">错误解决</span></a></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright"> &copy; <span itemprop="copyrightYear">2019</span><span class="with-love"><i class="fa fa-heart"></i></span> <span class="author" itemprop="copyrightHolder">亦袁非猿</span></div><p>Hosted by <a href="https://pages.coding.me" style="font-weight:700">Coding Pages</a></p></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script><script type="text/javascript">!function(e,t){var n,c=e.getElementsByTagName(t)[0];"function"!=typeof LivereTower&&((n=e.createElement(t)).src="https://cdn-city.livere.com/js/embed.dist.js",n.async=!0,c.parentNode.insertBefore(n,c))}(document,"script")</script><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script><script>AV.initialize("Ivcwx7f8x7ghc8SWU0YMuIFI-gzGzoHsz","mQEm0lIov3tBcrPByox6zHc0")</script><script>function showTime(e){var t=new AV.Query(e),c=[],u=$(".leancloud_visitors");u.each(function(){c.push($(this).attr("id").trim())}),t.containedIn("url",c),t.find().done(function(e){var t=".leancloud-visitors-count";if(0!==e.length){for(var n=0;n<e.length;n++){var o=e[n],i=o.get("url"),s=o.get("time"),r=document.getElementById(i);$(r).find(t).text(s)}for(n=0;n<c.length;n++){i=c[n],r=document.getElementById(i);var l=$(r).find(t);""==l.text()&&l.text(0)}}else u.find(t).text(0)}).fail(function(e,t){console.log("Error: "+t.code+" "+t.message)})}function addCount(i){var e=$(".leancloud_visitors"),s=e.attr("id").trim(),r=e.attr("data-flag-title").trim(),t=new AV.Query(i);t.equalTo("url",s),t.find({success:function(e){if(0<e.length){var t=e[0];t.fetchWhenSave(!0),t.increment("time"),t.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to save Visitor num, with error message: "+t.message)}})}else{var n=new i,o=new AV.ACL;o.setPublicReadAccess(!0),o.setPublicWriteAccess(!0),n.setACL(o),n.set("title",r),n.set("url",s),n.set("time",1),n.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to create")}})}},error:function(e){console.log("Error:"+e.code+" "+e.message)}})}$(function(){var e=AV.Object.extend("Counter");1==$(".leancloud_visitors").length?addCount(e):1<$(".post-title-link").length&&showTime(e)})</script></body></html>
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="NDK,ffmpeg," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="介绍通过mac os系统编译给Android平台上可以使用的ffmpeg静态库。">
+<meta name="keywords" content="NDK,ffmpeg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac上交叉编译ffmpeg For Android">
+<meta property="og:url" content="http://yoursite.com/2018/09/08/Mac上交叉编译ffmpeg For Android/index.html">
+<meta property="og:site_name" content="亦袁非猿">
+<meta property="og:description" content="介绍通过mac os系统编译给Android平台上可以使用的ffmpeg静态库。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180908141513801.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180908172034663.png">
+<meta property="og:image" content="http://guidongyuan.cn/images/image-20180908172105796.png">
+<meta property="og:updated_time" content="2018-11-18T11:01:16.879Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mac上交叉编译ffmpeg For Android">
+<meta name="twitter:description" content="介绍通过mac os系统编译给Android平台上可以使用的ffmpeg静态库。">
+<meta name="twitter:image" content="http://guidongyuan.cn/images/image-20180908141513801.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'OF78IO15IZ',
+      apiKey: '75e8a500a6a0237315a8a25669328dbf',
+      indexName: 'First Index',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/08/Mac上交叉编译ffmpeg For Android/"/>
+
+
+
+
+
+  <title>Mac上交叉编译ffmpeg For Android | 亦袁非猿</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亦袁非猿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/08/Mac上交叉编译ffmpeg For Android/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亦袁非猿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亦袁非猿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Mac上交叉编译ffmpeg For Android
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-08T13:55:23+08:00">
+                2018-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/08/Mac上交叉编译ffmpeg For Android/" class="leancloud_visitors" data-flag-title="Mac上交叉编译ffmpeg For Android">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>介绍通过mac os系统编译给Android平台上可以使用的ffmpeg静态库。</p>
+</blockquote>
+<a id="more"></a>
+<p>[TOC]</p>
+<h2 id="shell脚本"><a href="#shell脚本" class="headerlink" title="shell脚本"></a>shell脚本</h2><p>编译ffmpeg的时候，需要在命令行上，配置编译的路径以及设置不同的属性值，如果一个个命令行输入的话，很容易出错，出错的时候修改后所有命令重新输出也麻烦，所以，一般都是写在shell脚本中进行批处理的。</p>
+<p>mac os系统默认的shell为<code>bash</code>，我个人使用为shell的终极神器–<code>zsh</code>，具体优点不详细介绍。可以通过命令查看当前平台上的shell解析器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  cat /etc/shells</span><br><span class="line">/bin/bash</span><br><span class="line">/bin/csh</span><br><span class="line">/bin/ksh</span><br><span class="line">/bin/sh</span><br><span class="line">/bin/tcsh</span><br><span class="line">/bin/zsh</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><a href="https://www.baidu.com/link?url=_FCvU1aYgdp0IbfXQruOXOcDAcIaOf98mRVe9WsaKGyKlb6RbI-Y1j7gZSLGGbHfqiVAw7O4eYi0VWeLsc49ma&amp;wd=&amp;eqid=fa8a77810003bab1000000065b936690" target="_blank" rel="noopener"><em>Shell</em> 教程 | 菜鸟教程</a></p>
+<blockquote>
+<p>shell脚本的编写，可以参考上面的教程，快速看一下大概，接下来用到再详细去查就好了</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="下载ffmpeg源码"><a href="#下载ffmpeg源码" class="headerlink" title="下载ffmpeg源码"></a>下载ffmpeg源码</h2><ul>
+<li><p>直接在<a href="http://ffmpeg.org/" target="_blank" rel="noopener">ffmpage官网</a>，点击download，直接下载最新的release包。</p>
+<p><img src="http://guidongyuan.cn/images/image-20180908141513801.png" alt=""></p>
+</li>
+<li><p>解压<code>.tar.bz2</code>文件</p>
+<p>以前用mac的解压工具出现文件损坏，这里直接采用命令行解压</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  tar xvf ffmpeg-4.0.2.tar.bz2</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="编写shell脚本"><a href="#编写shell脚本" class="headerlink" title="编写shell脚本"></a>编写shell脚本</h2><ul>
+<li><p>进入解压后的文件路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  cd ffmpeg-4.0.2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看帮助信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ffmpeg-4.0.2 ./configure --help</span><br></pre></td></tr></table></figure>
+<p><a href="http://blog.chinaunix.net/uid-24868917-id-120539.html" target="_blank" rel="noopener">ffmpeg 的编译选项翻译</a></p>
+<blockquote>
+<p>输出的编译配置属性，可以参考该链接的大概介绍，或者直接看英文也能知道个大概。</p>
+</blockquote>
+</li>
+<li><p>编写shell脚本内容</p>
+<p>接下来会再详细介绍shell脚本内容，也可以参考上面的<a href="http://blog.chinaunix.net/uid-24868917-id-120539.html" target="_blank" rel="noopener">ffmpeg 的编译选项翻译</a>设置不同的参数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">./configure \</span><br><span class="line">--prefix=./androidLibs/armeabi-v7 \</span><br><span class="line">--enable-small \</span><br><span class="line">--disable-programs \</span><br><span class="line">--disable-avdevice \</span><br><span class="line">--disable-encoders \</span><br><span class="line">--disable-muxers \</span><br><span class="line">--disable-filters \</span><br><span class="line">--enable-cross-compile \</span><br><span class="line">--cross-prefix=/Users/guidongyuan/Library/Android/sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi- \</span><br><span class="line">--disable-shared \</span><br><span class="line">--enable-static \</span><br><span class="line">--sysroot=/Users/guidongyuan/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm \</span><br><span class="line">--extra-cflags="-isystem /Users/guidongyuan/Library/Android/sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -mthumb -Wa,--noexecstack -Wformat -Werror=format-security -std=c++11  -O0 -fPIC" \</span><br><span class="line">--extra-cflags="-isysroot /Users/guidongyuan/Library/Android/sdk/ndk-bundle/sysroot" \</span><br><span class="line">--arch=arm \</span><br><span class="line">--target-os=android</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 不建议直接把make写在sh文件中</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> make clean</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> make install</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行shell脚本</p>
+<p>检查环境是否正常没有错误</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ffmpeg-4.0.2 ./buildffmpeg.sh</span><br></pre></td></tr></table></figure>
+<p>如果提示权限错误，修改权限重新执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 出现权限错误</span></span><br><span class="line">➜  ffmpeg-4.0.2 ./buildffmpeg.sh</span><br><span class="line">zsh: permission denied: ./test.sh</span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改属性为可执行</span></span><br><span class="line">➜  studyshell chmod +x test.sh</span><br></pre></td></tr></table></figure>
+<p>输出结果，如果输出各种环境信息，且提示一个WARNING，不用管它，可以继续执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">➜  ffmpeg-4.0.2 ./buildffmpeg.sh</span><br><span class="line">install prefix            ./androidLibs/armeabi-v7</span><br><span class="line">source path               .</span><br><span class="line">C compiler                /Users/guidongyuan/Library/Android/sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-gcc</span><br><span class="line">C library                 bionic</span><br><span class="line">host C compiler           gcc</span><br><span class="line">host C library</span><br><span class="line">ARCH                      arm (armv7-a)</span><br><span class="line">......省略</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行make命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  ffmpeg-4.0.2 make clean</span><br><span class="line">➜  ffmpeg-4.0.2 make install</span><br><span class="line">......省略</span><br><span class="line">INSTALL	libavutil/avconfig.h</span><br><span class="line">INSTALL	libavutil/ffversion.h</span><br><span class="line">GEN	libavutil/libavutil.pc</span><br><span class="line">INSTALL	libavutil/libavutil.pc</span><br><span class="line"><span class="meta">#</span><span class="bash"> 最后如果没有提示错误，则表示编译成功</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看输出结果</p>
+<p>可以看到，根据配置输出对应的<code>.a</code>静态库文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">➜  androidLibs tree armeabi-v7 -L 2</span><br><span class="line">armeabi-v7</span><br><span class="line">├── include</span><br><span class="line">│   ├── libavcodec</span><br><span class="line">│   ├── libavfilter</span><br><span class="line">│   ├── libavformat</span><br><span class="line">│   ├── libavutil</span><br><span class="line">│   ├── libswresample</span><br><span class="line">│   └── libswscale</span><br><span class="line">├── lib</span><br><span class="line">│   ├── libavcodec.a</span><br><span class="line">│   ├── libavfilter.a</span><br><span class="line">│   ├── libavformat.a</span><br><span class="line">│   ├── libavutil.a</span><br><span class="line">│   ├── libswresample.a</span><br><span class="line">│   ├── libswscale.a</span><br><span class="line">│   └── pkgconfig</span><br><span class="line">└── share</span><br><span class="line">    └── ffmpeg</span><br><span class="line"></span><br><span class="line">11 directories, 6 files</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>如果需要动态库，可以通过把静态库编译为动态库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">➜  gcc -shared -o 动态库名称.so -Wl,--whole-archive 静态库名称.a -Wl,--no-whole-archive</span><br><span class="line"><span class="meta">#</span><span class="bash"> --whole-archive: 将未使用的静态库符号(函数实现)也链接进动态库</span></span><br><span class="line"><span class="meta">#</span><span class="bash">--no-whole-archive : 默认，未使用不链接进入动态库</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 实例</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 因为是编译给Android使用的，所以，必须使用交叉编译，不能直接用gcc编译</span></span><br><span class="line">➜  /Users/guidongyuan/Library/Android/sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-gcc --sysroot=/Users/guidongyuan/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm --shared -o libFFmpeg.so -Wl,--whole-archive libavcodec.a libavfilter.a    libavformat.a    libavutil.a      libswresample.a  libswscale.a -Wl,--no-whole-archive</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看生成的文件，编译成功</span></span><br><span class="line">➜  ls</span><br><span class="line">libFFmpeg.so    libavfilter.a   libavutil.a     libswscale.a</span><br><span class="line">libavcodec.a    libavformat.a   libswresample.a pkgconfig</span><br><span class="line">➜  file libFFmpeg.so</span><br><span class="line">libFFmpeg.so: ELF 32-bit LSB shared object, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /system/bin/linker, with debug_info, not stripped</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把编译好的库移动到Android项目中就可以使用了</p>
+<p>如果把动态库导入到项目中直接使用不再修改的话，那么移动后在项目添加<code>System.loadLibrary();</code>就可以了；如果还需要进行NDK开发的话，就要了解一下CMake的相对知识了，接下来的文章再进行介绍。</p>
+</li>
+</ul>
+<h3 id="shell脚本内容"><a href="#shell脚本内容" class="headerlink" title="shell脚本内容"></a>shell脚本内容</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="comment">#! 告诉系统其后路径所指定的程序即是解释此脚本文件的 Shell 程序</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行configure，后面的为其参数</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> \为换行符</span></span><br><span class="line">./configure \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置生成出来的路径目录，不写则用默认值[/usr/<span class="built_in">local</span>]</span></span><br><span class="line">--prefix=./androidLibs/armeabi-v7 \</span><br><span class="line">--enable-small \</span><br><span class="line">--disable-programs \</span><br><span class="line">--disable-avdevice \</span><br><span class="line">--disable-encoders \</span><br><span class="line">--disable-muxers \</span><br><span class="line">--disable-filters \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用了交叉编译</span></span><br><span class="line">--enable-cross-compile \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 为编译工具指定路径，交叉编译，使用arm架构</span></span><br><span class="line">--cross-prefix=/Users/guidongyuan/Library/Android/sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi- \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 关闭输出动态库</span></span><br><span class="line">--disable-shared \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置为输出静态库</span></span><br><span class="line">--enable-static \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定编译的头文件与库文件的查找目录</span></span><br><span class="line">--sysroot=/Users/guidongyuan/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 传递gcc编译的参数(包括查找头文件路径)，该属性可以在Android Stuido中获取</span></span><br><span class="line">--extra-cflags="-U_FILE_OFFSET_BITS -isystem /Users/guidongyuan/Library/Android/sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -mthumb -Wa,--noexecstack -Wformat -Werror=format-security -std=c++11  -O0 -fPIC" \</span><br><span class="line">--extra-cflags="-isysroot /Users/guidongyuan/Library/Android/sdk/ndk-bundle/sysroot" \</span><br><span class="line"><span class="meta">#</span><span class="bash"> 选择机器架构</span></span><br><span class="line">--arch=arm \</span><br><span class="line">--target-os=android</span><br></pre></td></tr></table></figure>
+<p><strong>–extra-cflags</strong></p>
+<p>该值可以在Android Studio的支持NDK项目中复制，创建NDK项目可以参考<a href="http://guidongyuan.cn/2018/08/28/NDK(%E4%B8%80" target="_blank" rel="noopener">NDK(一)：编写第一个JNI项目</a>%EF%BC%9A%E7%BC%96%E5%86%99%E7%AC%AC%E4%B8%80%E4%B8%AAJNI%E9%A1%B9%E7%9B%AE/)，具体路径为</p>
+<p><img src="http://guidongyuan.cn/images/image-20180908172034663.png" alt="image-20180908172034663"></p>
+<p> <img src="http://guidongyuan.cn/images/image-20180908172105796.png" alt="image-20180908172105796"></p>
+<p><strong>注意：</strong><code>FLAGS</code>属性值的其中的<code>-std=c++11</code>和<code>-fno-limit-debug-info</code>在编译的运行上面的<code>.sh</code>文件时提示异常和错误，于是选择把其去掉了。</p>
+<h2 id="错误解决"><a href="#错误解决" class="headerlink" title="错误解决"></a>错误解决</h2><ul>
+<li><p>查找错误</p>
+<p>编译的时候，不太可能一次性就成功编译，或多或少会出现异常，就需要查log了，比如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 错误输出</span></span><br><span class="line">/Users/guidongyuan/Library/Android/sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-gcc is unable to create an executable file.</span><br><span class="line">C compiler test failed.</span><br><span class="line"></span><br><span class="line">Include the log file "ffbuild/config.log" produced by configure as this will help</span><br><span class="line">solve the problem.</span><br></pre></td></tr></table></figure>
+<p>出现错误，可以查看config.log的具体内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arm-linux-androideabi-gcc: error: unrecognized command line option '-fno-limit-debug-info'</span><br><span class="line">C compiler test failed.</span><br></pre></td></tr></table></figure>
+<p>可以看到找不到<code>-fno-limit-debug-info</code>命令，原来是我上面设置<code>--extra-cflags</code>属性值在Android Studio复制多了，去掉重新编译就成功了。</p>
+</li>
+<li><p>修改minSdkVersion版本</p>
+<p>把上面编译好的库放到Android Studio中，运行的时候无法通过，错误为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  libavformat/hls.c:834: error: undefined reference to &apos;atof&apos;</span><br><span class="line">libavformat/hlsproto.c:141: error: undefined reference to &apos;atof&apos;</span><br><span class="line">libavcodec/v4l2_buffers.c:439: error: undefined reference to &apos;mmap64&apos;</span><br><span class="line">clang++: error: linker command failed with exit code 1 (use -v to see invocation)</span><br></pre></td></tr></table></figure>
+<p>出现该错误的原因，是因为上面shell脚本中，指定编译的头文件与库文件的查找目录都是<strong>21</strong>，这样编译出来的依赖库只能用在<code>minSdkVersion 21</code>的项目中，而我的项目最低是兼容到16，那就要重新修改了<strong>16</strong>。</p>
+<p>修改好再次编译，提示该错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  libavcodec/v4l2_buffers.c:434:44: error: call to &apos;mmap&apos; declared with attribute error: mmap is not available with _FILE_OFFSET_BITS=64 when using GCC until android-21. Either raise your minSdkVersion, disable _FILE_OFFSET_BITS=64, or switch to Clang.</span><br><span class="line">             avbuf-&gt;plane_info[i].mm_addr = mmap(NULL, avbuf-&gt;buf.m.planes[i].length,</span><br><span class="line">                                            ^</span><br><span class="line">make: *** [libavcodec/v4l2_buffers.o] Error 1</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>  要不就切换为Clang，要不就disable _FILE_OFFSET_BITS，只能选择后者，在<code>--extra-cflags</code>添加取消宏定义即可。</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--extra-cflags="-U_FILE_OFFSET_BITS ......省略“</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+    	<div>
+    		<img style="display: block; margin: 0 auto;" src="/images/wetchat.png" alt="" />
+			<h3 style="text-align:center;">公众号：亦袁非猿</h3>
+			<h3 style="text-align:center;">欢迎关注，交流学习</h3>
+		</div>
+        
+    
+</div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NDK/" rel="tag"># NDK</a>
+          
+            <a href="/tags/ffmpeg/" rel="tag"># ffmpeg</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/28/NDK(一)：编写第一个JNI项目/" rel="next" title="NDK(一)：编写第一个JNI项目">
+                <i class="fa fa-chevron-left"></i> NDK(一)：编写第一个JNI项目
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/15/NDK(二)：JNI与Java回调以及静动态注册/" rel="prev" title="NDK(二)：JNI与Java回调以及静动态注册">
+                NDK(二)：JNI与Java回调以及静动态注册 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQzOC82MDA2"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg"
+               alt="亦袁非猿" />
+          <p class="site-author-name" itemprop="name">亦袁非猿</p>
+           
+              <p class="site-description motion-element" itemprop="description">while(写出来){  <br>
+  理解力++; <br>
+  表达力++; }
+</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#shell脚本"><span class="nav-number">1.</span> <span class="nav-text">shell脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载ffmpeg源码"><span class="nav-number">2.</span> <span class="nav-text">下载ffmpeg源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写shell脚本"><span class="nav-number">3.</span> <span class="nav-text">编写shell脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#shell脚本内容"><span class="nav-number">3.1.</span> <span class="nav-text">shell脚本内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误解决"><span class="nav-number">4.</span> <span class="nav-text">错误解决</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亦袁非猿</span>
+</div>
+
+
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("Ivcwx7f8x7ghc8SWU0YMuIFI-gzGzoHsz", "mQEm0lIov3tBcrPByox6zHc0");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
