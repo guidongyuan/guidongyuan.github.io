@@ -1,0 +1,1032 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="源码分析," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="知识的遗忘速度真是快，以前看源码的时候只是初略看一下，也没有完整的去输出笔记，只是在个别源码处添加注释。这次算是把他重新阅读一下并整理输出。从我们最经常使用的OkHttp框架开始。">
+<meta name="keywords" content="源码分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android第三方库源码分析（一）：OkHttp">
+<meta property="og:url" content="http://yoursite.com/2019/03/24/OkHttp源码分析/index.html">
+<meta property="og:site_name" content="亦袁非猿">
+<meta property="og:description" content="知识的遗忘速度真是快，以前看源码的时候只是初略看一下，也没有完整的去输出笔记，只是在个别源码处添加注释。这次算是把他重新阅读一下并整理输出。从我们最经常使用的OkHttp框架开始。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-24T00:46:16.610Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android第三方库源码分析（一）：OkHttp">
+<meta name="twitter:description" content="知识的遗忘速度真是快，以前看源码的时候只是初略看一下，也没有完整的去输出笔记，只是在个别源码处添加注释。这次算是把他重新阅读一下并整理输出。从我们最经常使用的OkHttp框架开始。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'OF78IO15IZ',
+      apiKey: '75e8a500a6a0237315a8a25669328dbf',
+      indexName: 'First Index',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/24/OkHttp源码分析/"/>
+
+
+
+
+
+  <title>Android第三方库源码分析（一）：OkHttp | 亦袁非猿</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亦袁非猿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/24/OkHttp源码分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亦袁非猿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亦袁非猿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android第三方库源码分析（一）：OkHttp
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-24T08:22:17+08:00">
+                2019-03-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/03/24/OkHttp源码分析/" class="leancloud_visitors" data-flag-title="Android第三方库源码分析（一）：OkHttp">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>知识的遗忘速度真是快，以前看源码的时候只是初略看一下，也没有完整的去输出笔记，只是在个别源码处添加注释。这次算是把他重新阅读一下并整理输出。从我们最经常使用的OkHttp框架开始。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ul>
+<li><a href="https://square.github.io/okhttp/" target="_blank" rel="noopener">OkHttp官网介绍</a></li>
+</ul>
+<h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">'com.squareup.okhttp3:okhttp:3.13.1'</span></span><br></pre></td></tr></table></figure>
+<p>目前最新的版本为3.13.1，根据官方的说明，3.13.0后，支持的版本为Android 5.0+(API level 21+) and Java 8+。如果还需要兼容Android 5.0以下的，那就只能使用最后的一个版本，3.12.0。接下来的分析，就是基于<code>okhttp:3.12.0</code>这个版本进行分析的。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">'com.squareup.okhttp3:okhttp:3.12.0'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><a href="https://medium.com/square-corner-blog/okhttp-3-13-requires-android-5-818bb78d07ce" target="_blank" rel="noopener">OkHttp 3.13 Requires Android 5+</a></p>
+<blockquote>
+<p>介绍为啥3.13支持版本为 Android 5+，主要是<em>TLSv1.2</em>为Android 5.0才有的。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="网络请求"><a href="#网络请求" class="headerlink" title="网络请求"></a>网络请求</h3><p>分析源码之前，先列出网络请求实例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.guidongyuan.okhttpstudy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.support.v7.app.AppCompatActivity;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.guidongyuan.deafultstudy.R;</span><br><span class="line"><span class="keyword">import</span> okhttp3.Call;</span><br><span class="line"><span class="keyword">import</span> okhttp3.Callback;</span><br><span class="line"><span class="keyword">import</span> okhttp3.MediaType;</span><br><span class="line"><span class="keyword">import</span> okhttp3.OkHttpClient;</span><br><span class="line"><span class="keyword">import</span> okhttp3.Request;</span><br><span class="line"><span class="keyword">import</span> okhttp3.RequestBody;</span><br><span class="line"><span class="keyword">import</span> okhttp3.Response;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OkHttpActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String URL = <span class="string">"https://api.douban.com/v2/movie/top250"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"OkHttpActivity"</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> MediaType JSON = MediaType.get(<span class="string">"application/json; charset=utf-8"</span>);</span><br><span class="line">    <span class="keyword">private</span> OkHttpClient mOkHttpClient;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_okhttp);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化OkHttpClient对象</span></span><br><span class="line">        mOkHttpClient = <span class="keyword">new</span> OkHttpClient.Builder().build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 同步请求</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> url</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">syncGet</span><span class="params">(String url)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 不能在主线程发起网络请求，所以必须创建子线程</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                Request request = <span class="keyword">new</span> Request.Builder()</span><br><span class="line">                        .url(url)</span><br><span class="line">                        .build();</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Response response = mOkHttpClient.newCall(request).execute();</span><br><span class="line">                    Log.i(TAG, response.body().string());</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 异步请求</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">asyncGet</span><span class="params">(String url)</span> </span>&#123;</span><br><span class="line">        Request request = <span class="keyword">new</span> Request.Builder()</span><br><span class="line">                .url(url)</span><br><span class="line">                .build();</span><br><span class="line">        Call call = mOkHttpClient.newCall(request);</span><br><span class="line">        call.enqueue(<span class="keyword">new</span> Callback() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Call call, IOException e)</span> </span>&#123;</span><br><span class="line">                <span class="comment">// 在子线程，如果想更新界面必须切换到主线程</span></span><br><span class="line">                Log.i(TAG, e.getMessage());</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Call call, Response response)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                <span class="comment">// 在子线程，如果想更新界面必须切换到主线程</span></span><br><span class="line">                Log.i(TAG, response.body().string());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 同步post</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">syncPost</span><span class="params">(String url, String json)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                RequestBody body = RequestBody.create(JSON, json);</span><br><span class="line">                Request request = <span class="keyword">new</span> Request.Builder()</span><br><span class="line">                        .url(url)</span><br><span class="line">                        .post(body)</span><br><span class="line">                        .build();</span><br><span class="line">                OkHttpClient mOkHttpClient = <span class="keyword">new</span> OkHttpClient();</span><br><span class="line">                Call call = mOkHttpClient.newCall(request);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Response response = call.execute();</span><br><span class="line">                    Log.i(TAG, <span class="string">"返回内容"</span>+response.body().string());</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 异步post</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">asyncPost</span><span class="params">(String url, String json)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 传入的数据类型为json</span></span><br><span class="line">        RequestBody body = RequestBody.create(JSON, json);</span><br><span class="line">        Request request = <span class="keyword">new</span> Request.Builder()</span><br><span class="line">                .url(url)</span><br><span class="line">                .post(body)</span><br><span class="line">                .build();</span><br><span class="line">        OkHttpClient mOkHttpClient = <span class="keyword">new</span> OkHttpClient();</span><br><span class="line">        Call call = mOkHttpClient.newCall(request);</span><br><span class="line">        call.enqueue(<span class="keyword">new</span> Callback() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Call call, IOException e)</span> </span>&#123;</span><br><span class="line">                <span class="comment">// 在子线程，如果想更新界面必须切换到主线程</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Call call, Response response)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                <span class="comment">// 在子线程，如果想更新界面必须切换到主线程</span></span><br><span class="line">                Log.d(TAG, response.body().string());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="同步方法流程"><a href="#同步方法流程" class="headerlink" title="同步方法流程"></a>同步方法流程</h4><blockquote>
+<p>发送请求后，会进入阻塞状态直到收到响应，在主线程中需要创建子线程执行</p>
+</blockquote>
+<ol>
+<li>创建OkHttpClient和Request对象</li>
+<li>将Request封装为Call对象</li>
+<li>调用Call的execute()发送同步请求，返回Response对象</li>
+</ol>
+<h4 id="异步方法流程"><a href="#异步方法流程" class="headerlink" title="异步方法流程"></a>异步方法流程</h4><blockquote>
+<p>onFailure()和onResponse()都是在子线程，如果要更新界面必须要切换到主线程</p>
+</blockquote>
+<ol>
+<li>创建OkHttpClient和Request对象</li>
+<li>将Request封装为Call对象</li>
+<li>调用Call的enqueue()进行异步请求，返回Response对象</li>
+</ol>
+<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><p>上面介绍了OkHttpClient的使用，接下来，就开始深入学习一下其源码，首先从OkHttpClient开始</p>
+<h3 id="创建OkHttpClient"><a href="#创建OkHttpClient" class="headerlink" title="创建OkHttpClient"></a>创建OkHttpClient</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OkHttpClient mOkHttpClient = <span class="keyword">new</span> OkHttpClient.Builder().build()；</span><br></pre></td></tr></table></figure>
+<p>OkHttpClient对象的创建，使用了构建者模式，Builder类为OkHttpClient的内部类，查看build()方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> OkHttpClient <span class="title">build</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> OkHttpClient(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Builder <span class="title">dispatcher</span><span class="params">(Dispatcher dispatcher)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.dispatcher = dispatcher;</span><br><span class="line">    <span class="comment">// 返回Builder本身的对象</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">OkHttpClient(Builder builder) &#123;</span><br><span class="line">    <span class="keyword">this</span>.dispatcher = builder.dispatcher;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到在Builder中设置的参数，在最后创建OkHttpClient的时候都设置进去。有了OkHttpClient，第二步就是创建请求Request对象了。</p>
+<h3 id="创建Request和Call"><a href="#创建Request和Call" class="headerlink" title="创建Request和Call"></a>创建Request和Call</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Request request = <span class="keyword">new</span> Request.Builder().url(url).build();</span><br></pre></td></tr></table></figure>
+<p>Request对象的创建，同样使用了构建者模式，设置了请求的url。然后通过newCall去创建Call对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Call call = mOkHttpClient.newCall(request)；</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> Call <span class="title">newCall</span><span class="params">(Request request)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> RealCall.newRealCall(<span class="keyword">this</span>, request, <span class="keyword">false</span> <span class="comment">/* for web socket */</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，Call为接口，真正的实现类为RealCall。然后就用Call对象去发起请求了，请求分为同步和异步。</p>
+<h3 id="同步请求"><a href="#同步请求" class="headerlink" title="同步请求"></a>同步请求</h3><p>上面介绍到，同步与异步的使用区别，在于调用的方法，同步为execute();</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># RealCall.java</span><br><span class="line"><span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> Response <span class="title">execute</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (executed) <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Already Executed"</span>);</span><br><span class="line">      executed = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    captureCallStackTrace();</span><br><span class="line">    timeout.enter();</span><br><span class="line">    eventListener.callStart(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// 1. 调用分发器</span></span><br><span class="line">      client.dispatcher().executed(<span class="keyword">this</span>);</span><br><span class="line">      <span class="comment">// 2. 使用职责链模式进行请求，返回Response</span></span><br><span class="line">      Response result = getResponseWithInterceptorChain();</span><br><span class="line">      <span class="keyword">if</span> (result == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"Canceled"</span>);</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">      e = timeoutExit(e);</span><br><span class="line">      eventListener.callFailed(<span class="keyword">this</span>, e);</span><br><span class="line">      <span class="keyword">throw</span> e;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      <span class="comment">// 3. 调用分发器执行结束后的处理</span></span><br><span class="line">      client.dispatcher().finished(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>分析execute()方法，其实现步骤主要以上的三步：</p>
+<ol>
+<li>同步请求比较简单，只是调用分发器把其放到同步任务执行队列runningSyncCalls中</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Used by &#123;<span class="doctag">@code</span> Call#execute&#125; to signal it is in-flight. */</span></span><br><span class="line"><span class="function"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">executed</span><span class="params">(RealCall call)</span> </span>&#123;</span><br><span class="line">  runningSyncCalls.add(call);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>使用职责链模式进行请求，返回Response，后续会详细介绍</li>
+<li>同步请求finished()方法比较简单，主要就是把上面添加到runningSyncCalls队列中的RealCall移除掉</li>
+</ol>
+<h3 id="异步请求"><a href="#异步请求" class="headerlink" title="异步请求"></a>异步请求</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># RealCall.java</span><br><span class="line"><span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enqueue</span><span class="params">(Callback responseCallback)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (executed) <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Already Executed"</span>);</span><br><span class="line">    executed = <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  captureCallStackTrace();</span><br><span class="line">  eventListener.callStart(<span class="keyword">this</span>);</span><br><span class="line">  <span class="comment">// 使用分发器执行enqueue，并且创建一个AsyncCall对象</span></span><br><span class="line">  client.dispatcher().enqueue(<span class="keyword">new</span> AsyncCall(responseCallback));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>AsyncCall</strong>：可以看到，AsyncCall实现了Runnable</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># AsyncCall.java															final class AsyncCall extends NamedRunnable implements Runnable &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Callback responseCallback;</span><br><span class="line"></span><br><span class="line">    AsyncCall(Callback responseCallback) &#123;</span><br><span class="line">      <span class="keyword">super</span>(<span class="string">"OkHttp %s"</span>, redactedUrl());</span><br><span class="line">      <span class="keyword">this</span>.responseCallback = responseCallback;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 准备异步执行队列</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Deque&lt;AsyncCall&gt; readyAsyncCalls = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">enqueue</span><span class="params">(AsyncCall call)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">      <span class="comment">// 添加到异步**准备**执行任务队列readyAsyncCalls，注意是准备队列</span></span><br><span class="line">      readyAsyncCalls.add(call);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 从准备队列中取出任务，添加到正在执行队列中，并启动线程池进行执行</span></span><br><span class="line">    promoteAndExecute();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">promoteAndExecute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">assert</span> (!Thread.holdsLock(<span class="keyword">this</span>));</span><br><span class="line"></span><br><span class="line">    List&lt;AsyncCall&gt; executableCalls = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">boolean</span> isRunning;</span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">      <span class="comment">// 轮训从准备队列中取出任务</span></span><br><span class="line">      <span class="keyword">for</span> (Iterator&lt;AsyncCall&gt; i = readyAsyncCalls.iterator(); i.hasNext(); ) &#123;</span><br><span class="line">        AsyncCall asyncCall = i.next();</span><br><span class="line">        <span class="comment">// 如果最大线程数超过了，或者最大请求数超过，则跳过不处理，继续存放在readyAsyncCalls中</span></span><br><span class="line">        <span class="keyword">if</span> (runningAsyncCalls.size() &gt;= maxRequests) <span class="keyword">break</span>; <span class="comment">// Max capacity.</span></span><br><span class="line">        <span class="keyword">if</span> (runningCallsForHost(asyncCall) &gt;= maxRequestsPerHost) <span class="keyword">continue</span>; <span class="comment">// Host max capacity.</span></span><br><span class="line">        <span class="comment">// 从队列中删除</span></span><br><span class="line">        i.remove();</span><br><span class="line">        executableCalls.add(asyncCall);</span><br><span class="line">        runningAsyncCalls.add(asyncCall);</span><br><span class="line">      &#125;</span><br><span class="line">      isRunning = runningCallsCount() &gt; <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, size = executableCalls.size(); i &lt; size; i++) &#123;</span><br><span class="line">      AsyncCall asyncCall = executableCalls.get(i);</span><br><span class="line">      <span class="comment">// 使用线程池执行任务</span></span><br><span class="line">      asyncCall.executeOn(executorService());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> isRunning;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 获取一个线程池，没有则创建</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> ExecutorService <span class="title">executorService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (executorService == <span class="keyword">null</span>) &#123;</span><br><span class="line">      executorService = <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span>, Integer.MAX_VALUE, <span class="number">60</span>, TimeUnit.SECONDS,</span><br><span class="line">          <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;(), Util.threadFactory(<span class="string">"OkHttp Dispatcher"</span>, <span class="keyword">false</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> executorService;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>使用线程池执行任务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">executeOn</span><span class="params">(ExecutorService executorService)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">assert</span> (!Thread.holdsLock(client.dispatcher()));</span><br><span class="line">    <span class="keyword">boolean</span> success = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 线程池执行</span></span><br><span class="line">        executorService.execute(<span class="keyword">this</span>);</span><br><span class="line">        success = <span class="keyword">true</span>;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (RejectedExecutionException e) &#123;</span><br><span class="line">        InterruptedIOException ioException = <span class="keyword">new</span> InterruptedIOException(<span class="string">"executor rejected"</span>);</span><br><span class="line">        ioException.initCause(e);</span><br><span class="line">        eventListener.callFailed(RealCall.<span class="keyword">this</span>, ioException);</span><br><span class="line">        responseCallback.onFailure(RealCall.<span class="keyword">this</span>, ioException);</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!success) &#123;</span><br><span class="line">            <span class="comment">// 如果成功返回，就不执行finished了，finished的执行放在某一个任务执行后其内部的处理</span></span><br><span class="line">            client.dispatcher().finished(<span class="keyword">this</span>); <span class="comment">// This call is no longer running!</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动线程后，在线程的run()方法中，会执行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span> <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 处理方式与同步一样，使用职责链模式进行请求，返回Response</span></span><br><span class="line">        Response response = getResponseWithInterceptorChain();</span><br><span class="line">        ......</span><br><span class="line">      &#125; </span><br><span class="line">      ......</span><br><span class="line">   &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      <span class="comment">// 调用分发器执行结束后的处理，然后finished又调用promoteAndExecute()重复从准备队列中取任务，添加到执行队列中</span></span><br><span class="line">      client.dispatcher().finished(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分析enqueue()方法，其实现步骤主要以上的三步：</p>
+<ol>
+<li>创建一个AsyncCall的子线程，调用分发器添加到准备队列中</li>
+<li>从准备队列中取出任务，添加到正在执行的列表中，另外获取一个线程池去执行正在执行的任务</li>
+<li>使用职责链模式进行请求，返回Response，后续会详细介绍</li>
+<li>在任务的子线程中执行finished()，又重复执行步骤2</li>
+</ol>
+<h3 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h3><p>OkHttp设计的一个精妙的地方，就是拦截器了，使得职责分明，分工明确，不同的拦截器实现不同的功能。</p>
+<h4 id="职责链模式"><a href="#职责链模式" class="headerlink" title="职责链模式"></a>职责链模式</h4><p>要想理解好拦截器，就要先理解好一个设计模式：职责链模式。可以参考<code>《大话设计模式》</code>或者 <code>《Android源码设计模式解析与实战》</code> 中关于职责链模式的介绍，还是比较容易理解的，这里就不详细介绍了。</p>
+<h4 id="getResponseWithInterceptorChain"><a href="#getResponseWithInterceptorChain" class="headerlink" title="getResponseWithInterceptorChain()"></a>getResponseWithInterceptorChain()</h4><p>从该方法的被调用就可以看到，拦截器不区分同步和异步，都是调用该方法，在该方法中，会把自定义以及系统提供的拦截器都添加到列表中，然后创建拦截器链去执行，最后返回响应数据Response。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># RealCall.java</span><br><span class="line"><span class="function">Response <span class="title">getResponseWithInterceptorChain</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="comment">// Build a full stack of interceptors.</span></span><br><span class="line">    <span class="comment">// 创建一系列拦截器，并将其放入一个拦截器list中</span></span><br><span class="line">    List&lt;Interceptor&gt; interceptors = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="comment">// 用户自定义的拦截器</span></span><br><span class="line">    interceptors.addAll(client.interceptors());</span><br><span class="line">    <span class="comment">// 重定向拦截器，用于重定向、失败重连</span></span><br><span class="line">    interceptors.add(retryAndFollowUpInterceptor);</span><br><span class="line">    <span class="comment">// 负责将用户的Request转换成一个实际的网络请求Request，再调用下一个拦截器获取Response，然后将Response转换成用户的Response</span></span><br><span class="line">    interceptors.add(<span class="keyword">new</span> BridgeInterceptor(client.cookieJar()));</span><br><span class="line">    <span class="comment">// 负责控制缓存</span></span><br><span class="line">    interceptors.add(<span class="keyword">new</span> CacheInterceptor(client.internalCache()));</span><br><span class="line">    <span class="comment">// 负责进行连接主机，在这里会完成socket连接，并将连接返回</span></span><br><span class="line">    interceptors.add(<span class="keyword">new</span> ConnectInterceptor(client));</span><br><span class="line">    <span class="keyword">if</span> (!forWebSocket) &#123;</span><br><span class="line">      interceptors.addAll(client.networkInterceptors());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 和服务器进行真正的通信，完成Http请求</span></span><br><span class="line">    interceptors.add(<span class="keyword">new</span> CallServerInterceptor(forWebSocket));</span><br><span class="line">    <span class="comment">// 创建一个拦截器链RealInterceptorChain</span></span><br><span class="line">    Interceptor.Chain chain = <span class="keyword">new</span> RealInterceptorChain(interceptors, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="number">0</span>,</span><br><span class="line">        originalRequest, <span class="keyword">this</span>, eventListener, client.connectTimeoutMillis(),</span><br><span class="line">        client.readTimeoutMillis(), client.writeTimeoutMillis());</span><br><span class="line">    <span class="comment">// 执行拦截器的proceed方法</span></span><br><span class="line">    <span class="keyword">return</span> chain.proceed(originalRequest);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>RealInterceptorChain可以看作是整个拦截器链的控制器，其proceed方法会逐步调用interceptors列表中的拦截器，然后又创建一个下一个拦截器链设置进去，典型的职责链模式的使用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># RealInterceptorChain.java</span><br><span class="line"><span class="function"><span class="keyword">public</span> Response <span class="title">proceed</span><span class="params">(Request request, StreamAllocation streamAllocation, HttpCodec httpCodec,</span></span></span><br><span class="line"><span class="function"><span class="params">      RealConnection connection)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    ...省略...</span><br><span class="line">    <span class="comment">// Call the next interceptor in the chain.</span></span><br><span class="line">    <span class="comment">// 创建下一个拦截器链，注意不同点，在于参数 index + 1    </span></span><br><span class="line">    RealInterceptorChain next = <span class="keyword">new</span> RealInterceptorChain(interceptors, streamAllocation, httpCodec,</span><br><span class="line">        connection, index + <span class="number">1</span>, request, call, eventListener, connectTimeout, readTimeout,</span><br><span class="line">        writeTimeout);</span><br><span class="line">    <span class="comment">// 获取当前的拦截器</span></span><br><span class="line">    Interceptor interceptor = interceptors.get(index);</span><br><span class="line">    <span class="comment">// 执行该拦截器，并把创建好的下一个拦截器链设置到其中</span></span><br><span class="line">    Response response = interceptor.intercept(next);</span><br><span class="line">    ...省略...</span><br><span class="line">    <span class="keyword">return</span> response;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>Interceptor有很多不同的实现类，分别有不同的职责，但是intercept()的执行流程基本如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 1. 拦截前处理</span></span><br><span class="line">    ...省略...</span><br><span class="line">        </span><br><span class="line">    <span class="comment">// 2. 调用下一个拦截器链进行处理</span></span><br><span class="line">    Response networkResponse = chain.proceed(requestBuilder.build());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 拦截后处理</span></span><br><span class="line">    ...省略...</span><br><span class="line">        </span><br><span class="line">    <span class="comment">// 4. 返回Response给上一个拦截器 </span></span><br><span class="line">    <span class="keyword">return</span> responseBuilder.build();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>步骤：</p>
+<ol>
+<li>创建一系列拦截器，并将其放入一个拦截器list中</li>
+<li>创建一个拦截器链RealInterceptorChain，并执行拦截器的proceed方法</li>
+<li>在proceed方法中，获取其中的一个拦截器并创建下一个拦截器链</li>
+<li>调用intercept执行拦截器的具体实现，在中间会去执行下一个拦截器的操作</li>
+</ol>
+<h4 id="RetryAndFollowUpInterceptor"><a href="#RetryAndFollowUpInterceptor" class="headerlink" title="RetryAndFollowUpInterceptor"></a>RetryAndFollowUpInterceptor</h4><blockquote>
+<p>重定向失败重连拦截器</p>
+</blockquote>
+<ol>
+<li>创建StreamAllocation对象</li>
+<li>调用RealInterceptorChain.proceed(…)进行网络请求</li>
+<li>根据异常结果或者响应结果判断是否要进行重新请求</li>
+<li>调用下一个拦截器，对response进行处理，返回给上一个拦截器</li>
+</ol>
+<h4 id="BridgeInterceptor"><a href="#BridgeInterceptor" class="headerlink" title="BridgeInterceptor"></a>BridgeInterceptor</h4><blockquote>
+<p>桥接拦截器，主要是对发送和返回的数据进行转化</p>
+</blockquote>
+<ol>
+<li>是负责将用户构建的一个 Request请求转化为能够进行网络访问的请求</li>
+<li>将这个符合网络请求的 Request进行网络请求</li>
+<li>将网络请求回来的响应 Response转化为用户可用的Response.</li>
+</ol>
+<h4 id="CacheInterceptor"><a href="#CacheInterceptor" class="headerlink" title="CacheInterceptor"></a>CacheInterceptor</h4><blockquote>
+<p>缓存拦截器，这部分会在接下来介绍缓存机制中重点介绍</p>
+</blockquote>
+<h4 id="ConnectInterceptor"><a href="#ConnectInterceptor" class="headerlink" title="ConnectInterceptor"></a>ConnectInterceptor</h4><blockquote>
+<p> 网络连接拦截器，这部分会在接下来介绍连接池中重点介绍</p>
+</blockquote>
+<h4 id="CallServerInterceptor"><a href="#CallServerInterceptor" class="headerlink" title="CallServerInterceptor"></a>CallServerInterceptor</h4><blockquote>
+<p>发送网络请求拦截器，会在下面详细介绍</p>
+</blockquote>
+<h3 id="缓存机制"><a href="#缓存机制" class="headerlink" title="缓存机制"></a>缓存机制</h3><p>OkHttp使用缓存非常简单，只需要在创建的使用设置一个缓存对象Cache，缓存逻辑的处理交给了CacheInterceptor拦截器进行处理。</p>
+<h4 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h4><p>首先看一下怎样设置使用缓存功能。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mOkHttpClient = <span class="keyword">new</span> OkHttpClient.Builder()</span><br><span class="line">                .cache(<span class="keyword">new</span> Cache(<span class="keyword">new</span> File(<span class="string">"cache"</span>), <span class="number">24</span>*<span class="number">1024</span>*<span class="number">1024</span>))</span><br><span class="line">                .build();</span><br></pre></td></tr></table></figure>
+<p>查看Cache的构造函数，传入缓存的路径以及缓存的最大大小。另外可以看到其内部是使用<strong>DiskLruCache</strong>去实现的。也可以看到，创建Cache的时候，会创建其内部类InternalCache，在内部类中去调用Cache的非public方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># Cache.java</span><br><span class="line">Cache(File directory, <span class="keyword">long</span> maxSize, FileSystem fileSystem) &#123;</span><br><span class="line">    <span class="keyword">this</span>.cache = DiskLruCache.create(fileSystem, directory, VERSION, ENTRY_COUNT, maxSize);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> InternalCache internalCache = <span class="keyword">new</span> InternalCache()&#123;</span><br><span class="line">    <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> Response <span class="title">get</span><span class="params">(Request request)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">      <span class="comment">// 实际上的执行还是Cache的方法</span></span><br><span class="line">      <span class="keyword">return</span> Cache.<span class="keyword">this</span>.get(request);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> CacheRequest <span class="title">put</span><span class="params">(Response response)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> Cache.<span class="keyword">this</span>.put(response);</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先看一下put方法，怎样设置缓存对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Nullable</span> <span class="function">CacheRequest <span class="title">put</span><span class="params">(Response response)</span> </span>&#123;</span><br><span class="line">  String requestMethod = response.request().method();</span><br><span class="line">  <span class="keyword">if</span> (HttpMethod.invalidatesCache(response.request().method())) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      remove(response.request());</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException ignored) &#123;</span><br><span class="line">      <span class="comment">// The cache cannot be written.</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 和上面的一样，都是验证有效性，只缓存 GET 请求，其他都不缓存</span></span><br><span class="line">  <span class="keyword">if</span> (!requestMethod.equals(<span class="string">"GET"</span>)) &#123;</span><br><span class="line">    <span class="comment">// Don't cache non-GET responses. We're technically allowed to cache</span></span><br><span class="line">    <span class="comment">// HEAD requests and some POST requests, but the complexity of doing</span></span><br><span class="line">    <span class="comment">// so is high and the benefit is low.</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (HttpHeaders.hasVaryAll(response)) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 创建Entry去存放要缓存的内容，缓存不是缓存整个response，只缓存部分，就都放在Entry中</span></span><br><span class="line">  Entry entry = <span class="keyword">new</span> Entry(response);</span><br><span class="line">  DiskLruCache.Editor editor = <span class="keyword">null</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 通过key获取editor，key为url的md5</span></span><br><span class="line">    editor = cache.edit(key(response.request().url()));</span><br><span class="line">    <span class="keyword">if</span> (editor == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 写入缓存</span></span><br><span class="line">    entry.writeTo(editor);</span><br><span class="line">    <span class="comment">// 返回CacheRequest的实现类，后续缓存拦截器就可以通过该对象去执行相应的缓存</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> CacheRequestImpl(editor);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    abortQuietly(editor);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再看一下怎样获取缓存</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"># Cache.java</span><br><span class="line"><span class="meta">@Nullable</span> <span class="function">Response <span class="title">get</span><span class="params">(Request request)</span> </span>&#123;</span><br><span class="line">  String key = key(request.url());</span><br><span class="line">  DiskLruCache.Snapshot snapshot;</span><br><span class="line">  Entry entry;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 通过key值拿到缓存快照，记录缓存某一时刻的信息</span></span><br><span class="line">    snapshot = cache.get(key);</span><br><span class="line">    <span class="keyword">if</span> (snapshot == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; </span><br><span class="line">  ......</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 拿到entry的内容  </span></span><br><span class="line">    entry = <span class="keyword">new</span> Entry(snapshot.getSource(ENTRY_METADATA));</span><br><span class="line">  &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    Util.closeQuietly(snapshot);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 从entry中拿到Resonse</span></span><br><span class="line">  Response response = entry.response(snapshot);</span><br><span class="line">  <span class="comment">// 再进行匹配验证，不符合则关闭流返回null</span></span><br><span class="line">  <span class="keyword">if</span> (!entry.matches(request, response)) &#123;</span><br><span class="line">    Util.closeQuietly(response.body());</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> response;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># Entry.java</span><br><span class="line"><span class="function"><span class="keyword">public</span> Response <span class="title">response</span><span class="params">(DiskLruCache.Snapshot snapshot)</span> </span>&#123;</span><br><span class="line">  String contentType = responseHeaders.get(<span class="string">"Content-Type"</span>);</span><br><span class="line">  String contentLength = responseHeaders.get(<span class="string">"Content-Length"</span>);</span><br><span class="line">  <span class="comment">// 用Entry中的数据设置Request</span></span><br><span class="line">  Request cacheRequest = <span class="keyword">new</span> Request.Builder()</span><br><span class="line">      .url(url)</span><br><span class="line">      .method(requestMethod, <span class="keyword">null</span>)</span><br><span class="line">      .headers(varyHeaders)</span><br><span class="line">      .build();</span><br><span class="line">  <span class="comment">// 利用Entry中的数据，以及snapshot设置body，就从缓存中获取到Response</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Response.Builder()</span><br><span class="line">      .request(cacheRequest)</span><br><span class="line">      .protocol(protocol)</span><br><span class="line">      .code(code)</span><br><span class="line">      .message(message)</span><br><span class="line">      .headers(responseHeaders)</span><br><span class="line">      <span class="comment">// snapshot中包含有BufferedSource类型的bodySource，CacheResponseBody作为响应体的读取</span></span><br><span class="line">      .body(<span class="keyword">new</span> CacheResponseBody(snapshot, contentType, contentLength))</span><br><span class="line">      .handshake(handshake)</span><br><span class="line">      .sentRequestAtMillis(sentRequestMillis)</span><br><span class="line">      .receivedResponseAtMillis(receivedResponseMillis)</span><br><span class="line">      .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="CacheInterceptor-1"><a href="#CacheInterceptor-1" class="headerlink" title="CacheInterceptor"></a>CacheInterceptor</h4><p>上面介绍了怎样获取和设置缓存对象，在OkHttp中，缓存的具体操作就是通过CacheInterceptor缓存拦截器进行执行的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"># CacheInterceptor.java</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">  <span class="comment">// 获取缓存中的信息</span></span><br><span class="line">  Response cacheCandidate = cache != <span class="keyword">null</span></span><br><span class="line">      ? cache.get(chain.request())</span><br><span class="line">      : <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">long</span> now = System.currentTimeMillis();</span><br><span class="line">  <span class="comment">// 缓存策略，内部有networkRequest和cacheResponse，去指定是否使用网络、缓存或者两者</span></span><br><span class="line">  CacheStrategy strategy = <span class="keyword">new</span> CacheStrategy.Factory(now, chain.request(), cacheCandidate).get();</span><br><span class="line">  Request networkRequest = strategy.networkRequest;</span><br><span class="line">  Response cacheResponse = strategy.cacheResponse;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (cache != <span class="keyword">null</span>) &#123;</span><br><span class="line">    cache.trackResponse(strategy);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (cacheCandidate != <span class="keyword">null</span> &amp;&amp; cacheResponse == <span class="keyword">null</span>) &#123;</span><br><span class="line">    closeQuietly(cacheCandidate.body()); <span class="comment">// The cache candidate wasn't applicable. Close it.</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// If we're forbidden from using the network and the cache is insufficient, fail.</span></span><br><span class="line">  <span class="comment">// 如果没有网络且没有缓存，直接返回504</span></span><br><span class="line">  <span class="keyword">if</span> (networkRequest == <span class="keyword">null</span> &amp;&amp; cacheResponse == <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Response.Builder()</span><br><span class="line">        .request(chain.request())</span><br><span class="line">        .protocol(Protocol.HTTP_1_1)</span><br><span class="line">        .code(<span class="number">504</span>)</span><br><span class="line">        .message(<span class="string">"Unsatisfiable Request (only-if-cached)"</span>)</span><br><span class="line">        .body(Util.EMPTY_RESPONSE)</span><br><span class="line">        .sentRequestAtMillis(-<span class="number">1L</span>)</span><br><span class="line">        .receivedResponseAtMillis(System.currentTimeMillis())</span><br><span class="line">        .build();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// If we don't need the network, we're done.</span></span><br><span class="line">  <span class="comment">// 如果没有网络，直接返回</span></span><br><span class="line">  <span class="keyword">if</span> (networkRequest == <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> cacheResponse.newBuilder()</span><br><span class="line">        .cacheResponse(stripBody(cacheResponse))</span><br><span class="line">        .build();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Response networkResponse = <span class="keyword">null</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 交给下一个拦截器ConnectInterceptor进行网络请求</span></span><br><span class="line">    networkResponse = chain.proceed(networkRequest);</span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="comment">// If we're crashing on I/O or otherwise, don't leak the cache body.</span></span><br><span class="line">    <span class="keyword">if</span> (networkResponse == <span class="keyword">null</span> &amp;&amp; cacheCandidate != <span class="keyword">null</span>) &#123;</span><br><span class="line">      closeQuietly(cacheCandidate.body());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// If we have a cache response too, then we're doing a conditional get.</span></span><br><span class="line">  <span class="keyword">if</span> (cacheResponse != <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="comment">// HTTP_NOT_MODIFIED：304 表示服务器告知客户端，缓存可以使用</span></span><br><span class="line">    <span class="keyword">if</span> (networkResponse.code() == HTTP_NOT_MODIFIED) &#123;</span><br><span class="line">      Response response = cacheResponse.newBuilder()</span><br><span class="line">          .headers(combine(cacheResponse.headers(), networkResponse.headers()))</span><br><span class="line">          .sentRequestAtMillis(networkResponse.sentRequestAtMillis())</span><br><span class="line">          .receivedResponseAtMillis(networkResponse.receivedResponseAtMillis())</span><br><span class="line">          .cacheResponse(stripBody(cacheResponse))</span><br><span class="line">          .networkResponse(stripBody(networkResponse))</span><br><span class="line">          .build();</span><br><span class="line">      networkResponse.body().close();</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Update the cache after combining headers but before stripping the</span></span><br><span class="line">      <span class="comment">// Content-Encoding header (as performed by initContentStream()).</span></span><br><span class="line">      cache.trackConditionalCacheHit();</span><br><span class="line">      cache.update(cacheResponse, response);</span><br><span class="line">      <span class="keyword">return</span> response;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      closeQuietly(cacheResponse.body());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 执行到该步，表示没有了缓存，那么就使用响应数据创建一个response</span></span><br><span class="line">  Response response = networkResponse.newBuilder()</span><br><span class="line">      .cacheResponse(stripBody(cacheResponse))</span><br><span class="line">      .networkResponse(stripBody(networkResponse))</span><br><span class="line">      .build();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (cache != <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (HttpHeaders.hasBody(response) &amp;&amp; CacheStrategy.isCacheable(response, networkRequest)) &#123;</span><br><span class="line">      <span class="comment">// Offer this request to the cache.</span></span><br><span class="line">      <span class="comment">// 添加符合，写入缓存并且进行返回</span></span><br><span class="line">      CacheRequest cacheRequest = cache.put(response);</span><br><span class="line">      <span class="keyword">return</span> cacheWritingResponse(cacheRequest, response);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 再次判断，如果有效就把缓存删除掉</span></span><br><span class="line">    <span class="keyword">if</span> (HttpMethod.invalidatesCache(networkRequest.method())) &#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        cache.remove(networkRequest);</span><br><span class="line">      &#125; <span class="keyword">catch</span> (IOException ignored) &#123;</span><br><span class="line">        <span class="comment">// The cache cannot be written.</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> response;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面可以知道，拦截器的缓存策略，是通过CacheStrategy，CacheStrategy的创建是通过<strong>工厂模式</strong>创建的，通过不同的判断条件设置其两个参数。如果networkRequest为null，则表示不进行网络请求；而如果cacheResponse为null，则表示没有有效的缓存。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> CacheStrategy <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 获取CacheStrategy对象</span></span><br><span class="line">  CacheStrategy candidate = getCandidate();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (candidate.networkRequest != <span class="keyword">null</span> &amp;&amp; request.cacheControl().onlyIfCached()) &#123;</span><br><span class="line">    <span class="comment">// We're forbidden from using the network and the cache is insufficient.</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> CacheStrategy(<span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> candidate;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Returns a strategy to use assuming the request can use the network. */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> CacheStrategy <span class="title">getCandidate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  ...省略...</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> CacheStrategy(request, <span class="keyword">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看了上面的分析，基本可以知道Okhttp的缓存流程，总结如下：</p>
+<ul>
+<li>OkHttp的缓存，使用的是Cache类来实现，其底层使用DiskLruCache，用url的md5作为key，response作为value</li>
+<li>缓存的获取与写入是通过CacheInterceptor进行操作，其内部创建CacheStrategy作为缓存策略，包含两个属性，networkRequest决定是否连接网络，cacheResponse是否是有效的缓存。<ul>
+<li>如果没有网络且没有缓存，直接返回504</li>
+<li>没有网络，返回缓存</li>
+<li>通过下一个拦截器进行网络请求，收到304则直接使用缓存返回</li>
+<li>把网络请求后的数据保存到缓存中，返回请求的数据</li>
+</ul>
+</li>
+<li>另外，OkHttp缓存的写入，使用的是NIO，NIO为非阻塞性，面向的是数据流，可以调高写入与读取的效率。在这里就不详细展开分析了。</li>
+</ul>
+<h3 id="连接池"><a href="#连接池" class="headerlink" title="连接池"></a>连接池</h3><p>学习OkHttp的另外一个重要知识点，就是连接池了。在连接池中，会维护与服务器进行数据传输的连接数目，并且会自动清除空闲的连接。</p>
+<h4 id="ConnectInterceptor拦截器"><a href="#ConnectInterceptor拦截器" class="headerlink" title="ConnectInterceptor拦截器"></a>ConnectInterceptor拦截器</h4><p>负责进行连接主机，在这里会完成socket连接，并将连接返回，同样是从拦截器的intercept方法进行分析</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># ConnectInterceptor.java</span><br><span class="line"><span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">  RealInterceptorChain realChain = (RealInterceptorChain) chain;</span><br><span class="line">  Request request = realChain.request();</span><br><span class="line">  <span class="comment">// 获取StreamAllocation，StreamAllocation对象在RetryAndFollowUpInterceptor创建好，通过职责链传递到此处才开始使用</span></span><br><span class="line">  StreamAllocation streamAllocation = realChain.streamAllocation();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">boolean</span> doExtensiveHealthChecks = !request.method().equals(<span class="string">"GET"</span>);</span><br><span class="line">  <span class="comment">// 创建HttpCodec对象，httpCodec用于编码request和解码response</span></span><br><span class="line">  HttpCodec httpCodec = streamAllocation.newStream(client, chain, doExtensiveHealthChecks);</span><br><span class="line">  <span class="comment">// RealConnection用来进行实际的网络传输，内部有Socket对象</span></span><br><span class="line">  RealConnection connection = streamAllocation.connection();</span><br><span class="line">  <span class="comment">// 把前面创建的对象传递给下一个拦截器</span></span><br><span class="line">  <span class="keyword">return</span> realChain.proceed(request, streamAllocation, httpCodec, connection);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>查看上面创建HttpCodec的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># StreamAllocation.java</span><br><span class="line"><span class="function"><span class="keyword">public</span> HttpCodec <span class="title">newStream</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    OkHttpClient client, Interceptor.Chain chain, <span class="keyword">boolean</span> doExtensiveHealthChecks)</span> </span>&#123;</span><br><span class="line">    ...省略...</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 找“健康的”RealConnection</span></span><br><span class="line">    RealConnection resultConnection = findHealthyConnection(connectTimeout, readTimeout,</span><br><span class="line">        writeTimeout, pingIntervalMillis, connectionRetryEnabled, doExtensiveHealthChecks);</span><br><span class="line">    <span class="comment">// 通过RealConnection创建HttpCodec</span></span><br><span class="line">    HttpCodec resultCodec = resultConnection.newCodec(client, chain, <span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">synchronized</span> (connectionPool) &#123;</span><br><span class="line">      codec = resultCodec;</span><br><span class="line">      <span class="keyword">return</span> resultCodec;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体是怎样找到RealConnection的，可以详细看一下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> RealConnection <span class="title">findHealthyConnection</span><span class="params">(<span class="keyword">int</span> connectTimeout, <span class="keyword">int</span> readTimeout,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">int</span> writeTimeout, <span class="keyword">int</span> pingIntervalMillis, <span class="keyword">boolean</span> connectionRetryEnabled,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">boolean</span> doExtensiveHealthChecks)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">  <span class="comment">// while循环直到找到return</span></span><br><span class="line">  <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">    <span class="comment">// 继续看findConnection()方法</span></span><br><span class="line">    RealConnection candidate = findConnection(connectTimeout, readTimeout, writeTimeout,</span><br><span class="line">        pingIntervalMillis, connectionRetryEnabled);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> RealConnection <span class="title">findConnection</span><span class="params">(<span class="keyword">int</span> connectTimeout, <span class="keyword">int</span> readTimeout, <span class="keyword">int</span> writeTimeout,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">int</span> pingIntervalMillis, <span class="keyword">boolean</span> connectionRetryEnabled)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">  <span class="keyword">synchronized</span> (connectionPool) &#123;</span><br><span class="line">    ...省略...</span><br><span class="line">    <span class="keyword">if</span> (result == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="comment">// 如果为空，尝试从连接池中获取，这个方法的关键点，如果获取到connection不为空（第三个参数为this，找到合适的RealConnection赋值到connection）</span></span><br><span class="line">      Internal.instance.get(connectionPool, address, <span class="keyword">this</span>, <span class="keyword">null</span>);</span><br><span class="line">      <span class="keyword">if</span> (connection != <span class="keyword">null</span>) &#123;</span><br><span class="line">        foundPooledConnection = <span class="keyword">true</span>;</span><br><span class="line">        result = connection;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        selectedRoute = route;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (result != <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="comment">// If we found an already-allocated or pooled connection, we're done.</span></span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 如果没有找到，则创建一个</span></span><br><span class="line">  <span class="keyword">if</span> (!foundPooledConnection) &#123;</span><br><span class="line">    result = <span class="keyword">new</span> RealConnection(connectionPool, selectedRoute);</span><br><span class="line">    acquire(result, <span class="keyword">false</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 进行实际的的网络连接</span></span><br><span class="line">  result.connect(connectTimeout, readTimeout, writeTimeout, pingIntervalMillis,</span><br><span class="line">        connectionRetryEnabled, call, eventListener);</span><br><span class="line">    routeDatabase().connected(result.route());</span><br><span class="line">  <span class="keyword">synchronized</span> (connectionPool) &#123;</span><br><span class="line">    <span class="comment">// 把上面创建的对象放到线程池中</span></span><br><span class="line">    Internal.instance.put(connectionPool, result);</span><br><span class="line">    <span class="comment">// 如果同时创建了到同一地址的另一个多路复用连接，那么释放此连接并获取该连接。</span></span><br><span class="line">    <span class="keyword">if</span> (result.isMultiplexed()) &#123;</span><br><span class="line">      socket = Internal.instance.deduplicate(connectionPool, address, <span class="keyword">this</span>);</span><br><span class="line">      result = connection;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 最后进行返回</span></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的分析，获取RealConnection的流程，总结如下：</p>
+<ul>
+<li>在ConnectInterceptor中获取StreamAllocation的引用，通过StreamAllocation去寻找RealConnection</li>
+<li>如果RealConnection不为空，那么直接返回。否则去连接池中寻找并返回，如果找不到直接创建并设置到连接池中，然后再进一步判断是否重复释放到Socket。</li>
+<li>在实际网络连接connect中，选择不同的链接方式（有隧道链接（Tunnel）和管道链接（Socket））</li>
+<li>把RealConnection和HttpCodec传递给下一个拦截器</li>
+</ul>
+<h4 id="ConnectionPool连接池类"><a href="#ConnectionPool连接池类" class="headerlink" title="ConnectionPool连接池类"></a>ConnectionPool连接池类</h4><p>上面介绍到从连接池中调用get和put，接下来就详细介绍。连接池ConnectionPool的创建，在Builder中默认就创建了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># OkHttpClient.java</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Builder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 默认就创建连接池对象，如果先自定义连接池，可以使用下列方法</span></span><br><span class="line">  connectionPool = <span class="keyword">new</span> ConnectionPool();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自定义连接池</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Builder <span class="title">connectionPool</span><span class="params">(ConnectionPool connectionPool)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (connectionPool == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException(<span class="string">"connectionPool == null"</span>);</span><br><span class="line">  <span class="keyword">this</span>.connectionPool = connectionPool;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>进去ConnectionPool看其get和put方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ConnectionPool</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 通过注释可以知道，创建该线程池，用来清除过期的连接</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Executor executor = <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span> <span class="comment">/* corePoolSize */</span>,</span><br><span class="line">      Integer.MAX_VALUE <span class="comment">/* maximumPoolSize */</span>, <span class="number">60L</span> <span class="comment">/* keepAliveTime */</span>, TimeUnit.SECONDS,</span><br><span class="line">      <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;(), Util.threadFactory(<span class="string">"OkHttp ConnectionPool"</span>, <span class="keyword">true</span>));</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 最大空余线程池的数量，在下面默认初始化中设置数量为5</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> maxIdleConnections;</span><br><span class="line">  <span class="comment">// keep-alive时间，在下面默认初始化中设置为5分钟</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> keepAliveDurationNs;</span><br><span class="line">  <span class="comment">// 存放RealConnection的队列</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Deque&lt;RealConnection&gt; connections = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">final</span> RouteDatabase routeDatabase = <span class="keyword">new</span> RouteDatabase();</span><br><span class="line">  <span class="keyword">boolean</span> cleanupRunning;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">ConnectionPool</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(<span class="number">5</span>, <span class="number">5</span>, TimeUnit.MINUTES);</span><br><span class="line">  &#125;</span><br><span class="line">    </span><br><span class="line">  <span class="meta">@Nullable</span> <span class="function">RealConnection <span class="title">get</span><span class="params">(Address address, StreamAllocation streamAllocation, Route route)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">assert</span> (Thread.holdsLock(<span class="keyword">this</span>));</span><br><span class="line">    <span class="comment">// 从connections列表中遍历，找到符合的</span></span><br><span class="line">    <span class="keyword">for</span> (RealConnection connection : connections) &#123;</span><br><span class="line">      <span class="keyword">if</span> (connection.isEligible(address, route)) &#123;</span><br><span class="line">        <span class="comment">// 可以进去看其方法，就是赋值并且创建StreamAllocation的弱引入添加到connection中的引用列表中，通过列表的大小可以知道网络链接的负载量，是否超值制定的大小。后序判断RealConnection是否空余也结合了该列表数</span></span><br><span class="line">        streamAllocation.acquire(connection, <span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">return</span> connection;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// put进去一个RealConnection，如果不是正在清除，则线程池会执行回收空闲连接的操作</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">put</span><span class="params">(RealConnection connection)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">assert</span> (Thread.holdsLock(<span class="keyword">this</span>));</span><br><span class="line">    <span class="keyword">if</span> (!cleanupRunning) &#123;</span><br><span class="line">      cleanupRunning = <span class="keyword">true</span>;</span><br><span class="line">      <span class="comment">// 执行回收操作</span></span><br><span class="line">      executor.execute(cleanupRunnable);</span><br><span class="line">    &#125;</span><br><span class="line">    connections.add(connection);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体回收的判断，可以看cleanupRunnable</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Runnable cleanupRunnable = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">  <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 可以看到是一个死循环</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">      <span class="keyword">long</span> waitNanos = cleanup(System.nanoTime());</span><br><span class="line">      <span class="comment">// 返回-1表示没有连接、空闲、正在使用，就退出while循环</span></span><br><span class="line">      <span class="keyword">if</span> (waitNanos == -<span class="number">1</span>) <span class="keyword">return</span>;</span><br><span class="line">      <span class="keyword">if</span> (waitNanos &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">long</span> waitMillis = waitNanos / <span class="number">1000000L</span>;</span><br><span class="line">        <span class="comment">// 计算等待时间</span></span><br><span class="line">        waitNanos -= (waitMillis * <span class="number">1000000L</span>);</span><br><span class="line">        <span class="keyword">synchronized</span> (ConnectionPool.<span class="keyword">this</span>) &#123;</span><br><span class="line">          <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// wait进行等待，等待waitNanos时间后，自动继续执行清除</span></span><br><span class="line">            ConnectionPool.<span class="keyword">this</span>.wait(waitMillis, (<span class="keyword">int</span>) waitNanos);</span><br><span class="line">          &#125; <span class="keyword">catch</span> (InterruptedException ignored) &#123;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">cleanup</span><span class="params">(<span class="keyword">long</span> now)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (Iterator&lt;RealConnection&gt; i = connections.iterator(); i.hasNext(); ) &#123;</span><br><span class="line">      RealConnection connection = i.next();</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 内部有点类似于gc的标记清除算法，引入就是上面介绍到的弱引用，如果connection还在使用，跳过</span></span><br><span class="line">      <span class="keyword">if</span> (pruneAndGetAllocationCount(connection, now) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        inUseConnectionCount++;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 空余connection+1</span></span><br><span class="line">      idleConnectionCount++;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 找出最长的空余时间的connection</span></span><br><span class="line">      <span class="keyword">long</span> idleDurationNs = now - connection.idleAtNanos;</span><br><span class="line">      <span class="keyword">if</span> (idleDurationNs &gt; longestIdleDurationNs) &#123;</span><br><span class="line">        longestIdleDurationNs = idleDurationNs;</span><br><span class="line">        longestIdleConnection = connection;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (longestIdleDurationNs &gt;= <span class="keyword">this</span>.keepAliveDurationNs</span><br><span class="line">        || idleConnectionCount &gt; <span class="keyword">this</span>.maxIdleConnections) &#123;</span><br><span class="line">      <span class="comment">// 如果最长时间大于keep-alive或者空余大于最大，从列表中移除，并且最后执行close结束socket</span></span><br><span class="line">      connections.remove(longestIdleConnection);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (idleConnectionCount &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="comment">// A connection will be ready to evict soon.</span></span><br><span class="line">      <span class="keyword">return</span> keepAliveDurationNs - longestIdleDurationNs;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (inUseConnectionCount &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="comment">// All connections are in use. It'll be at least the keep alive duration 'til we run again.</span></span><br><span class="line">      <span class="keyword">return</span> keepAliveDurationNs;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// No connections, idle or in use.</span></span><br><span class="line">      cleanupRunning = <span class="keyword">false</span>;</span><br><span class="line">      <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  closeQuietly(longestIdleConnection.socket());</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Cleanup again immediately.</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过分析就可以知道，清除算法，使用类似GC中的引用计算算法，如果弱引用StreamAllocation列表为0，则表示空闲需要进行回收。</p>
+<h3 id="CallServerInterceptor-1"><a href="#CallServerInterceptor-1" class="headerlink" title="CallServerInterceptor"></a>CallServerInterceptor</h3><p>向服务发起真正的网络请求，并且接受服务器返回的响应。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">  ......</span><br><span class="line">  <span class="comment">// 向socket写入头部信息，httpCodec为接口，实现类有Http1Codec和Http2Codec，这里我们使用的是Http1Codec</span></span><br><span class="line">  httpCodec.writeRequestHeaders(request);</span><br><span class="line">  realChain.eventListener().requestHeadersEnd(realChain.call(), request);</span><br><span class="line"></span><br><span class="line">  Response.Builder responseBuilder = <span class="keyword">null</span>;</span><br><span class="line">  <span class="keyword">if</span> (HttpMethod.permitsRequestBody(request.method()) &amp;&amp; request.body() != <span class="keyword">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (responseBuilder == <span class="keyword">null</span>) &#123;</span><br><span class="line">      ......</span><br><span class="line">      realChain.eventListener().requestBodyStart(realChain.call());</span><br><span class="line">      <span class="keyword">long</span> contentLength = request.body().contentLength();</span><br><span class="line">      CountingSink requestBodyOut =</span><br><span class="line">          <span class="keyword">new</span> CountingSink(httpCodec.createRequestBody(request, contentLength));</span><br><span class="line">      BufferedSink bufferedRequestBody = Okio.buffer(requestBodyOut);</span><br><span class="line">      <span class="comment">// 往Request的body写入内容</span></span><br><span class="line">      request.body().writeTo(bufferedRequestBody);</span><br><span class="line">      bufferedRequestBody.close();</span><br><span class="line">      realChain.eventListener()</span><br><span class="line">          .requestBodyEnd(realChain.call(), requestBodyOut.successfulCount);</span><br><span class="line">    &#125; </span><br><span class="line">    ......</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 表明完成写入工作</span></span><br><span class="line">  httpCodec.finishRequest();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (responseBuilder == <span class="keyword">null</span>) &#123;</span><br><span class="line">    realChain.eventListener().responseHeadersStart(realChain.call());</span><br><span class="line">    <span class="comment">// 读取网络请求的返回信息头部</span></span><br><span class="line">    responseBuilder = httpCodec.readResponseHeaders(<span class="keyword">false</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Response response = responseBuilder</span><br><span class="line">      .request(request)</span><br><span class="line">      .handshake(streamAllocation.connection().handshake())</span><br><span class="line">      .sentRequestAtMillis(sentRequestMillis)</span><br><span class="line">      .receivedResponseAtMillis(System.currentTimeMillis())</span><br><span class="line">      .build();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> code = response.code();</span><br><span class="line">  <span class="keyword">if</span> (code == <span class="number">100</span>) &#123;</span><br><span class="line">    <span class="comment">// server sent a 100-continue even though we did not request one.</span></span><br><span class="line">    <span class="comment">// try again to read the actual response</span></span><br><span class="line">    responseBuilder = httpCodec.readResponseHeaders(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">    response = responseBuilder</span><br><span class="line">            .request(request)</span><br><span class="line">            .handshake(streamAllocation.connection().handshake())</span><br><span class="line">            .sentRequestAtMillis(sentRequestMillis)</span><br><span class="line">            .receivedResponseAtMillis(System.currentTimeMillis())</span><br><span class="line">            .build();</span><br><span class="line"></span><br><span class="line">    code = response.code();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  realChain.eventListener()</span><br><span class="line">          .responseHeadersEnd(realChain.call(), response);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (forWebSocket &amp;&amp; code == <span class="number">101</span>) &#123;</span><br><span class="line">    <span class="comment">// Connection is upgrading, but we need to ensure interceptors see a non-null response body.</span></span><br><span class="line">    response = response.newBuilder()</span><br><span class="line">        .body(Util.EMPTY_RESPONSE)</span><br><span class="line">        .build();</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    response = response.newBuilder()</span><br><span class="line">        .body(httpCodec.openResponseBody(response))</span><br><span class="line">        .build();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="string">"close"</span>.equalsIgnoreCase(response.request().header(<span class="string">"Connection"</span>))</span><br><span class="line">      || <span class="string">"close"</span>.equalsIgnoreCase(response.header(<span class="string">"Connection"</span>))) &#123;</span><br><span class="line">    streamAllocation.noNewStreams();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ((code == <span class="number">204</span> || code == <span class="number">205</span>) &amp;&amp; response.body().contentLength() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> ProtocolException(</span><br><span class="line">        <span class="string">"HTTP "</span> + code + <span class="string">" had non-zero Content-Length: "</span> + response.body().contentLength());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> response;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>Okhttp框架的分析基本完成，可以看到重点主要是三个，拦截器链、缓存机制以及连接池的使用。</p>
+<ul>
+<li>拦截器链使用的是职责链模式，将网络请求的不同职责分工到不同的拦截器中，分工明确，并且还可以添加自定义拦截器，扩展方便。</li>
+<li>缓存机制通过创建Cache，内部通过DiskLruCache去实现。另外在缓存拦截器中通过不同的缓存策划判断返回不同的请求结果。</li>
+<li>连接池的引入，可以对连接进行管理，避免频繁地建立和断开连接。在连接池中维护了一个线程池清理空闲的连接，判断连接是否可用通过判断引入计算数量。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+    	<div>
+    		<img style="display: block; margin: 0 auto;" src="/images/wetchat.png" alt="" />
+			<h3 style="text-align:center;">公众号：亦袁非猿</h3>
+			<h3 style="text-align:center;">欢迎关注，交流学习</h3>
+		</div>
+        
+    
+</div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/源码分析/" rel="tag"># 源码分析</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/18/Mac下编译ijkplayer及脚本分析/" rel="next" title="Mac下编译ijkplayer及脚本分析">
+                <i class="fa fa-chevron-left"></i> Mac下编译ijkplayer及脚本分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQzOC82MDA2"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oiduu4gde.bkt.clouddn.com/github%E5%A4%B4%E5%83%8F.jpeg"
+               alt="亦袁非猿" />
+          <p class="site-author-name" itemprop="name">亦袁非猿</p>
+           
+              <p class="site-description motion-element" itemprop="description">while(写出来){  <br>
+  理解力++; <br>
+  表达力++; }
+</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">1.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#导入"><span class="nav-number">1.1.</span> <span class="nav-text">导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络请求"><span class="nav-number">1.2.</span> <span class="nav-text">网络请求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#同步方法流程"><span class="nav-number">1.2.1.</span> <span class="nav-text">同步方法流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异步方法流程"><span class="nav-number">1.2.2.</span> <span class="nav-text">异步方法流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码分析"><span class="nav-number">2.</span> <span class="nav-text">源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建OkHttpClient"><span class="nav-number">2.1.</span> <span class="nav-text">创建OkHttpClient</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Request和Call"><span class="nav-number">2.2.</span> <span class="nav-text">创建Request和Call</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步请求"><span class="nav-number">2.3.</span> <span class="nav-text">同步请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步请求"><span class="nav-number">2.4.</span> <span class="nav-text">异步请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拦截器"><span class="nav-number">2.5.</span> <span class="nav-text">拦截器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#职责链模式"><span class="nav-number">2.5.1.</span> <span class="nav-text">职责链模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getResponseWithInterceptorChain"><span class="nav-number">2.5.2.</span> <span class="nav-text">getResponseWithInterceptorChain()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RetryAndFollowUpInterceptor"><span class="nav-number">2.5.3.</span> <span class="nav-text">RetryAndFollowUpInterceptor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BridgeInterceptor"><span class="nav-number">2.5.4.</span> <span class="nav-text">BridgeInterceptor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CacheInterceptor"><span class="nav-number">2.5.5.</span> <span class="nav-text">CacheInterceptor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ConnectInterceptor"><span class="nav-number">2.5.6.</span> <span class="nav-text">ConnectInterceptor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CallServerInterceptor"><span class="nav-number">2.5.7.</span> <span class="nav-text">CallServerInterceptor</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存机制"><span class="nav-number">2.6.</span> <span class="nav-text">缓存机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cache"><span class="nav-number">2.6.1.</span> <span class="nav-text">Cache</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CacheInterceptor-1"><span class="nav-number">2.6.2.</span> <span class="nav-text">CacheInterceptor</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接池"><span class="nav-number">2.7.</span> <span class="nav-text">连接池</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ConnectInterceptor拦截器"><span class="nav-number">2.7.1.</span> <span class="nav-text">ConnectInterceptor拦截器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ConnectionPool连接池类"><span class="nav-number">2.7.2.</span> <span class="nav-text">ConnectionPool连接池类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CallServerInterceptor-1"><span class="nav-number">2.8.</span> <span class="nav-text">CallServerInterceptor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结："><span class="nav-number">2.9.</span> <span class="nav-text">总结：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亦袁非猿</span>
+</div>
+
+
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("Ivcwx7f8x7ghc8SWU0YMuIFI-gzGzoHsz", "mQEm0lIov3tBcrPByox6zHc0");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
